@@ -1,0 +1,21 @@
+{
+  "name": "Foodie Roulette",
+  "main": "server.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/periwinkleDeer/periwinkleDeer",
+  "authors": [
+    ""
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.2.0",
+    "underscore": "~1.8.3"
+  }
+}
