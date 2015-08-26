@@ -1,5 +1,5 @@
 {
-  "name": "Foodie Roulette",
+  "name": "FoodieRoulette",
   "main": "server.js",
   "version": "0.0.0",
   "homepage": "https://github.com/periwinkleDeer/periwinkleDeer",
@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.2.0",
-    "underscore": "~1.8.3"
+    "underscore": "~1.8.3",
+    "react": "~0.13.3"
   }
 }
