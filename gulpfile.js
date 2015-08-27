@@ -26,24 +26,17 @@ gulp.task('copy', function() {
     .pipe(gulp.dest(path.DEST));
 });
 
-gulp.task('update', function() {
-  gulp.watch(path.ALL, ['transform', 'copy']);
-});
-
 gulp.task('build', function() {
   gulp.src(path.JS)
     .pipe(react())
     .pipe(concat(path.MINIFIED_OUT))
     .pipe(minifier({}, uglify))
-    .pipe(gulp.des(path.DEST_BUILD));
+    .pipe(gulp.dest(path.DEST_BUILD));
 });
 
-gulp.task('replaceHTML', function() {
-  gulp.src(path.HTML)
-    .pipe(htmlreplace({
-      'js':'build/' + path.MINIFIED_OUT
-    }))
-    .pipe(gulp.dest(path.DEST));
+gulp.task('update', function() {
+  gulp.watch(path.ALL, ['transform', 'copy', 'build']);
 });
-gulp.task('default', ['update']);
-gulp.task('production', ['replaceHTML', 'build']);
+
+gulp.task('production', ['transform', 'copy', 'build']);
+gulp.task('default', ['update', 'transform', 'copy', 'build']);
