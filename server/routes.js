@@ -1,6 +1,6 @@
-var food = require('./foodController.js')
+var food = require('./foodController')
+var app = require('./server').app;
 
-module.exports = function (app) {
 // //user related routes
 //   app.get('/login', );
 //   //retrieve user's last dishes
@@ -17,4 +17,3 @@ module.exports = function (app) {
   app.get('/dish', food.getFood);
   //when adding a dish to DB
   app.post('/insertdish', food.insertFood);
-}
