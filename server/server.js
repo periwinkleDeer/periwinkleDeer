@@ -20,4 +20,4 @@ app.listen(port, function() {
   console.log("Listening on " + port);
 });
 
-module.exports = app;
+module.exports.app = app;
