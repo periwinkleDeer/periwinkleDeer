@@ -13,7 +13,7 @@ db.once('open', function(callback) {
   console.log('Connected to Mongo');
 });
 
-app.use(express.static('client'));
+app.use(express.static('dist'));
 
 var port = process.env.PORT || 8080;
 app.listen(port, function() {
