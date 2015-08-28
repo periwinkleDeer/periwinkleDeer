@@ -61,7 +61,6 @@ var routes = (
   <Route name="app" path="/" handler={App}>
     <Route name="inbox" handler={Main}/>
     <Route name="calendar" handler={Calendar}/>
-    <DefaultRoute handler={Login}/>
     <Route name="parameters" handler={Parameters} />
     <DefaultRoute handler={Login}/>
   </Route>
