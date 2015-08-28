@@ -1,5 +1,6 @@
-var food = require('./foodController')
+var food = require('./foodController');
 var app = require('./server').app;
+var user = require('./userController');
 
 // //user related routes
 //   app.get('/login', );
@@ -17,3 +18,7 @@ var app = require('./server').app;
   app.get('/dish', food.getFood);
   //when adding a dish to DB
   app.post('/insertdish', food.insertFood);
+
+
+//for specific users
+  app.get('/unrated', user.findUnrated);

@@ -13,39 +13,41 @@ yelp.createClient({
 module.exports = {
 
   displayAllFood: function(req, res, next){
+    
+    
     // var category = req.query
-    var dishes = {};
+    // var dishes = {};
 
-    var findAppetizers = Q.nbind(Food.find, Food);
-    var findMaincourses = Q.nbind(Food.find, Food);
-    var findDesserts = Q.nbind(Food.find, Food);
+    // var findAppetizers = Q.nbind(Food.find, Food);
+    // var findMaincourses = Q.nbind(Food.find, Food);
+    // var findDesserts = Q.nbind(Food.find, Food);
 
-    findAppetizer({category: appetizer})
-      .then(function (appetizers) {
-        // console.log(appetizers);
-        dishes[appetizers] = appetizers;
-        return dishes;
-      })
-      .then(function(dishes){
-        findMaincourses({category: maincourse})
-          .then(function (maincourses){
-            // console.log(maincourses);
-            dishes[maincourses] = maincourses;
-            return dishes;
-          })
-          .then(function (dishes){
-            findDesserts({category: dessert})
-              .then(function (desserts){
-                // console.log(desserts);
-                dishes[desserts] = desserts;
-                return dishes;
-              })
-              .then(function(dishes){
-                // console.log(dishes);
-                res.send(dishes);
-              });
-          });
-      });
+    // findAppetizer({category: appetizer})
+    //   .then(function (appetizers) {
+    //     // console.log(appetizers);
+    //     dishes[appetizers] = appetizers;
+    //     return dishes;
+    //   })
+    //   .then(function(dishes){
+    //     findMaincourses({category: maincourse})
+    //       .then(function (maincourses){
+    //         // console.log(maincourses);
+    //         dishes[maincourses] = maincourses;
+    //         return dishes;
+    //       })
+    //       .then(function (dishes){
+    //         findDesserts({category: dessert})
+    //           .then(function (desserts){
+    //             // console.log(desserts);
+    //             dishes[desserts] = desserts;
+    //             return dishes;
+    //           })
+    //           .then(function(dishes){
+    //             // console.log(dishes);
+    //             res.send(dishes);
+    //           });
+    //       });
+    //   });
   }, 
 
   getFood: function(req, res, next) {
