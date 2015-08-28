@@ -4,6 +4,8 @@ var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
+var Login = require('./Login');
+var Main = require('./Main');
 
 
 var Dashboard = React.createClass({
@@ -55,12 +57,30 @@ var App = React.createClass({
 
 var routes = (
   <Route name="app" path="/" handler={App}>
-    <Route name="inbox" handler={Inbox}/>
+    <Route name="inbox" handler={Main}/>
     <Route name="calendar" handler={Calendar}/>
-    <DefaultRoute handler={Dashboard}/>
+    <DefaultRoute handler={Login}/>
   </Route>
 );
 
-Router.run(routes, function (Handler) {
+// Router.run(routes, function (Handler) {
+//   React.render(<Handler/>, document.body);
+// });
+
+var appRouter = Router.create({
+  routes: routes,
+  location: Router.HistoryLocation,
+});
+
+appRouter.run(function (Handler) {
   React.render(<Handler/>, document.body);
 });
+
+// module.exports.transitionTo = function (to, params, query) {
+//   console.log("transition to " + to);
+//   router.transitionTo(to, params, query);
+// };
+
+module.exports = appRouter;
+
+
