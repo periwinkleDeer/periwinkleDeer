@@ -19,6 +19,5 @@
     "underscore": "~1.8.3",
     "react": "~0.13.3",
     "react-router": "~0.13.3",
-    "react-bootstrap": "~0.25.0"
   }
 }
