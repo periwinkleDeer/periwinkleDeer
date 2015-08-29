@@ -15,7 +15,7 @@ var user = require('./userController');
   //get all dishes for appetizer, maincourse & dessert
   app.get('/dishes', food.displayAllFood);
   //when clicking on an individual item
-  app.get('/dish', food.getFood);
+  // app.get('/dish', food.getFood);
   //when adding a dish to DB
   app.post('/insertdish', food.insertFood);
 
