@@ -54,7 +54,6 @@ var routes = (
 
 var appRouter = Router.create({
   routes: routes,
-  location: Router.HistoryLocation,
 });
 
 appRouter.run(function (Handler) {
