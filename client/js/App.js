@@ -6,10 +6,9 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 var Login = require('./Login');
 var Main = require('./Main');
-var Entry = require("./Entry");
+var Entry = require('./Entry');
 
 var Parameters = require('./Parameters');
-var Dashboard = React.createClass({
 
 var fbLogin = React.createClass({
   render: function () {
@@ -37,9 +36,8 @@ var App = React.createClass({
           <ul>
             <li><Link to="app">fbLogin</Link></li>
             <li><Link to="inbox">Inbox</Link></li>
-            <li><Link to="calendar">Calendar</Link></li>
-            <li><Link to="parameters">Parameters</Link></li>
             <li><Link to="Entry">Entry</Link></li>
+            <li><Link to="parameters">Parameters</Link></li>
           </ul>
           Logged in as Jane
         </header>
@@ -54,9 +52,8 @@ var App = React.createClass({
 var routes = (
   <Route name="app" path="/" handler={App}>
     <Route name="inbox" handler={Main}/>
-    <Route name="calendar" handler={Calendar}/>
-    <Route name="parameters" handler={Parameters} />
     <Route name="Entry" handler={Entry}/>
+    <Route name="parameters" handler={Parameters} />
     <DefaultRoute handler={Login}/>
   </Route>
 );
@@ -80,5 +77,4 @@ appRouter.run(function (Handler) {
 // };
 
 module.exports = appRouter;
-
 
