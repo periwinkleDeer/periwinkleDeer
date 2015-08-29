@@ -2,14 +2,14 @@ var router = require('./App');
 var fbid = require('../fbid');
 
 (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=" + fbid.fbid;
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=" + fbid.fbid;
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 
-var Login = React.createClass({
+  var Login = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
@@ -23,6 +23,13 @@ var Login = React.createClass({
         xfbml      : true,  // parse social plugins on this page
         version    : 'v2.1' // use version 2.1
       });
+      // When user logins in, it should display a different page
+      var self = this;
+      FB.Event.subscribe('auth.login', function (response) {
+        console.log(response,"Logged")
+        self.context.router.transitionTo('/options');
+        self.statusChangeCallback(response);
+      });
 
       FB.getLoginStatus(function(response) {
         this.statusChangeCallback(response);
@@ -35,7 +42,7 @@ var Login = React.createClass({
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
       js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
+      // fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
   },
 
@@ -60,18 +67,33 @@ var Login = React.createClass({
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      this.context.router.transitionTo('/inbox');
+      this.context.router.transitionTo('/options');
       this.testAPI();
+      console.log(response)
+      var user = {};
+      user.id = response.authResponse.userID;
+
+      $.ajax({
+        url: "/unrated",
+        type: "GET",
+        data: user,
+        success: function(data) {
+          console.log(data, 'posting');
+        },
+        error: function(err) {
+          console.log(err)
+        }
+      })
 
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
+      // document.getElementById('status').innerHTML = 'Please log ' +
+        // 'into this app.';
     } else {
       // The person is not logged into Facebook, so we're not sure if
       // they are logged into this app or not.
-      document.getElementById('status').innerHTML = 'Please log ' +
-      'into Facebook.';
+      // document.getElementById('status').innerHTML = 'Please log ' +
+      // 'into Facebook.';
     }
   },
 
