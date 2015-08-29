@@ -70,10 +70,13 @@ var fbid = require('../fbid');
       this.context.router.transitionTo('/options');
       this.testAPI();
       console.log(response)
+      var user = {};
+      user.id = response.authResponse.userID;
+
       $.ajax({
         url: "/unrated",
-        type: "POST",
-        data: response.authResponse,
+        type: "GET",
+        data: user,
         success: function(data) {
           console.log(data, 'posting');
         },
