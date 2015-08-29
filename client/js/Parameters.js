@@ -3,53 +3,48 @@ var Parameters = React.createClass({
     return {geolocation: null};
   },
   handleClick: function() {
-    var that = this;
-    var distance = document.getElementById('distance').value;
-    console.log(distance);
-    console.log("Clicked");
-    if (!navigator.geolocation){
-      console.log("Geolocation is not supported by your browser</p>");
-      return;
-    }
-
-    function success(position) {
-      var latitude  = position.coords.latitude;
-      var longitude = position.coords.longitude;
-      $.ajax({
-        url: '/dishes',
-        method: 'GET',
-        data: {
-          geolocation: latitude + ',' + longitude,
-          distance: distance
-        },
-        success: function(data) {
-          console.log('yay!');
-        },
-        error: function(err) {
-          console.log(err);
-        }
-      });
-      
-    }
-
-    function error() {
-      console.log("Unable to retrieve your location");
-    }
-
-    console.log('Locating');
-
-    navigator.geolocation.getCurrentPosition(success, error);
+    $.ajax({
+      url: '/dishes',
+      method: 'GET',
+      data: {
+        zip: document.getElementById('neighborhood').value 
+      },
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
   },
 
   render: function(){
     return (
       <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
         <div className="form-group">
-        <label>How far do you want to travel?</label>
-          <select id="distance" className="form-control">
-            <option value="805">0.5 mi</option>
-            <option value="1600">1 mi</option>
-            <option value="3200">2 mi</option>
+        <label>Where do you want to eat today?</label>
+          <select id="neighborhood" className="form-control">
+            <option value="94102">Hayes Valley | Tenderloin | North of Market</option>
+            <option value="94103">Soma</option>
+            <option value="94107">Potrero Hill</option>
+            <option value="94108">Chinatown</option>
+            <option value="94109">Polk | Russian Hill | Nob Hill</option>
+            <option value="94110">Inner Mission | Bernal Heights</option>
+            <option value="94112">Ingelside-Excelsior | Crocker-Amazon</option>
+            <option value="94114">Castro | Noe Valley</option>
+            <option value="94115">Western Addition | Japantown</option>
+            <option value="94116">Parkside/Forest Hill</option>
+            <option value="94117">Haight-Ashbury</option>
+            <option value="94118">Inner Richmond</option>
+            <option value="94121">Outer Richmond</option>
+            <option value="94122">Sunset</option>
+            <option value="94123">Marina</option>
+            <option value="94124">Bayview-Hunters Point</option>
+            <option value="94127">St. Francis Wood/Miraloma/West Portal</option>
+            <option value="94131">Twin Peaks-Glen Park</option>
+            <option value="94132">Lake Merced</option>
+            <option value="94133">North Beach | Chinatown</option>
+            <option value="94134">Visitacion Valley | Sunnydale</option>
           </select>
         </div>
         <button className="btn btn-primary form-control" onClick={this.handleClick}>Click Me</button>

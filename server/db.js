@@ -1,5 +1,14 @@
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('foodie', 'root', '');
+var sequelize = new Sequelize('foodie', 'kshiraiw', '', {
+  host: 'localhost',
+  dialect: 'postgres',
+
+  pool:{
+    max: 5,
+    min: 0,
+    idle: 10000
+  }
+});
 
 var User = sequelize.define('User', {
   fb_id: Sequelize.STRING
@@ -14,7 +23,8 @@ var Dish = sequelize.define('Dish', {
   img_url: Sequelize.TEXT,
   category: Sequelize.STRING,
   price_rating: Sequelize.INTEGER,
-  rating: Sequelize.INTEGER
+  rating: Sequelize.INTEGER,
+  num_ratings: Sequelize.INTEGER
 });
 
 var Restaurant = sequelize.define('Restaurant', {
@@ -34,9 +44,9 @@ Dish.belongsTo(Restaurant);
 Restaurant.hasMany(Dish);
 
 User.sync();
-Rating.sync();
-Dish.sync();
 Restaurant.sync();
+Dish.sync();
+Rating.sync();
 
 exports.User = User;
 exports.Rating = Rating;
