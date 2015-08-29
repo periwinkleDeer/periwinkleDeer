@@ -1,5 +1,5 @@
-var Food = require('./foodModel'),
-    Q    = require('q');
+var Q = require('q');
+var db = require('./db');
 
 module.exports = {
 
