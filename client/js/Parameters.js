@@ -1,5 +1,9 @@
 var Parameters = React.createClass({
+  getInitialState: function() {
+    return {geolocation: null};
+  },
   handleClick: function() {
+    var that = this;
     console.log("Clicked");
     if (!navigator.geolocation){
       console.log("Geolocation is not supported by your browser</p>");
@@ -10,24 +14,27 @@ var Parameters = React.createClass({
       var latitude  = position.coords.latitude;
       var longitude = position.coords.longitude;
 
-      console.log('Latitude is ' + latitude + '° <br>Longitude is ' + longitude);
-
-      var img = new Image();
-      img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
-
-      document.body.appendChild(img);
-    };
+      that.setState({geolocation: latitude+','+longitude});
+    }
 
     function error() {
       console.log("Unable to retrieve your location");
-    };
+    }
 
     console.log('Locating');
 
     navigator.geolocation.getCurrentPosition(success, error);
   },
+
   render: function(){
     return (
+      <div>HELLLOOOOO</div>
+      
+      <select value="805">
+        <option value="805">0.5 mi</option>
+        <option value="1600">1 mi</option>
+        <option value="3200">2 mi</option>
+      </select>
       <button onClick={this.handleClick}>Click Me</button>
     )
   }
