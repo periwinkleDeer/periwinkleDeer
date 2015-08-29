@@ -1,3 +1,5 @@
+var StarRating = require('react-star-rating');
+
 function resize (file, maxWidth, maxHeight, fn) {
     var reader = new FileReader();
     reader.readAsDataURL(file);
@@ -68,11 +70,12 @@ var Entry = React.createClass({
       var store = {
          restaurant : this.state.restaurant.name,
          address    : this.state.restaurant.formatted_address,
-         zipcode    : this.state.restaurant.address_components[5],
+         zip        : this.state.restaurant.address_components[5],
          phone      : this.state.restaurant.formatted_phone_number,
          rating     : this.state.restaurant.rating,
          dishName   : document.getElementById('dish').value,
-         userRating : document.getElementById('userRating').value,
+         dishRating : document.getElementById('dishRating').value,
+         dishPrice  : document.getElementById('dishPrice').value,
          imgUrl     : this.state.dataUrl
       };
 
@@ -116,16 +119,49 @@ var Entry = React.createClass({
        }
 
        return (
-         <div>
-           <input type="text" id="restaurant" size="100"/> <br/>
-           <input type="text" id="dish" placeholder="Food Item"/>
-           <input style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.onChange }/>
-           { image }
-             <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Price Rating</button>
-             <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Food Category</button>
-               <div>
-                 <button className="btn btn-primary" type="button">Post Food!</button>
-               </div>
+         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+
+           <div className="form-group">
+            <label>Restaurant</label>
+             <input type="text" className="form-control" id="restaurant" placeholder="Where did you eat?"/>
+           </div>
+
+           <div className="form-group">
+            <label>Foodie</label>
+             <input type="text" className="form-control" id="dish" placeholder="What did you eat?"/>
+           </div>
+
+           <div className="form-group">
+               <label for="exampleInputFile">Upload Picture</label>
+               <input style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.onChange }/>
+               <p className="help-block">{ image }</p>
+           </div>           
+
+           <div className="form-group">
+           <label>Price Rating</label>
+             <select id="dishPrice" className="form-control">
+               <option>$</option>
+               <option>$$</option>
+               <option>$$$</option>
+             </select>
+           </div>
+
+           <div className="form-group">
+           <label>Category</label>
+             <select id="category" className="form-control">
+               <option>Snack</option>
+               <option>Grub</option>
+               <option>Dessert</option>
+             </select>
+           </div>
+
+           <div className="form-group">
+            <label>Rate Your Foodie!</label>
+            <p id="star-rating"></p>
+           </div>
+
+             <button className="btn btn-primary form-control" onClick={this.handleClick}>Share My Thoughts!</button>
+
          </div>
        )
    }
