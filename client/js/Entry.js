@@ -130,7 +130,7 @@ var Test = React.createClass({
 
     render: function () {
         return <div>
-            <Entry maxHeight={300} maxWidth={300} onChange={ this.onChange } />
+            <Entry className="entry" maxHeight={300} maxWidth={300} onChange={ this.onChange } />
         </div>
     }
 });

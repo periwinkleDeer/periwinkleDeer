@@ -2,11 +2,12 @@ body {
   width: 100%;
 }
 
-.panel {
+.search {
   position: fixed;
   top: 50%;
   left: 50%;
   margin-top: -50px;
   margin-left: -100px;
 }
+
 

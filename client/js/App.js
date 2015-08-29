@@ -23,15 +23,6 @@ var App = React.createClass({
   render: function () {
     return (
       <div>
-        <header>
-          <ul>
-            <li><Link to="inbox">Inbox</Link></li>
-            <li><Link to="Entry">Entry</Link></li>
-            <li><Link to="parameters">Parameters</Link></li>
-          </ul>
-          Logged in as Jane
-        </header>
-
         {/* this is the important part */}
         <RouteHandler/>
       </div>
@@ -41,16 +32,12 @@ var App = React.createClass({
 
 var routes = (
   <Route name="app" path="/" handler={App}>
-    <Route name="inbox" handler={Main}/>
-    <Route name="Entry" handler={Entry}/>
+    <Route name="options" handler={Main}/>
+    <Route name="entry" handler={Entry}/>
     <Route name="parameters" handler={Parameters} />
     <DefaultRoute handler={Login}/>
   </Route>
 );
-
-// Router.run(routes, function (Handler) {
-//   React.render(<Handler/>, document.body);
-// });
 
 var appRouter = Router.create({
   routes: routes
@@ -59,11 +46,6 @@ var appRouter = Router.create({
 appRouter.run(function (Handler) {
   React.render(<Handler/>, document.body);
 });
-
-// module.exports.transitionTo = function (to, params, query) {
-//   console.log("transition to " + to);
-//   router.transitionTo(to, params, query);
-// };
 
 module.exports = appRouter;
 
