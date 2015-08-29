@@ -10,7 +10,12 @@ var Main = React.createClass({
     console.log("btn click", this)
     this.context.router.transitionTo('/' + link)
   },
-
+  componentWillMount: function() {
+    console.log("CHECKING AUTH")
+    if (!FB.getAuthResponse()) {
+      this.context.router.transitionTo('/');
+    };
+  },
   render: function() {
     return (
       <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">

@@ -8,6 +8,7 @@ var Login = require('./Login');
 var Main = require('./Main');
 var Entry = require('./Entry');
 var Parameters = require('./Parameters');
+var fbid = require('../fbid');
 
 
 var Inbox = React.createClass({
@@ -20,6 +21,20 @@ var Inbox = React.createClass({
 });
 
 var App = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  componentDidMount: function() {
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : fbid.fbid,
+        cookie     : true,  // enable cookies to allow the server to access
+                          // the session
+        xfbml      : true,  // parse social plugins on this page
+        version    : 'v2.1' // use version 2.1
+      });
+    }
+  },
   render: function () {
     return (
       <div>
