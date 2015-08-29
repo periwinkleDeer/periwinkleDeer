@@ -1,4 +1,14 @@
+var router = require('./App');
 var Parameters = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  componentWillMount: function() {
+    console.log("CHECKING AUTH")
+    if (!FB.getAuthResponse()) {
+      this.context.router.transitionTo('/');
+    };
+  },
   getInitialState: function() {
     return {geolocation: null};
   },
@@ -7,10 +17,13 @@ var Parameters = React.createClass({
       url: '/dishes',
       method: 'GET',
       data: {
-        zip: document.getElementById('neighborhood').value 
+        zip: document.getElementById('neighborhood').value,
+        price: document.getElementById('price-query').value
       },
       success: function(data) {
         console.log(data);
+        console.log('yay!');
+        this.context.router.transitionTo(/*MAIN DISPLAY PAGE*/);
       },
       error: function(err) {
         console.log(err);
@@ -22,7 +35,7 @@ var Parameters = React.createClass({
     return (
       <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
         <div className="form-group">
-        <label>Where do you want to eat today?</label>
+          <label>Where do you want to eat today?</label>
           <select id="neighborhood" className="form-control">
             <option value="94102">Hayes Valley | Tenderloin | North of Market</option>
             <option value="94103">Soma</option>
@@ -46,6 +59,15 @@ var Parameters = React.createClass({
             <option value="94133">North Beach | Chinatown</option>
             <option value="94134">Visitacion Valley | Sunnydale</option>
           </select>
+          <div className="form-group">
+            <label>Price Range (each item)?</label>
+            <select id="price-query" className="form-control">
+              <option value="1"> under $10</option>
+              <option value="2"> $10-$20</option>
+              <option value="3"> $20-$30</option>
+              <option value="4"> $30-$40</option>
+            </select>
+          </div>
         </div>
         <button className="btn btn-primary form-control" onClick={this.handleClick}>Click Me</button>
       </div>

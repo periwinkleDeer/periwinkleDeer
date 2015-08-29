@@ -43,7 +43,11 @@ var Entry = React.createClass({
    getInitialState: function () {
        return {};
    },
-
+   componentWillMount: function() {
+     if (!FB.getAuthResponse()) {
+       this.context.router.transitionTo('/');
+     };
+   },
    componentDidMount: function(){
       var self = this;
       var input = document.getElementById('restaurant');
