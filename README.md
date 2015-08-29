@@ -34,8 +34,6 @@
 -create a facebook application id 
 -create a fbid.js file in the client folder and paste this in:
     module.exports.fbid = '<insert application id>'
--create a GDMkey.js file in the server folder and paste this in:
-    module.exports.API_key = '<insert Google Distance Matrix key here>'
 
 ## Development
 
