@@ -1,7 +1,8 @@
-var Food = require('./foodModel'),
-    Q    = require('q'),
+
+var    Q    = require('q'),
     distance = require('google-distance-matrix'),
-    GDMkey = require('./GDMkey');
+    GDMkey = require('./GDMkey'),
+    db = require('./db');
 
   var findNearbyRestaurants = function(){
     // Geolocation will provide the origin address
@@ -63,17 +64,18 @@ var Food = require('./foodModel'),
 
 module.exports = {
 
-  getDishList: function(){
-    findNearbyRestaurants()
-      .then(function(results){
-        findDishes(function(err, results){
-          res.send(results);
-        });
-      });
+  getDishList: function(req, res){
+    res.send(req.query.zip)
+    // findNearbyRestaurants()
+    //   .then(function(results){
+    //     findDishes(function(err, results){
+    //       res.send(req.query.zipcode);
+    //     });
+    //   });
   },
 
   // TODO add data to restInfo from Google Places API
-  insertDish: function(){
+  insertDish: function(req, res){
     var restInfo;
 
     Restaurant.findOrCreate({where: {

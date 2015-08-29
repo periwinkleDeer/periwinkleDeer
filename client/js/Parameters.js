@@ -1,35 +1,55 @@
 var Parameters = React.createClass({
-  handleClick: function() {
-    console.log("Clicked");
-    if (!navigator.geolocation){
-      console.log("Geolocation is not supported by your browser</p>");
-      return;
-    }
-
-    function success(position) {
-      var latitude  = position.coords.latitude;
-      var longitude = position.coords.longitude;
-
-      console.log('Latitude is ' + latitude + '° <br>Longitude is ' + longitude);
-
-      var img = new Image();
-      img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
-
-      document.body.appendChild(img);
-    };
-
-    function error() {
-      console.log("Unable to retrieve your location");
-    };
-
-    console.log('Locating');
-
-    navigator.geolocation.getCurrentPosition(success, error);
+  getInitialState: function() {
+    return {geolocation: null};
   },
+  handleClick: function() {
+    $.ajax({
+      url: '/dishes',
+      method: 'GET',
+      data: {
+        zip: document.getElementById('neighborhood').value 
+      },
+      success: function(data) {
+        console.log(data);
+      },
+      error: function(err) {
+        console.log(err);
+      }
+    });
+  },
+
   render: function(){
     return (
-      <button onClick={this.handleClick}>Click Me</button>
-    )
+      <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+        <div className="form-group">
+        <label>Where do you want to eat today?</label>
+          <select id="neighborhood" className="form-control">
+            <option value="94102">Hayes Valley | Tenderloin | North of Market</option>
+            <option value="94103">Soma</option>
+            <option value="94107">Potrero Hill</option>
+            <option value="94108">Chinatown</option>
+            <option value="94109">Polk | Russian Hill | Nob Hill</option>
+            <option value="94110">Inner Mission | Bernal Heights</option>
+            <option value="94112">Ingelside-Excelsior | Crocker-Amazon</option>
+            <option value="94114">Castro | Noe Valley</option>
+            <option value="94115">Western Addition | Japantown</option>
+            <option value="94116">Parkside/Forest Hill</option>
+            <option value="94117">Haight-Ashbury</option>
+            <option value="94118">Inner Richmond</option>
+            <option value="94121">Outer Richmond</option>
+            <option value="94122">Sunset</option>
+            <option value="94123">Marina</option>
+            <option value="94124">Bayview-Hunters Point</option>
+            <option value="94127">St. Francis Wood/Miraloma/West Portal</option>
+            <option value="94131">Twin Peaks-Glen Park</option>
+            <option value="94132">Lake Merced</option>
+            <option value="94133">North Beach | Chinatown</option>
+            <option value="94134">Visitacion Valley | Sunnydale</option>
+          </select>
+        </div>
+        <button className="btn btn-primary form-control" onClick={this.handleClick}>Click Me</button>
+      </div>
+    );
   }
 });
 

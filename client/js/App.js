@@ -53,7 +53,7 @@ var routes = (
 // });
 
 var appRouter = Router.create({
-  routes: routes,
+  routes: routes
 });
 
 appRouter.run(function (Handler) {

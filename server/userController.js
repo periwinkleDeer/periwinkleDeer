@@ -1,7 +1,7 @@
 var db = require('./db');
 
 module.exports = {
-  findUnrated: function(id) {
+  findUnrated: function(req, res) {
     var dishes = [];
     var index = 0;
     db.User.findOrCreate({where: {fb_id: id}})
