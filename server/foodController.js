@@ -1,77 +1,69 @@
 var Food = require('./foodModel'),
     Q    = require('q'),
-    yelp = require("yelp"),
-    yelpkey = require('./yelpkey'),
     distance = require('google-distance-matrix'),
     GDMkey = require('./GDMkey');
 
-// yelp.createClient({
-//   consumer_key: yelpkey.consumerkey,
-//   consumer_secret: yelpkey.consumersecret,
-//   token: yelpkey.token,
-//   token_secret: yelpkey.tokensecret
-// });
+  var findNearbyRestaurants = function(){
+    // Geolocation will provide the origin address
+    // Google Distance Matrix generates distances between origin and all restaurants in DB
+
+    var origins = ['<insert geolocation data>'];
+    var destinations = [];
+    var restaurants = [];
+    var GDM;
+
+    db.Restaurant.findAll()
+      .then(function(results){
+        for(var j=0; j<results.length; j++){
+          destinations.push(results[i].location);
+          restaurants.push(results[i]);
+        }
+      });
+
+    distance.key(GDMkey.API_key);
+    distance.units('imperial');
+     
+    distance.matrix(origins, destinations, function (err, distances) {
+      if (!err)
+        console.log(distances);
+        GDM = distances;
+    });
+
+    // Client sends a user-selected radius
+    var radius = req.body.radius;
+    var nearbyRestaurants = [];
+    var nearbyRestaurantsIds = [];
+    // Loop through GDM rows array
+      // If distance is < radius push destination into nearbyRestaurants array
+      // 'GDM' is a placeholder response obj
+    for(var i=0; i<GDM.rows.length; i++){
+      if(GDM.rows[0].elements[i].distance.value < radius){
+        nearbyRestaurants.push(restaurants[i]);
+        nearbyRestaurantsIds.push(restaurants[i].id);
+      }
+    }
+    return nearbyRestaurantsIds;
+  }; 
+
+  var findDishes = function(Ids){
+    var Dishes = [];
+    db.Dish.findAll({where: 
+      {rest_id: 
+        {
+          $in: Ids
+        }
+      }, include: [{model: Restaurant, required: true}]
+    })
+    .then(function(results){
+      res.send(results);
+    });
+  };
+
+//----------------------------------------------------------------------------
 
 module.exports = {
 
-  get: function(req, res) {
-
-    var findNearbyRestaurants = function(){
-      // Geolocation will provide the origin address
-      // Google Distance Matrix generates distances between origin and all restaurants in DB
-
-      var origins = ['<insert geolocation data>'];
-      var destinations = [];
-      var restaurants = [];
-      var GDM;
-
-      Restaurant.findAll()
-        .then(function(results){
-          for(var j=0; j<results.length; j++){
-            destinations.push(results[i].location);
-            restaurants.push(results[i]);
-          }
-        });
-
-      distance.key(GDMkey.API_key);
-      distance.units('imperial');
-       
-      distance.matrix(origins, destinations, function (err, distances) {
-        if (!err)
-          console.log(distances);
-          GDM = distances;
-      });
-
-      // Client sends a user-selected radius
-      var radius = req.body.radius;
-      var nearbyRestaurants = [];
-      var nearbyRestaurantsIds = [];
-      // Loop through GDM rows array
-        // If distance is < radius push destination into nearbyRestaurants array
-        // 'GDM' is a placeholder response obj
-      for(var i=0; i<GDM.rows.length; i++){
-        if(GDM.rows[0].elements[i].distance.value < radius){
-          nearbyRestaurants.push(restaurants[i]);
-          nearbyRestaurantsIds.push(restaurants[i].id);
-        }
-      }
-      return nearbyRestaurantsIds;
-    }; 
-
-    var findDishes = function(Ids){
-      var Dishes = [];
-      Dish.findAll({where: 
-        {rest_id: 
-          {
-            $in: Ids
-          }
-        }, include: [{model: Restaurant, required: true}]
-      })
-      .then(function(results){
-        res.send(results);
-      });
-    };
-
+  getDishList: function(){
     findNearbyRestaurants()
       .then(function(results){
         findDishes(function(err, results){
@@ -80,43 +72,43 @@ module.exports = {
       });
   },
 
-  post: function(req, res) {
-      // add data to restInfo from Google Places API
-      var restInfo;
+  // TODO add data to restInfo from Google Places API
+  insertDish: function(){
+    var restInfo;
 
-      Restaurant.findOrCreate({where: {
-        name: req.body.restaurant_name,
-        rating: restInfo.rating,
-        location: restInfo.location,
-        phone: restInfo.phone
+    Restaurant.findOrCreate({where: {
+      name: req.body.restaurant_name,
+      rating: restInfo.rating,
+      location: restInfo.location,
+      phone: restInfo.phone
+      }})
+      .then(function(results){
+        Dish.find({where: {
+          name: req.body.dish_name,
+          rest_id: results.id
         }})
         .then(function(results){
-          Dish.find({where: {
-            name: req.body.dish_name,
-            rest_id: results.id
-          }})
-          .then(function(results){
-            console.log("results from Dish.find", results);
-            if(!results){
-              Dish.create({
-                name: req.body.dish_name,
-                category: req.body.category,
-                img_url: req.body.img_url,
-                rating: req.body.rating,
-                restaurant: req.body.restaurant_name,
-                price_rating: req.body.pricerating,
-                rest_rating: restInfo.rating,
-                location: restInfo.location,
-                phone: restInfo.phone
-              }).then(function(results){
-                res.sendStatus(201);
-              });
-            }else{
-              res.sendStatus(412);
-            }
-          });  
-        });
-    }
+          console.log("results from Dish.find", results);
+          if(!results){
+            Dish.create({
+              name: req.body.dish_name,
+              category: req.body.category,
+              img_url: req.body.img_url,
+              rating: req.body.rating,
+              restaurant: req.body.restaurant_name,
+              price_rating: req.body.pricerating,
+              rest_rating: restInfo.rating,
+              location: restInfo.location,
+              phone: restInfo.phone
+            }).then(function(results){
+              res.sendStatus(201);
+            });
+          }else{
+            res.sendStatus(412);
+          }
+        });  
+      });
+  }
 
   // displayAllFood: function(req, res, next){
   //   // var category = req.query
