@@ -45,6 +45,7 @@ var Entry = React.createClass({
    },
 
    componentDidMount: function(){
+      var self = this;
       var input = document.getElementById('restaurant');
       var options = {
         types: ['establishment']
@@ -56,9 +57,10 @@ var Entry = React.createClass({
         var place = autocomplete.getPlace();
 
         console.log(place);
-        this.setState({
+        self.setState({
          restaurant: place
         });
+        console.log(self.state.restaurant);
       });
    },
 

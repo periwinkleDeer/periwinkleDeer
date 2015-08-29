@@ -7,17 +7,8 @@ var RouteHandler = Router.RouteHandler;
 var Login = require('./Login');
 var Main = require('./Main');
 var Entry = require('./Entry');
-
 var Parameters = require('./Parameters');
 
-var fbLogin = React.createClass({
-  render: function () {
-    return (
-      <div>
-      </div>
-    );
-  }
-});
 
 var Inbox = React.createClass({
   render: function () {
@@ -34,7 +25,6 @@ var App = React.createClass({
       <div>
         <header>
           <ul>
-            <li><Link to="app">fbLogin</Link></li>
             <li><Link to="inbox">Inbox</Link></li>
             <li><Link to="Entry">Entry</Link></li>
             <li><Link to="parameters">Parameters</Link></li>
