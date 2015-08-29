@@ -68,6 +68,7 @@ var Entry = React.createClass({
       var store = {
          restaurant : this.state.restaurant.name,
          address    : this.state.restaurant.formatted_address,
+         zipcode    : this.state.restaurant.address_components[5],
          phone      : this.state.restaurant.formatted_phone_number,
          rating     : this.state.restaurant.rating,
          dishName   : document.getElementById('dish').value,
@@ -114,11 +115,19 @@ var Entry = React.createClass({
            image = <img src={dataUrl} />
        }
 
-       return <div>
-           <input type="text" id="restaurant" size="100"/> 
+       return (
+         <div>
+           <input type="text" id="restaurant" size="100"/> <br/>
+           <input type="text" id="dish" placeholder="Food Item"/>
            <input style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.onChange }/>
            { image }
-       </div>
+             <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Price Rating</button>
+             <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Food Category</button>
+               <div>
+                 <button className="btn btn-primary" type="button">Post Food!</button>
+               </div>
+         </div>
+       )
    }
 });
 
