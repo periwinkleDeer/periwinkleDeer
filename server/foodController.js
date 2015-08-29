@@ -1,4 +1,3 @@
-var Q = require('q');
 var db = require('./db');
 
 module.exports = {
