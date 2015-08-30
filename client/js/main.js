@@ -10,12 +10,6 @@ var Main = React.createClass({
     console.log("btn click", this)
     this.context.router.transitionTo('/' + link)
   },
-  componentWillMount: function() {
-    console.log("CHECKING AUTH")
-    if (!FB.getAuthResponse()) {
-      this.context.router.transitionTo('/');
-    };
-  },
   render: function() {
     return (
       <div className="search col-md-3">
