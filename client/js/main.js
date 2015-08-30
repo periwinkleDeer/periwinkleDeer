@@ -13,9 +13,11 @@ var Main = React.createClass({
 
   render: function() {
     return (
-      <div className="search col-md-3">
-        <button type="button" className="btn btn-primary btn-lg btn-block" onClick={this.handleClick.bind(this, "parameters")}>Find</button>
-        <button type="button" className="btn btn-primary btn-lg btn-block" onClick={this.handleClick.bind(this, "entry")}>Add</button>
+      <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+        <div className="form-group">
+          <button type="button" className="btn btn-primary btn-lg btn-block" onClick={this.handleClick.bind(this, "parameters")}>Search for Foodie!</button>
+          <button type="button" className="btn btn-primary btn-lg btn-block" onClick={this.handleClick.bind(this, "entry")}>Share Foodie!</button>
+        </div>
       </div>
     )
   }
