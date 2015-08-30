@@ -3,12 +3,6 @@ var Parameters = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
-  componentWillMount: function() {
-    console.log("CHECKING AUTH")
-    if (!FB.getAuthResponse()) {
-      this.context.router.transitionTo('/');
-    };
-  },
   getInitialState: function() {
     return {geolocation: null};
   },
