@@ -2,11 +2,21 @@ var db = require('./db');
 
 module.exports = {
   findUnrated: function(req, res) {
-    var dishes = [];
-    var index = 0;
     db.User.findOrCreate({where: {fb_id: req.query.id}})
-      .then(function(user) {
-        db.Rating.findAll({where: {user_id: user.id, rating: null}, include: [{model: Dish, required: true}]});
+    .then(function(user) {
+        return db.Rating.findAll({where: {userId: user.id, rating: null}, include: [{model: Dish, required: true}]
+        });
+    }).then(function(results) {
+      res.send(results);
+    });
+  },
+
+  selectingDishes: function(req,res) {
+    db.User.find({where: {fb_id: req.body.id}})
+    .then(function(user) {
+      for (var i = 0; i < req.body.dishes; i++) {
+        db.Rating.create({UserId: user.id, DishId: req.body.dishes[i].id})
+      }
     });
   }
 };

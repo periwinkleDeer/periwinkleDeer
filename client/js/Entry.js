@@ -43,7 +43,6 @@ var Entry = React.createClass({
    getInitialState: function () {
        return {};
    },
-
    componentDidMount: function(){
       var self = this;
       var input = document.getElementById('restaurant');

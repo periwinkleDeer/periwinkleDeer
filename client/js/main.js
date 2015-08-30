@@ -10,7 +10,6 @@ var Main = React.createClass({
     console.log("btn click", this)
     this.context.router.transitionTo('/' + link)
   },
-
   render: function() {
     return (
       <div className="search col-md-3">

@@ -1,5 +1,4 @@
 var router = require('./App');
-var fbid = require('../fbid');
 
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -15,22 +14,6 @@ var fbid = require('../fbid');
   },
 
   componentDidMount: function() {
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : fbid.fbid,
-        cookie     : true,  // enable cookies to allow the server to access
-                          // the session
-        xfbml      : true,  // parse social plugins on this page
-        version    : 'v2.1' // use version 2.1
-      });
-      // When user logins in, it should display a different page
-      var self = this;
-      FB.Event.subscribe('auth.login', function (response) {
-        console.log(response,"Logged")
-        self.context.router.transitionTo('/options');
-        self.statusChangeCallback(response);
-      });
-
       FB.getLoginStatus(function(response) {
         this.statusChangeCallback(response);
       }.bind(this));
