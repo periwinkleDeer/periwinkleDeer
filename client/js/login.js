@@ -104,7 +104,7 @@ var fbid = require('../fbid');
 
   render: function(){
     return (
-      <center><div className="panel panel-default col-xs-2 col-sm-2 col-sm-offset-3">
+      <center><div className="panel panel-default col-xs-6 col-sm-2 col-sm-offset-3">
         <div className="panel-heading">Login Using Facebook</div>
         <div className="panel-body">
           <center><div className="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false">

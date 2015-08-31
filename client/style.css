@@ -1,5 +1,6 @@
-body {
+body, html {
   width: 100%;
+  height: 100%;
 }
 
 .search {
@@ -9,3 +10,20 @@ body {
   margin-top: -50px;
   margin-left: -100px;
 }   
+
+body {
+  height: 100%;
+  width: 100%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.25), rgba(255,255,255,0.9)), url('../assets/vegetables-for-food-wide.jpg');
+  background-size: cover;
+  background-position: 80% 90%;
+}
+
+.container {
+  background: radial-gradient(ellipse, rgba(255,255,255, 1), rgba(255,255,255, 0.75));
+  padding: 5% 0;
+  position: absolute;
+  top:15%;
+  width: 100%;
+  border-radius: 5px;
+}

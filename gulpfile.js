@@ -45,6 +45,7 @@ gulp.task('replaceHTML', function(){
 gulp.task('watch', function() {
   gulp.watch(path.HTML, ['copy']);
   gulp.watch(path.CSS, ['copyCSS']);
+  gulp.watch(path.ASSETS, ['copyASSETS']);
 
   var watcher  = watchify(browserify({
     entries: [path.ENTRY_POINT],
