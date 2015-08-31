@@ -17,4 +17,7 @@ module.exports = function(app) {
 
 //for specific users
   app.get('/unrated', user.findUnrated);
+  app.post('/selecting', user.selectingDishes);
+  app.put('/rate', user.rateDish);
+  app.delete('/deleteDish', user.deleteDish);
 };

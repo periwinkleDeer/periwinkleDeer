@@ -20,6 +20,11 @@ var Inbox = React.createClass({
 });
 
 var App = React.createClass({
+  contextTypes: {
+    router: React.PropTypes.func
+  },
+  componentWillMount: function() {
+  },
   render: function () {
     return (
       <div>

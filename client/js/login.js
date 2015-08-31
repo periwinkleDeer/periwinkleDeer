@@ -23,14 +23,6 @@ var fbid = require('../fbid');
         xfbml      : true,  // parse social plugins on this page
         version    : 'v2.1' // use version 2.1
       });
-      // When user logins in, it should display a different page
-      var self = this;
-      FB.Event.subscribe('auth.login', function (response) {
-        console.log(response,"Logged")
-        self.context.router.transitionTo('/options');
-        self.statusChangeCallback(response);
-      });
-
       FB.getLoginStatus(function(response) {
         this.statusChangeCallback(response);
       }.bind(this));
@@ -59,8 +51,6 @@ var fbid = require('../fbid');
 
   // This is called with the results from from FB.getLoginStatus().
   statusChangeCallback: function(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
@@ -114,7 +104,7 @@ var fbid = require('../fbid');
 
   render: function(){
     return (
-      <center><div className="panel panel-default col-xs-2 col-sm-2 col-sm-offset-3">
+      <center><div className="panel panel-default col-xs-6 col-sm-2 col-sm-offset-3">
         <div className="panel-heading">Login Using Facebook</div>
         <div className="panel-body">
           <center><div className="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false">

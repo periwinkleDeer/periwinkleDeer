@@ -45,7 +45,6 @@ var Entry = React.createClass({
    getInitialState: function () {
        return {};
    },
-
    componentDidMount: function(){
       var self = this;
       var input = document.getElementById('restaurant');
@@ -119,50 +118,52 @@ var Entry = React.createClass({
        }
 
        return (
-         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+          <div className="container">
+           <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
 
-           <div className="form-group">
-            <label>Restaurant</label>
-             <input type="text" className="form-control" id="restaurant" placeholder="Where did you eat?"/>
+             <div className="form-group">
+              <label>Restaurant</label>
+               <input type="text" className="form-control" id="restaurant" placeholder="Where did you eat?"/>
+             </div>
+
+             <div className="form-group">
+              <label>Foodie</label>
+               <input type="text" className="form-control" id="dish" placeholder="What did you eat?"/>
+             </div>
+
+             <div className="form-group">
+                 <label for="exampleInputFile">Upload Picture</label>
+                 <input style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.onChange }/>
+                 <p className="help-block">{ image }</p>
+             </div>           
+
+             <div className="form-group">
+             <label>Price Rating</label>
+               <select id="dishPrice" className="form-control">
+                 <option>$</option>
+                 <option>$$</option>
+                 <option>$$$</option>
+               </select>
+             </div>
+
+             <div className="form-group">
+             <label>Category</label>
+               <select id="category" className="form-control">
+                 <option>Snack</option>
+                 <option>Grub</option>
+                 <option>Dessert</option>
+               </select>
+             </div>
+
+             <div className="form-group">
+              <label>Rate Your Foodie!</label>
+              <p id="star-rating"></p>
+             </div>
+
+               <button className="btn btn-warning form-control" onClick={this.handleClick}>Share My Thoughts!</button>
+
            </div>
-
-           <div className="form-group">
-            <label>Foodie</label>
-             <input type="text" className="form-control" id="dish" placeholder="What did you eat?"/>
-           </div>
-
-           <div className="form-group">
-               <label for="exampleInputFile">Upload Picture</label>
-               <input style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.onChange }/>
-               <p className="help-block">{ image }</p>
-           </div>           
-
-           <div className="form-group">
-           <label>Price Rating</label>
-             <select id="dishPrice" className="form-control">
-               <option>$</option>
-               <option>$$</option>
-               <option>$$$</option>
-             </select>
-           </div>
-
-           <div className="form-group">
-           <label>Category</label>
-             <select id="category" className="form-control">
-               <option>Snack</option>
-               <option>Grub</option>
-               <option>Dessert</option>
-             </select>
-           </div>
-
-           <div className="form-group">
-            <label>Rate Your Foodie!</label>
-            <p id="star-rating"></p>
-           </div>
-
-             <button className="btn btn-primary form-control" onClick={this.handleClick}>Share My Thoughts!</button>
-
-         </div>
+        </div>
        )
    }
 });

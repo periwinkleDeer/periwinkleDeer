@@ -31,7 +31,8 @@ var Restaurant = sequelize.define('Restaurant', {
   name: Sequelize.STRING,
   location: Sequelize.STRING,
   rating: Sequelize.INTEGER,
-  phone: Sequelize.STRING
+  phone: Sequelize.STRING,
+  zip: Sequelize.STRING
 });
 
 User.hasMany(Rating);

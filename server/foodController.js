@@ -10,7 +10,7 @@ module.exports = {
     db.Dish.findAll({where: {
       price_rating: price}, 
       include: [{
-        model: Restaurant, 
+        model: db.Restaurant, 
         where: {zip: zip}, 
         required: true
       }]
