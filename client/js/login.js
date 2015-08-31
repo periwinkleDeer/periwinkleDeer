@@ -1,4 +1,5 @@
 var router = require('./App');
+var fbid = require('../fbid');
 
 (function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -14,6 +15,14 @@ var router = require('./App');
   },
 
   componentDidMount: function() {
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : fbid.fbid,
+        cookie     : true,  // enable cookies to allow the server to access
+                          // the session
+        xfbml      : true,  // parse social plugins on this page
+        version    : 'v2.1' // use version 2.1
+      });
       FB.getLoginStatus(function(response) {
         this.statusChangeCallback(response);
       }.bind(this));
@@ -42,8 +51,6 @@ var router = require('./App');
 
   // This is called with the results from from FB.getLoginStatus().
   statusChangeCallback: function(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation

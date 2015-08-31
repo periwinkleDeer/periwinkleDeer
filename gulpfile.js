@@ -10,11 +10,13 @@ var streamify = require('gulp-streamify');
 var path = {
   HTML: 'client/index.html',
   CSS: 'client/style.css',
+  ASSETS: 'client/assets/*.jpg',
   MINIFIED_OUT: 'build.min.js',
   OUT: 'build.js',
   DEST: 'dist',
   DEST_BUILD: 'dist/build',
   DEST_SRC: 'dist/src',
+  DEST_ASSETS: 'dist/assets',
   ENTRY_POINT: './client/js/App.js'
 };
 
@@ -28,6 +30,10 @@ gulp.task('copyCSS', function() {
     .pipe(gulp.dest(path.DEST));
 });
 
+gulp.task('copyASSETS', function() {
+  gulp.src(path.ASSETS)
+    .pipe(gulp.dest(path.DEST_ASSETS));
+})
 
 gulp.task('replaceHTML', function(){
   gulp.src(path.HTML)
@@ -76,4 +82,4 @@ gulp.task('build', function(){
 
 gulp.task('production', ['replaceHTML', 'build']);
 
-gulp.task('default', ['copy', 'copyCSS', 'watch']);
+gulp.task('default', ['copy', 'copyCSS', 'copyASSETS', 'watch']);
