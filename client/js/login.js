@@ -6,10 +6,13 @@ var Login = React.createClass({
     router: React.PropTypes.func
   },
 
+  componentWillMount: function() {
+    localStorage.setItem('currentRoute', '/login');
+  },
+
   login: function() {
     var self = this;
     FB.login(function(response){
-      console.log("In here",response);
       if (response.status === 'connected') {
         self.context.router.transitionTo('/main', null, {id: FB.getUserID()});
       }

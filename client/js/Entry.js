@@ -54,6 +54,8 @@ var Entry = React.createClass({
 
  
    componentDidMount: function(){
+      localStorage.setItem('currentRoute', '/entry');
+
       var self = this;
       var input = document.getElementById('restaurant');
       var options = {
@@ -204,7 +206,7 @@ var Test = React.createClass({
 
     render: function(){
         return <div>
-            <Entry className="entry" maxHeight={250} maxWidth={250} onChange={ this.onChange } />
+            <Entry maxHeight={250} maxWidth={250} onChange={ this.onChange } />
         </div>
     }
 });
