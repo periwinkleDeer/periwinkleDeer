@@ -25,6 +25,9 @@ module.exports = {
       db.Rating.bulkCreate(storage);
     });
   },
+  ratings: function(req, res) {
+    res.send(req.body)
+  },
 
   rateDish: function(req, res) {
     //updates ratings table

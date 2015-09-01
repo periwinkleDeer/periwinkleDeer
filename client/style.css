@@ -65,6 +65,7 @@ MAIN
 ***********************/
 
 .card {
+  position: relative;
   background: #ffc;
   margin: 10px 0;
   padding: 10px;
@@ -72,6 +73,12 @@ MAIN
   color: #888;
 }
 
+.remove{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #f66;
+}
 /***********************
 
 MAP
@@ -85,6 +92,13 @@ MAP
   border: 7px solid rgba(255, 255, 255, .8);
   -webkit-background-clip: padding-box; /* for Safari */
   background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+}
+
+.map-gic {
+  margin-top:20px;
+  border-style: solid;
+  border-color: white;
+  border-width: 7px;
   margin: 0 auto;
   height: 300px;
   width: 300px;
