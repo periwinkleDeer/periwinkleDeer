@@ -1,5 +1,4 @@
 var Rating = require('react-rating');
-var StarRating = require('react-star-rating');
 var router = require('./App');
 
 function resize(file, maxWidth, maxHeight, fn){
