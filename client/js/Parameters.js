@@ -1,12 +1,24 @@
 var router = require('./App');
 var StarRating = require('react-star-rating');
+
 var Parameters = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
+
+  componentDidMount: function() {
+    var self = this;
+    FB.getLoginStatus(function(response){
+      if (response.status !== 'connected') {
+        self.context.router.transitionTo('/login');
+      }
+    })
+  },
+
   getInitialState: function() {
     return {geolocation: null};
   },
+
   handleClick: function() {
     var self = this;
     $.ajax({
