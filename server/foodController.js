@@ -1,4 +1,3 @@
-
 var db = require('./db');
 
 module.exports = {
@@ -21,6 +20,7 @@ module.exports = {
 
   // TODO add data to restInfo from Google Places API
   insertDish: function(req, res){
+    console.log("req ==================== ", req);
 
     db.Restaurant.findOrCreate({where: {
       name: req.body.restaurant,
