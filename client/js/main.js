@@ -54,7 +54,8 @@ var Main = React.createClass({
 
 
   handleClick: function(link) {
-    this.context.router.transitionTo('/' + link)
+    console.log("btn click", this);
+    this.context.router.transitionTo('/' + link);
   },
   render: function() {
     var self = this;

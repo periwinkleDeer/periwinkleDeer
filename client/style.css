@@ -44,7 +44,6 @@ FORMS
    font-size: 23px;
 }
 
-
 .spacing {
   margin-top: 20px;
 }
@@ -67,5 +66,26 @@ MAIN
   padding: 10px;
   border-radius: 5px;
   color: #888;
+}
+
+.map-gic {
+  margin-top:20px;
+  border-style: solid;
+  border-color: white;
+  border-width: 7px;
+  margin: 0 auto;
+  height: 500px;
+  width: 500px;
+}
+
+.mapbutton {
+    margin-top:20px;
+}
+
+.mapgreeting {
+  text-align: center;
+  border-radius: 0px;
+  color: orange;
+  background-color: white;
 }
 

@@ -8,7 +8,9 @@ var Login = require('./Login');
 var Main = require('./Main');
 var Entry = require('./Entry');
 var Parameters = require('./Parameters');
+var Map = require('./Map');
 var fbid = require('../fbid');
+
 
 
 var Inbox = React.createClass({
@@ -109,6 +111,7 @@ var routes = (
     <Route name="main" handler={Main}/>
     <Route name="entry" handler={Entry}/>
     <Route name="parameters" handler={Parameters} />
+    <Route name="map" handler={Map} />
     <DefaultRoute handler={Login}/>
   </Route>
 );
