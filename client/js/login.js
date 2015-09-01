@@ -1,121 +1,31 @@
 var router = require('./App');
 var fbid = require('../fbid');
 
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=" + fbid.fbid;
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-  var Login = React.createClass({
+var Login = React.createClass({  
   contextTypes: {
     router: React.PropTypes.func
   },
 
-  componentDidMount: function() {
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : fbid.fbid,
-        cookie     : true,  // enable cookies to allow the server to access
-                          // the session
-        xfbml      : true,  // parse social plugins on this page
-        version    : 'v2.1' // use version 2.1
-      });
-      FB.getLoginStatus(function(response) {
-        this.statusChangeCallback(response);
-      }.bind(this));
-    }.bind(this);
-
-    // Load the SDK asynchronously
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      // fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  },
-
-  // Here we run a very simple test of the Graph API after login is
-  // successful.  See statusChangeCallback() for when this call is made.
-  testAPI: function() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-    console.log('Successful login for: ' + response.name);
-    document.getElementById('status').innerHTML =
-      'Thanks for logging in, ' + response.name + '!';
-    });
-  },
-
-  // This is called with the results from from FB.getLoginStatus().
-  statusChangeCallback: function(response) {
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-      // Logged into your app and Facebook.
-      this.context.router.transitionTo('/options');
-      this.testAPI();
-      console.log(response)
-      var user = {};
-      user.id = response.authResponse.userID;
-
-      $.ajax({
-        url: "/unrated",
-        type: "GET",
-        data: user,
-        success: function(data) {
-          console.log(data, 'posting');
-        },
-        error: function(err) {
-          console.log(err)
-        }
-      })
-
-    } else if (response.status === 'not_authorized') {
-      // The person is logged into Facebook, but not your app.
-      // document.getElementById('status').innerHTML = 'Please log ' +
-        // 'into this app.';
-    } else {
-      // The person is not logged into Facebook, so we're not sure if
-      // they are logged into this app or not.
-      // document.getElementById('status').innerHTML = 'Please log ' +
-      // 'into Facebook.';
-    }
-  },
-
-  // This function is called when someone finishes with the Login
-  // Button.  See the onlogin handler attached to it in the sample
-  // code below.
-  checkLoginState: function() {
-    FB.getLoginStatus(function(response) {
-      this.statusChangeCallback(response);
-    }.bind(this));
-  },
-
-  logOut: function() {
-    FB.logout(function(response){
-      console.log("Logged Out");
-    });
+  login: function() {
+    var self = this;
+    FB.login(function(response){
+      console.log("In here",response);
+      if (response.status === 'connected') {
+        self.context.router.transitionTo('/main');
+      }
+    })
   },
 
   render: function(){
     return (
-      <center><div className="panel panel-default col-xs-6 col-sm-2 col-sm-offset-3">
-        <div className="panel-heading">Login Using Facebook</div>
-        <div className="panel-body">
-          <center><div className="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false">
-          </div></center>
+      <div className="container">
+        <div className="panel col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+            <button type="button" className="btn btn-warning btn-lg btn-block" onClick={this.login}><img className="facebook" src={"../assets/facebooklogo.png"} />Login using Facebook</button>
         </div>
-        <a href="#" onClick={this.logOut}>Logout</a>
-      </div></center>
-      
-      
+      </div>
     )
   }
 });
+
 
 module.exports = Login; 

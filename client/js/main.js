@@ -1,9 +1,18 @@
 var fb = require('./login');
 var router = require('./App');
+var fbid = require('../fbid');
 
 var Main = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
+  },
+  componentDidMount: function() {
+    var self = this;
+    FB.getLoginStatus(function(response){
+      if (response.status !== 'connected') {
+        self.context.router.transitionTo('/login');
+      }
+    })
   },
 
   getInitialState: function() {
