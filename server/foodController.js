@@ -21,32 +21,34 @@ module.exports = {
 
   // TODO add data to restInfo from Google Places API
   insertDish: function(req, res){
-    var restInfo;
 
-    Restaurant.findOrCreate({where: {
-      name: req.body.restaurant_name,
-      rating: restInfo.rating,
-      location: restInfo.location,
-      phone: restInfo.phone
+    db.Restaurant.findOrCreate({where: {
+      name: req.body.restaurant,
+      location: req.body.address,
+      phone: req.body.phone,
+      zip: req.body.zip
       }})
+      .then(function(restaurant) {
+        restaurant.updateAttributes({
+          rating: req.body.rating
+        });
+      })
       .then(function(results){
-        Dish.find({where: {
-          name: req.body.dish_name,
-          rest_id: results.id
+        console.log("is this returning a restaurant? INSERT DISH FUNCTION ", results);
+        db.Dish.find({where: {
+          name: req.body.dishName,
+          RestaurantId: results.id
         }})
         .then(function(results){
-          console.log("results from Dish.find", results);
+          console.log("results from Dish.find INSERT DISH FUNCTION", results);
           if(!results){
-            Dish.create({
-              name: req.body.dish_name,
+            db.Dish.create({
+              name: req.body.dishName,
               category: req.body.category,
-              img_url: req.body.img_url,
-              rating: req.body.rating,
-              restaurant: req.body.restaurant_name,
+              img_url: req.body.imgUrl,
               price_rating: req.body.pricerating,
-              rest_rating: restInfo.rating,
-              location: restInfo.location,
-              phone: restInfo.phone
+              rating: req.body.dishRating,
+              num_ratings: 1
             }).then(function(results){
               res.sendStatus(201);
             });
