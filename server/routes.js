@@ -10,14 +10,10 @@ module.exports = function(app) {
   //when clicking on an individual item
   // app.get('/dish', food.getFood);
   //when adding a dish to DB
-  app.post('/insertdish', function(req, res) {
-    console.log('hi');
-    res.send('--->');
-  }); 
+  app.post('/insertdish', food.insertDish); 
 
 //for specific users
   app.get('/unrated', user.findUnrated);
   app.post('/selecting', user.selectingDishes);
-  app.put('/rate', user.rateDish);
-  app.delete('/deleteDish', user.deleteDish);
+  app.get('/rate', user.ratings);
 };
