@@ -19,6 +19,7 @@ var Map = React.createClass({
   },
 
   componentDidMount: function (rootNode) {
+    localStorage.setItem('currentRoute', '/map');
     var mapOptions = {
         center: this.mapCenterLatLng(),
         zoom: this.state.initialZoom

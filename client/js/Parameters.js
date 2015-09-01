@@ -7,6 +7,7 @@ var Parameters = React.createClass({
   },
 
   componentDidMount: function() {
+    localStorage.setItem('currentRoute', '/parameters');
     var self = this;
     FB.getLoginStatus(function(response){
       if (response.status !== 'connected') {

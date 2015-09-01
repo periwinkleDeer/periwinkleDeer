@@ -26,6 +26,11 @@ var App = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
+
+  // getInitialState: function() {
+  //   localStorage.setItem('currentRoute', )
+  //   return {};
+  // },
  
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
@@ -42,14 +47,22 @@ var App = React.createClass({
   statusChangeCallback: function(response) {
     console.log('statusChangeCallback');
     console.log(response);
+    // var currentRoute = localStorage.getItem('currentRoute');
+    // console.log(currentRoute)
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
+      if (localStorage.getItem('currentRoute')) {
+        var currentRoute = localStorage.getItem('currentRoute');
+        // this.context.router.transitionTo()
+      } else {
+        this.context.router.transitionTo('/main', null, {id: FB.getUserID()});
+        this.testAPI();
+      }
+
       // Logged into your app and Facebook.
-      this.context.router.transitionTo('/main', null, {id: FB.getUserID()});
-      this.testAPI();
 
 
       
