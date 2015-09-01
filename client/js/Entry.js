@@ -43,10 +43,11 @@ function resizeImage(image, maxWidth, maxHeight, quality){
 }
 
 var Entry = React.createClass({
+   contextTypes: {
+     router: React.PropTypes.func
+   },
+
    getInitialState: function(){
-     contextTypes: {
-       router: React.PropTypes.func
-     }
        return {};
      },
 
@@ -75,36 +76,36 @@ var Entry = React.createClass({
         if (response.status !== 'connected') {
           self.context.router.transitionTo('/login');
         }
-      })
+      });
    },
 
-   handleSubmit: function(){
+   handleSubmit: function(link){
+      console.log(link);
+      this.context.router.transitionTo('/' + link);
       var store = {
          restaurant : this.state.restaurant.name,
          address    : this.state.restaurant.formatted_address,
-         zip        : this.state.restaurant.address_components[5],
+         zip        : this.state.restaurant.address_components[5].long_name,
          phone      : this.state.restaurant.formatted_phone_number,
-         rating     : this.state.restaurant.rating,
+         resRating  : this.state.restaurant.rating,
          dishName   : document.getElementById('dish').value,
          dishRating : this.foodRate,
          dishPrice  : this.priceRate,
-         imgUrl     : this.state.dataUrl
+         imgUrl     : this.state.dataUrl,
+         category   : document.getElementById('category').value
       };
-
+console.log(store);
        $.ajax({
            url: "/insertdish",
            type: "POST",
            data: store,
            success: function(data) {
-               // do stuff
                console.log(data);
            }.bind(this),
            error: function(xhr, status, err) {
-               // do stuff
                console.log(xhr, status, err);
            }.bind(this)
        });
-       return false;
    },
 
    onChange: function(e){
@@ -176,18 +177,18 @@ var Entry = React.createClass({
 
              <div className="form-group">
               <label>Price Rating</label>
-              <div className="rating" id="rating-fontawesome-star"></div>
+              <div></div>
                  <Rating empty="glyphicon glyphicon-usd usd" full="glyphicon glyphicon-usd green usd" start={0} stop={4} step={1} onChange={this.priceRate}/>
                  <span className="popup"></span>
              </div>
 
              <div className="form-group">
               <label>Rate Your Foodie!</label>
-              <div className="rating" id="rating-fontawesome-star"></div>
+              <div></div>
                  <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.foodRate}/>
              </div>
 
-               <button className="btn btn-warning form-control" onClick={this.handleClick}>Share My Thoughts!</button>
+               <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}>Share My Food!</button>
 
            </div>
         </div>

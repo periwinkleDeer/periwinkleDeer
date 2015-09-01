@@ -54,6 +54,10 @@ FORMS
   position: absolute;
 }
 
+.help-block {
+   text-align: center;
+}
+
 /***********************
 
 MAIN
