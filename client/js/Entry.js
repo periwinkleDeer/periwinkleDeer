@@ -1,4 +1,6 @@
 var Rating = require('react-rating');
+var StarRating = require('react-star-rating');
+var router = require('./App');
 
 function resize(file, maxWidth, maxHeight, fn){
     var reader = new FileReader();
@@ -43,9 +45,14 @@ function resizeImage(image, maxWidth, maxHeight, quality){
 
 var Entry = React.createClass({
    getInitialState: function(){
+     contextTypes: {
+       router: React.PropTypes.func
+     }
        return {};
-   },
+     },
 
+
+ 
    componentDidMount: function(){
       var self = this;
       var input = document.getElementById('restaurant');
@@ -64,6 +71,12 @@ var Entry = React.createClass({
         });
         console.log(self.state.restaurant);
       });
+
+      FB.getLoginStatus(function(response){
+        if (response.status !== 'connected') {
+          self.context.router.transitionTo('/login');
+        }
+      })
    },
 
    handleSubmit: function(){
