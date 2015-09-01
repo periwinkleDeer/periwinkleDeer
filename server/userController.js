@@ -1,10 +1,48 @@
 var db = require('./db');
 
-module.exports = {
-  findUser: function(fb_id) {
-    return db.User.find({where: {fb_id: fb_id}})
-  }, 
 
+var rateDish = function(UserId, DishId, DishRating) {
+  //updates ratings table
+  db.Rating.findOne({
+    UserId: UserId, DishId: DishId
+  })
+  .then(function(dishRating) {
+    dishRating.updateAttributes({rating: DishRating});
+  }).then(function() {
+    return;
+  });
+};
+  //updates dishes table
+var updateDish = function(DishId, DishRating) {
+  db.Dish.findOne({id: DishId})
+  .then(function(dish) {
+    dish.updateAttributes({
+      rating: (dish.get('rating') * dish.get('num_ratings') + DishRating)/(dish.get('num_ratings') + 1)
+    });
+    dish.increment('num_ratings');
+  }).then(function() {
+    return;
+  });
+}; 
+
+var deleteDish = function(UserId, DishId) {
+  db.Rating.findOne({
+    UserId: UserId,
+    DishId: DishId
+  })
+  .then(function(dishRating) {
+    dishRating.destroy()
+    .then(function() {
+      return;
+    })
+  });
+};
+
+var findUser = function(fb_id) {
+  return db.User.find({where: {fb_id: fb_id}})
+}; 
+
+module.exports = {
   findUnrated: function(req, res) {
     db.User.findOrCreate({where: {fb_id: req.query.id}})
     .then(function(user) {
@@ -16,7 +54,7 @@ module.exports = {
   },
 
   selectingDishes: function(req,res) {
-    this.findUser(req.body.id)
+    findUser(req.body.id)
     .then(function(user) {
       var storage = [];
       for (var i = 0; i < req.body.dishes; i++) {
@@ -25,48 +63,25 @@ module.exports = {
       db.Rating.bulkCreate(storage);
     });
   },
+
   ratings: function(req, res) {
-    res.send(req.body)
-  },
-
-  rateDish: function(req, res) {
-    //updates ratings table
-    this.findUser(req.body.id)
+    console.log(req.query)
+    findUser(req.query.id)
     .then(function(user) {
-      db.Rating.findOne({
-        UserId: user.id, DishId: req.body.dish
+      req.query.dishes.forEach(function(dish) {
+        if (dish.rating === -1) {
+          deleteDish(user.id, dish.id);
+        } else {
+          rateDish(user.id, dish.id, dish.rating)
+          updateDish(dish.id, dish.rating);
+        }
       })
-      .then(function(dishRating) {
-        dishRating.updateAttributes({rating: req.body.rating});
-      })
-    })
-
-    //updates dishes table
-    db.Dish.findOne({id: req.body.dish})
-    .then(function(dish) {
-      dish.updateAttributes({
-        rating: (dish.get('rating') * dish.get('num_ratings') + req.body.rating)/(dish.get('num_ratings') + 1)
-      });
-      dish.increment('num_ratings');
-    });
-    res.send("Post successful");
-  }, 
-
-  deleteDish: function(req, res) {
-    this.findUser(req.body.id)
-    .then(function(user) {
-      db.Rating.findOne({
-        UserId: user.id,
-        DishId: req.body.dish
-      })
-      .then(function(dishRating) {
-        dishRating.destroy()
-        .then(function() {
-          res.send("Deleted");
-        })
-      })
+      
+    }).then(function() {
+      res.send(req.query)
     })
   }
+
  };
 
 //Option 2

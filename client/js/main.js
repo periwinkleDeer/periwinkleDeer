@@ -18,14 +18,11 @@ var Main = React.createClass({
         type: "GET",
         data: {id: self.props.query.id},
         success: function(data) {
-          console.log(data, 'posting');
           var dishes = [
             {'id': 1, 'name': 'Sisig', 'rating': 4},
             {'id': 2, 'name': 'Ravioli', 'rating': 2},
             {'id': 3, 'name': 'Deep Dish Pizza', 'rating': 3}
           ];
-
-          console.log(dishes);
 
           self.setState({dishes: 
             dishes.map(function(dish) {
@@ -58,16 +55,20 @@ var Main = React.createClass({
     this.ratings[dish.id] = value;
   }, 
   handleSubmit: function() {
-    var query = {id: this.props.query.id, ratings: this.ratings}
+    var self = this;
+    var query = {id: this.props.query.id};
+    query.dishes = [];
+    for (var prop in this.ratings) {
+      query.dishes.push({id: prop, rating: this.ratings[prop]})
+    }
     console.log(query)
     $.ajax({
-      method: 'POST',
+      method: 'GET',
       url: '/rate',
-      contentType: 'application/json',
-      data: JSON.stringify(query),
+      data: query,
       success: function(data) {
         console.log('yay!', data);
-        self.context.router.transitionTo('/main');
+        self.componentDidMount();
       },
       error: function(err) {
         console.log(err);
@@ -76,7 +77,6 @@ var Main = React.createClass({
   },
 
   handleClick: function(link) {
-    console.log("btn click", this);
     this.context.router.transitionTo('/' + link);
   },
   render: function() {
