@@ -27,3 +27,15 @@ body {
   width: 100%;
   border-radius: 5px;
 }
+
+.orange {
+   color: #ec971f;
+}
+
+.green {
+   color: #5cd65c;
+}
+
+.star, .usd{
+   font-size: 23px;
+}
