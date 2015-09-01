@@ -10,7 +10,7 @@ var streamify = require('gulp-streamify');
 var path = {
   HTML: 'client/index.html',
   CSS: 'client/style.css',
-  ASSETS: 'client/assets/*.jpg',
+  ASSETS: ['client/assets/*.jpg', 'client/assets/*.png'],
   MINIFIED_OUT: 'build.min.js',
   OUT: 'build.js',
   DEST: 'dist',

@@ -46,23 +46,11 @@ var App = React.createClass({
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       // Logged into your app and Facebook.
-      this.context.router.transitionTo('/main');
+      this.context.router.transitionTo('/main', null, {id: FB.getUserID()});
       this.testAPI();
 
-      var user = {};
-      user.id = response.authResponse.userID;
 
-      $.ajax({
-        url: "/unrated",
-        type: "GET",
-        data: user,
-        success: function(data) {
-          console.log(data, 'posting');
-        },
-        error: function(err) {
-          console.log(err)
-        }
-      })
+      
 
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
@@ -74,12 +62,6 @@ var App = React.createClass({
       // document.getElementById('status').innerHTML = 'Please log ' +
       // 'into Facebook.';
     }
-  },
-
-  logOut: function() {
-    FB.logout(function(response) {
-        console.log(response);
-      })
   },
 
   render: function () {

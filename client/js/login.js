@@ -11,7 +11,7 @@ var Login = React.createClass({
     FB.login(function(response){
       console.log("In here",response);
       if (response.status === 'connected') {
-        self.context.router.transitionTo('/main');
+        self.context.router.transitionTo('/main', null, {id: FB.getUserID()});
       }
     })
   },
