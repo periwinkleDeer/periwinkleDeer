@@ -24,7 +24,7 @@ var Map = React.createClass({
         zoom: this.state.initialZoom
     };
 
-    var map = new google.maps.Map(this.getDOMNode().children[1], mapOptions);
+    var map = new google.maps.Map(this.getDOMNode().children[0].children[1], mapOptions);
 
     var geocoder = new google.maps.Geocoder();
     //convert the address into a marker on the map
@@ -67,19 +67,21 @@ var Map = React.createClass({
   render: function () {
     console.log("rendering")
       return (
-        <div>
-          <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-            <div className="form-group">
-              <div className="btn-lg btn-block mapgreeting">Great Choices, Here They Are On A Map!
+        <div> 
+          <div className="mapdiv">
+            <div>
+              <div className="form-group">
+                <div className="btn-lg btn-block mapgreeting">Great Choices, Here They Are On A Map!
+                </div>
               </div>
             </div>
-          </div>
-          <div className='map-gic'></div>
-          <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-            <div className="form-group">
-              <button type="button" className="btn btn-warning btn-lg btn-block mapbutton" onClick={this.handleClick.bind(this, "main")}>Try Again?</button>
+            <div className="map-google"></div>
+            <div>
+              <div className="form-group">
+                <button type="button" className="btn btn-warning btn-lg btn-block mapbutton" onClick={this.handleClick.bind(this, "main")}>Try Again?</button>
+              </div>
             </div>
-          </div>
+          </div>   
         </div>
       );
   }
