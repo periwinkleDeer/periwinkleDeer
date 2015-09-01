@@ -161,8 +161,8 @@ var Entry = React.createClass({
              </div>
 
              <div className="form-group">
-                 <label for="exampleInputFile">Upload Picture</label>
-                 <input style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={this.onChange}/>
+                 <label>Upload Picture</label>
+                 <input style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.onChange }/>
                  <p className="help-block">{ image }</p>
              </div>           
 
