@@ -77,7 +77,7 @@ var Map = React.createClass({
           <div className='map-gic'></div>
           <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
             <div className="form-group">
-              <button type="button" className="btn btn-warning btn-lg btn-block mapbutton" onClick={this.handleClick.bind(this, "options")}>Try Again?</button>
+              <button type="button" className="btn btn-warning btn-lg btn-block mapbutton" onClick={this.handleClick.bind(this, "main")}>Try Again?</button>
             </div>
           </div>
         </div>
