@@ -29,6 +29,7 @@
     "q": "^1.4.1",
     "react": "^0.13.3",
     "react-rating": "0.0.15",
+    "react-slick": "^0.7.0",
     "sequelize": "^3.6.0"
   },
   "devDependencies": {

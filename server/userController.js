@@ -54,13 +54,16 @@ module.exports = {
   },
 
   selectingDishes: function(req,res) {
-    findUser(req.body.id)
+    console.log(req.query);
+    findUser(req.query.id)
     .then(function(user) {
       var storage = [];
-      for (var i = 0; i < req.body.dishes; i++) {
-        storage.push({UserId: user.id, DishId: req.body.dishes[i].id});
+      for (var i = 0; i < req.query.dishes; i++) {
+        storage.push({UserId: user.id, DishId: req.query.dishes[i].id});
       }
       db.Rating.bulkCreate(storage);
+    }).then(function() {
+      res.send(req.query);
     });
   },
 

@@ -9,6 +9,7 @@ var Main = require('./Main');
 var Entry = require('./Entry');
 var Parameters = require('./Parameters');
 var Map = require('./Map');
+var Display = require('./Display');
 var fbid = require('../fbid');
 
 
@@ -85,6 +86,7 @@ var App = React.createClass({
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
       js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=" + fbid.fbid;
+      fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
     window.fbAsyncInit = function() {
@@ -124,6 +126,7 @@ var routes = (
     <Route name="entry" handler={Entry}/>
     <Route name="parameters" handler={Parameters} />
     <Route name="map" handler={Map} />
+    <Route name="display" handler={Display}/>
     <DefaultRoute handler={Login}/>
   </Route>
 );
