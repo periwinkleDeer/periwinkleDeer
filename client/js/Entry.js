@@ -99,10 +99,10 @@ var Entry = React.createClass({
 console.log(store);
        $.ajax({
            url: "/insertdish",
-           type: "POST",
+           type: "GET",
            data: store,
            success: function(data) {
-               console.log(data);
+               console.log("success!!! This is the data ==== ", data);
            }.bind(this),
            error: function(xhr, status, err) {
                console.log(xhr, status, err);
@@ -190,7 +190,8 @@ console.log(store);
                  <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.foodRate}/>
              </div>
 
-               <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}>Share My Food!</button>
+      //change "entry" back to "main"
+               <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "entry")}>Share My Food!</button>
 
            </div>
         </div>
@@ -213,3 +214,4 @@ var Test = React.createClass({
 
 module.exports = Entry;
 module.exports = Test;
+

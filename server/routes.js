@@ -10,7 +10,9 @@ module.exports = function(app) {
   //when clicking on an individual item
   // app.get('/dish', food.getFood);
   //when adding a dish to DB
-  app.post('/insertdish', food.insertDish); 
+
+  app.get('/insertdish', food.insertDish);
+
 
 //for specific users
   app.get('/unrated', user.findUnrated);
