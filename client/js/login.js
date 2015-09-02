@@ -6,7 +6,7 @@ var Login = React.createClass({
     router: React.PropTypes.func
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     localStorage.setItem('currentRoute', '/login');
   },
 
@@ -32,8 +32,8 @@ var Login = React.createClass({
   render: function(){
     return (
       <div className="container">
-        <div className="panel col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-            <button type="button" className="btn btn-warning btn-lg btn-block" onClick={this.login}><img className="img-responsive" src={"../assets/facebooklogo.png"} />Login using Facebook</button>
+        <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+            <button type="button" className="btn btn-warning btn-lg btn-block" onClick={this.login}><img className="fb-logo" src={"../assets/facebooklogo.png"} />Login using Facebook</button>
         </div>
       </div>
     )
