@@ -107,13 +107,16 @@ var Display = React.createClass({
     for (var category in this.choices) {
       dishIds.push(this.choices[category].id)
     }
-    console.log(destinations);[]
+    console.log(dishIds);
     $.ajax({
       method: 'GET',
       url: '/selecting',
       data: {id: this.props.query.id, dishes: dishIds},
       success: function(data) {
-        self.context.router.transitionTo('/map', null, {dishes: dishIds});
+        self.context.router.transitionTo('/map', null, {
+          id: self.props.query.id,
+          dishes: dishIds
+        });
       }
     })
   },

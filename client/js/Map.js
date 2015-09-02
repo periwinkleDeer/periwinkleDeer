@@ -2,9 +2,6 @@ var fb = require('./login');
 var router = require('./App');
 
 // var locations = this.props.query.locations
-var restaurants = [{dishId: 1}, {dishId: 2}, {dishId: 3}];
-var locations = [];
-
 
 var Map = React.createClass({
   contextTypes: {
@@ -16,41 +13,42 @@ var Map = React.createClass({
       initialZoom: 12,
       mapCenterLat: 37.783,
       mapCenterLng: 122.416,
+      locations: []
     };
   },
 
   componentDidMount: function (rootNode) {
-<<<<<<< HEAD
     var self = this;
+    console.log(this.props.query);
+    var restaurants = this.props.query.dishes;
+    console.log(restaurants);
     if (typeof(FB) !== 'undefined' && FB !== null) {
       FB.getLoginStatus(function(response){
-        console.log("map.js", response)
+        // console.log("map.js", response)
         if (response.status !== 'connected') {
           self.context.router.transitionTo('/login');
         }
       });
     }
-    
-=======
-    // FB.getLoginStatus(function(response){
-    //   if (response.status !== 'connected') {
-    //     self.context.router.transitionTo('/login');
-    //   }
-    // });
-    //using dishIds in restaurants ask the DB for these dishes
+    // using dishIds in restaurants, ask the DB for these dishes
     $.ajax({
        url: "/get3dishes",
        type: "GET",
        data: {restaurants: restaurants},
        success: function(data) {
            console.log("success!!! This is the data ==== ", data);
+           self.setState({locations: data}); 
+           //set the 3 map markers here
+           self.state.locations.forEach(function(loc){
+             // console.log("loc.Restaurant ==== ", loc.Restaurant);
+             geocodeAddress(geocoder, map, loc.Restaurant.location);
+           });   
        }.bind(this),
        error: function(xhr, status, err) {
            console.log(xhr, status, err);
        }.bind(this)
     });
     //load the google map
->>>>>>> create get3Dishes
     localStorage.setItem('currentRoute', '/map');
     var mapOptions = {
         center: this.mapCenterLatLng(),
@@ -62,7 +60,7 @@ var Map = React.createClass({
     var geocoder = new google.maps.Geocoder();
     //convert the address into a marker on the map
     var geocodeAddress = function (geocoder, resultsMap, address) {
-      console.log("geocoding address")
+      // console.log("geocoding address")
       geocoder.geocode({'address': address}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           resultsMap.setCenter(results[0].geometry.location);
@@ -82,23 +80,19 @@ var Map = React.createClass({
         }
       });
     };
-    //set the 3 map markers here
-    locations.forEach(function(loc){
-      geocodeAddress(geocoder, map, loc);
-    });   
-  this.setState({map: map});
+    this.setState({map: map});
+
   },
   mapCenterLatLng: function () {
-    console.log("this.state = ",this.state);
       var props = this.state;
       return new google.maps.LatLng(props.mapCenterLat, props.mapCenterLng);
   },
   handleClick: function(link) {
     console.log("btn click", this);
-    this.context.router.transitionTo('/' + link);
+    // this.context.router.transitionTo('/' + link);
+    this.context.router.transitionTo('/' + link, null, {id: this.props.query.id});
   },
   render: function () {
-    console.log("rendering")
       return (
         <div> 
           <div className="mapdiv">

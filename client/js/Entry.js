@@ -56,7 +56,6 @@ var Entry = React.createClass({
  
    componentDidMount: function(){
       localStorage.setItem('currentRoute', '/entry');
-
       var self = this;
       var input = document.getElementById('restaurant');
       var options = {
@@ -92,7 +91,8 @@ var Entry = React.createClass({
 
    handleSubmit: function(link){
       console.log(link);
-      this.context.router.transitionTo('/' + link);
+      var self= this;
+      this.context.router.transitionTo('/' + link, null, {id: self.props.query.id});
       var store = {
          restaurant : this.state.restaurant.name,
          address    : this.state.restaurant.formatted_address,
@@ -122,8 +122,8 @@ var Entry = React.createClass({
    onChange: function(e){
        var files = e.target.files;
        var self = this;
-       var maxWidth = this.props.maxWidth;
-       var maxHeight = this.props.maxHeight;
+       var maxWidth = 250;
+       var maxHeight = 250;
        resize(files[0], maxWidth, maxHeight, function (resizedDataUrl) {
            self.setState({ dataUrl: resizedDataUrl });
        });
@@ -207,19 +207,4 @@ var Entry = React.createClass({
    }
 });
 
-var Test = React.createClass({
-
-    onChange: function(file){
-        console.log('done', file);
-    },
-
-    render: function(){
-        return <div>
-            <Entry maxHeight={250} maxWidth={250} onChange={ this.onChange } />
-        </div>
-    }
-});
-
 module.exports = Entry;
-module.exports = Test;
-

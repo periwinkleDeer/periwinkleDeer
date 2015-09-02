@@ -49,8 +49,6 @@ Restaurant.hasMany(Dish);
 
 sequelize.sync();
 
-
-
 exports.User = User;
 exports.Rating = Rating;
 exports.Dish = Dish;
