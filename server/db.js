@@ -24,7 +24,8 @@ var Dish = sequelize.define('Dish', {
   category: Sequelize.STRING,
   price_rating: Sequelize.STRING,
   rating: Sequelize.STRING,
-  num_ratings: Sequelize.INTEGER
+  num_ratings: Sequelize.INTEGER,
+  zip: Sequelize.STRING
 });
 
 var Restaurant = sequelize.define('Restaurant', {
@@ -44,15 +45,11 @@ Rating.belongsTo(Dish);
 Dish.belongsTo(Restaurant);
 Restaurant.hasMany(Dish);
 
-User.sync();
-Dish.sync();
-Restaurant.sync();
-Rating.sync();
+// sequelize.sync({force: true});
 
-// User.sync({force: true});
-// Restaurant.sync({force: true});
-// Dish.sync({force: true});
-// Rating.sync({force: true});
+sequelize.sync();
+
+
 
 exports.User = User;
 exports.Rating = Rating;

@@ -18,7 +18,7 @@ var Main = React.createClass({
         type: "GET",
         data: {id: self.props.query.id},
         success: function(data) {
-          console.log(data, 'posting');
+          console.log("DATA FROM UNRATED", data)
           var dishes = [
           {'id': 1, 'name': 'Sisig', 'rating': 4},
           {'id': 2, 'name': 'Ravioli', 'rating': 2},
@@ -79,7 +79,7 @@ var Main = React.createClass({
   },
 
   handleClick: function(link) {
-    this.context.router.transitionTo('/' + link);
+    this.context.router.transitionTo('/' + link, null, {id: this.props.query.id});
   },
   render: function() {
       var self = this;

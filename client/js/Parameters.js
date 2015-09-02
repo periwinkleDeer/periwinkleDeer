@@ -45,21 +45,10 @@ var Parameters = React.createClass({
 
   handleClick: function() {
     var self = this;
-    $.ajax({
-      url: '/dishes',
-      method: 'GET',
-      data: {
-        zip: document.getElementById('neighborhood').value,
-        price: self.value
-      },
-      success: function(data) {
-        console.log(data);
-        console.log('yay!');
-        self.context.router.transitionTo('/display', null, {choices: data});
-      },
-      error: function(err) {
-        console.log(err);
-      }
+    this.context.router.transitionTo('/display', null, {
+      id: this.props.query.id,
+      zip: document.getElementById('neighborhood').value,
+      price: this.value
     });
   },
 
@@ -75,8 +64,9 @@ var Parameters = React.createClass({
   },
 
   render: function(){
-    var neighborhoods = this.state.neighborhoods.map(function(neighborhood, zip) {
-                return <option key={zip} value={zip}>{neighborhood}</option>;
+    var neighborhoods = this.state.neighborhoods.map(function(neighborhood) {
+        var zip = Object.keys(neighborhood)[0];               
+        return <option key={zip} value={zip}>{neighborhood}</option>;
       }
     );
     return (
