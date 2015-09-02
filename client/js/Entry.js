@@ -198,14 +198,9 @@ console.log(store);
                  <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.foodRate}/>
              </div>
 
-<<<<<<< HEAD
-               <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "entry")}>Share My Food!</button>
-               <button className="btn btn-warning form-control" onClick={this.facebookShare.bind(this, "entry")}>TESTING FB SHARE!</button>
-=======
-      //change "entry" back to "main"
                <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}>Share My Food!</button>
+               <button className="btn btn-warning form-control" onClick={this.facebookShare.bind(this, "entry")}>TESTING FB SHARE!</button>
 
->>>>>>> Fix queries
            </div>
         </div>
        )
