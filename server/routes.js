@@ -7,9 +7,8 @@ module.exports = function(app) {
 //food related routes
   //get all dishes for appetizer, maincourse & dessert
   app.get('/dishes', food.getDishList);
-  //when clicking on an individual item
-  // app.get('/dish', food.getFood);
-  //when adding a dish to DB
+  app.get('/get3dishes', food.get3Dishes);
+
 
   app.get('/insertdish', food.insertDish);
 

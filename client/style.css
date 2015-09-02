@@ -87,6 +87,8 @@ MAP
 
 .map-google {
   position: relative;
+  height: 300px;
+  width: 300px;
   margin-top: 20px;
   border: 7px solid rgb(127, 0, 0);
   border: 7px solid rgba(255, 255, 255, .8);
@@ -94,14 +96,6 @@ MAP
   background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
   height: 300px;
   width: 300px;
-}
-
-.map-gic {
-  margin-top:20px;
-  border-style: solid;
-  border-color: white;
-  border-width: 7px;
-  margin: 0 auto;
 }
 
 .mapbutton {

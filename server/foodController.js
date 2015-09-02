@@ -20,7 +20,31 @@ module.exports = {
     });
   },
 
-  // TODO add data to restInfo from Google Places API
+  get3Dishes: function(req, res){
+    //this is an array of 3 dishIds
+    console.log("=============req.query============", req.query);
+    var parsedDishes = [];
+    req.query.restaurants.forEach(function(dish){
+      for(var key in dish){
+        parsedDishes.push(parseInt(dish[key]));
+      }
+    });
+    console.log("parsedDishes==============", parsedDishes);
+
+    db.Dish.findAll({where: {
+      id: {$in: parsedDishes}
+    },
+      include: [{
+        model: db.Restaurant
+      }]
+    })
+    .then(function(results){
+      console.log("get3Dishes results ===========", results);
+      res.send(results);
+    });
+    
+  },
+  
   insertDish: function(req, res){
     // console.log("req.query === ", req.query);
 
@@ -31,7 +55,7 @@ module.exports = {
       zip: req.query.zip
       }})
       .then(function(restaurant) {
-        // console.log("find Restaurant ===", restaurant);
+        console.log("find Restaurant ===", restaurant);
         if(restaurant) {
           restaurant.updateAttributes({
             rating: req.query.resRating
@@ -39,7 +63,7 @@ module.exports = {
           .then(function(restaurant){
             // console.log("this is being passed to Dish.find === ", results);
             db.Dish.find({where: {
-              name: req.query.dishName,
+              name: {$iLike: req.query.dishName},
               RestaurantId: restaurant.dataValues.id
             }})
             .then(function(results){
