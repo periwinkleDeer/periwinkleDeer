@@ -2,7 +2,8 @@ var fb = require('./login');
 var router = require('./App');
 
 // var locations = this.props.query.locations
-var locations = ['944 Market St, San Francisco, CA', '1400 Market St, San Francisco, CA', '844 Market St, San Francisco, CA'];
+var restaurants = [{dishId: 1}, {dishId: 2}, {dishId: 3}];
+var locations = [];
 
 
 var Map = React.createClass({
@@ -19,6 +20,7 @@ var Map = React.createClass({
   },
 
   componentDidMount: function (rootNode) {
+<<<<<<< HEAD
     var self = this;
     if (typeof(FB) !== 'undefined' && FB !== null) {
       FB.getLoginStatus(function(response){
@@ -29,6 +31,26 @@ var Map = React.createClass({
       });
     }
     
+=======
+    // FB.getLoginStatus(function(response){
+    //   if (response.status !== 'connected') {
+    //     self.context.router.transitionTo('/login');
+    //   }
+    // });
+    //using dishIds in restaurants ask the DB for these dishes
+    $.ajax({
+       url: "/get3dishes",
+       type: "GET",
+       data: {restaurants: restaurants},
+       success: function(data) {
+           console.log("success!!! This is the data ==== ", data);
+       }.bind(this),
+       error: function(xhr, status, err) {
+           console.log(xhr, status, err);
+       }.bind(this)
+    });
+    //load the google map
+>>>>>>> create get3Dishes
     localStorage.setItem('currentRoute', '/map');
     var mapOptions = {
         center: this.mapCenterLatLng(),

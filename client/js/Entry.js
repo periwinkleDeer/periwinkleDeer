@@ -105,18 +105,18 @@ var Entry = React.createClass({
          imgUrl     : this.state.dataUrl,
          category   : document.getElementById('category').value
       };
-console.log(store);
-       $.ajax({
-           url: "/insertdish",
-           type: "GET",
-           data: store,
-           success: function(data) {
-               console.log("success!!! This is the data ==== ", data);
-           }.bind(this),
-           error: function(xhr, status, err) {
-               console.log(xhr, status, err);
-           }.bind(this)
-       });
+      console.log(store);
+      $.ajax({
+         url: "/insertdish",
+         type: "GET",
+         data: store,
+         success: function(data) {
+             console.log("success!!! This is the data ==== ", data);
+         }.bind(this),
+         error: function(xhr, status, err) {
+             console.log(xhr, status, err);
+         }.bind(this)
+      });
    },
 
    onChange: function(e){
