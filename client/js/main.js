@@ -11,26 +11,27 @@ var Main = React.createClass({
     return {dishes: 'Loading...'}
   },
   componentDidMount: function() {
-    this.ratings = {};
     var self = this;
     $.ajax({
         url: "/unrated",
         type: "GET",
         data: {id: self.props.query.id},
         success: function(data) {
+          console.log(data, 'posting');
           var dishes = [
-            {'id': 1, 'name': 'Sisig', 'rating': 4},
-            {'id': 2, 'name': 'Ravioli', 'rating': 2},
-            {'id': 3, 'name': 'Deep Dish Pizza', 'rating': 3}
+            {'name': 'Sisig', 'rating': 4},
+            {'name': 'Ravioli', 'rating': 2},
+            {'name': 'Deep Dish Pizza', 'rating': 3}
           ];
+
+          console.log(dishes);
 
           self.setState({dishes: 
             dishes.map(function(dish) {
               return (
               <div className="card">
                 <div>{dish.name}</div>
-                <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={self.foodRate.bind(null, dish)}/>
-                <span id={dish.id} className="glyphicon glyphicon-remove remove" onClick={self.handleRemove.bind(null, dish)}></span>
+                <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={self.foodRate}/>
               </div>
                 );
             })
@@ -42,56 +43,23 @@ var Main = React.createClass({
       })
 
     FB.getLoginStatus(function(response){
+      console.log(response)
       if (response.status !== 'connected') {
         self.context.router.transitionTo('/login');
       }
     })
   },
-  handleRemove: function(dish) { 
-    $('#' + dish.id).parent().hide('slow');
-    this.ratings[dish.id] = -1;
-  },
-  foodRate: function(dish, value) {
-    this.ratings[dish.id] = value;
-  }, 
-  handleSubmit: function() {
-    var self = this;
-    var query = {id: this.props.query.id};
-    query.dishes = [];
-    for (var prop in this.ratings) {
-      query.dishes.push({id: prop, rating: this.ratings[prop]})
-    }
-    console.log(query)
-    $.ajax({
-      method: 'GET',
-      url: '/rate',
-      data: query,
-      success: function(data) {
-        console.log('yay!', data);
-        self.componentDidMount();
-      },
-      error: function(err) {
-        console.log(err);
-      }
-    });
+  foodRate: function(value) {
+    console.log(value);
   },
 
+
   handleClick: function(link) {
+    console.log("btn click", this);
     this.context.router.transitionTo('/' + link);
   },
   render: function() {
     var self = this;
-    var submit;
-    if (this.state.dishes.length) {
-      submit = 
-        <div className="center-block">
-          <button className="center-block btn btn-warning" onClick={this.handleSubmit}>
-            Submit Ratings
-          </button>
-        </div>;
-    } else {
-      submit = '';
-    }
     return (
       <div className="container">
         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
@@ -102,7 +70,6 @@ var Main = React.createClass({
           <div>
             {this.state.dishes}
           </div>
-          {submit}
         </div>
       </div>
     );
