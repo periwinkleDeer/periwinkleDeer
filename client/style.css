@@ -92,6 +92,8 @@ MAP
   border: 7px solid rgba(255, 255, 255, .8);
   -webkit-background-clip: padding-box; /* for Safari */
   background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+  height: 300px;
+  width: 300px;
 }
 
 .map-gic {
@@ -100,8 +102,6 @@ MAP
   border-color: white;
   border-width: 7px;
   margin: 0 auto;
-  height: 300px;
-  width: 300px;
 }
 
 .mapbutton {
@@ -140,3 +140,15 @@ DISPLAY
   box-sizing: content-box;
   border: 3px solid yellow;
 }
+
+/***********************
+
+Login
+
+***********************/
+
+.fb-logo {
+  max-width: 20%;
+}
+
+

@@ -1,5 +1,6 @@
 var Rating = require('react-rating');
 var router = require('./App');
+var fbid = require('../fbid');
 
 function resize(file, maxWidth, maxHeight, fn){
     var reader = new FileReader();
@@ -82,6 +83,13 @@ var Entry = React.createClass({
       });
    },
 
+   facebookShare: function() {
+      FB.ui({
+        method: 'share',
+        href: 'http://www.yahoo.com'
+      }, function(response){});
+   },
+
    handleSubmit: function(link){
       console.log(link);
       this.context.router.transitionTo('/' + link);
@@ -152,7 +160,6 @@ console.log(store);
        return (
         <div className="container">
            <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-
              <div className="form-group">
               <label>Restaurant</label>
                <input type="text" className="form-control" id="restaurant" placeholder="Where did you eat?"/>
@@ -191,9 +198,8 @@ console.log(store);
                  <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.foodRate}/>
              </div>
 
-      //change "entry" back to "main"
                <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "entry")}>Share My Food!</button>
-
+               <button className="btn btn-warning form-control" onClick={this.facebookShare.bind(this, "entry")}>TESTING FB SHARE!</button>
            </div>
         </div>
        )
