@@ -49,6 +49,11 @@ Restaurant.sync();
 Dish.sync();
 Rating.sync();
 
+// User.sync({force: true});
+// Restaurant.sync({force: true});
+// Dish.sync({force: true});
+// Rating.sync({force: true});
+
 exports.User = User;
 exports.Rating = Rating;
 exports.Dish = Dish;

@@ -123,3 +123,20 @@ MAP
   height:auto;
 }
 
+/***********************
+
+DISPLAY
+
+***********************/
+
+.center div {
+  margin: 0 auto;
+  text-align: center;
+  background: #f66;
+  height: 100px;
+}
+
+.highlighted {
+  box-sizing: content-box;
+  border: 3px solid yellow;
+}

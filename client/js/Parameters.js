@@ -55,7 +55,7 @@ var Parameters = React.createClass({
       success: function(data) {
         console.log(data);
         console.log('yay!');
-        self.context.router.transitionTo(/*MAIN DISPLAY PAGE*/);
+        self.context.router.transitionTo('/display', null, {choices: data});
       },
       error: function(err) {
         console.log(err);
