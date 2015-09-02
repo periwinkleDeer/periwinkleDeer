@@ -102,7 +102,7 @@ console.log(store);
            type: "GET",
            data: store,
            success: function(data) {
-               console.log(data);
+               console.log("success!!! This is the data ==== ", data);
            }.bind(this),
            error: function(xhr, status, err) {
                console.log(xhr, status, err);

@@ -15,22 +15,22 @@ var User = sequelize.define('User', {
 });
 
 var Rating = sequelize.define('Rating', {
-  rating: Sequelize.INTEGER
+  rating: Sequelize.STRING
 });
 
 var Dish = sequelize.define('Dish', {
   name: Sequelize.STRING,
   img_url: Sequelize.TEXT,
   category: Sequelize.STRING,
-  price_rating: Sequelize.INTEGER,
-  rating: Sequelize.INTEGER,
+  price_rating: Sequelize.STRING,
+  rating: Sequelize.STRING,
   num_ratings: Sequelize.INTEGER
 });
 
 var Restaurant = sequelize.define('Restaurant', {
   name: Sequelize.STRING,
   location: Sequelize.STRING,
-  rating: Sequelize.INTEGER,
+  rating: Sequelize.STRING,
   phone: Sequelize.STRING,
   zip: Sequelize.STRING
 });
@@ -45,8 +45,8 @@ Dish.belongsTo(Restaurant);
 Restaurant.hasMany(Dish);
 
 User.sync();
-Restaurant.sync();
 Dish.sync();
+Restaurant.sync();
 Rating.sync();
 
 // User.sync({force: true});
