@@ -46,6 +46,7 @@ module.exports = {
   findUnrated: function(req, res) {
     db.User.findOrCreate({where: {fb_id: req.query.id}})
     .then(function(user) {
+      user = user[0].dataValues;
         return db.Rating.findAll({where: {UserId: user.id, rating: null}, include: [{model: db.Dish, required: true}]
         });
     }).then(function(results) {
@@ -54,23 +55,24 @@ module.exports = {
   },
 
   selectingDishes: function(req,res) {
-    console.log(req.query);
     findUser(req.query.id)
     .then(function(user) {
+      user = user.dataValues;
+      console.log(req.query.dishes)
       var storage = [];
       for (var i = 0; i < req.query.dishes; i++) {
-        storage.push({UserId: user.id, DishId: req.query.dishes[i].id});
+        storage.push({UserId: user.id, DishId: req.query.dishes[i]});
       }
       db.Rating.bulkCreate(storage);
-    }).then(function() {
+    }).then(function(results) {
       res.send(req.query);
     });
   },
 
   ratings: function(req, res) {
-    console.log(req.query)
     findUser(req.query.id)
     .then(function(user) {
+      user = user.dataValues;
       req.query.dishes.forEach(function(dish) {
         if (dish.rating === -1) {
           deleteDish(user.id, dish.id);

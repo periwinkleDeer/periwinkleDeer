@@ -132,15 +132,24 @@ DISPLAY
 .center div {
   margin: 0 auto;
   text-align: center;
-  background: #f66;
-  height: 100px;
+  background: #faa;
+  height: 200px;
+}
+
+.center div img{
+  margin: 0 auto;
+  max-height: 50%;
+  max-width: 100%;
 }
 
 .highlighted {
-  box-sizing: content-box;
   border: 3px solid yellow;
 }
 
+.display.container {
+  top: 0;
+  padding: 20px 0;
+}
 /***********************
 
 Login
@@ -150,5 +159,4 @@ Login
 .fb-logo {
   max-width: 20%;
 }
-
 

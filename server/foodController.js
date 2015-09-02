@@ -6,13 +6,15 @@ module.exports = {
     var price = req.query.price;
     var zip = req.query.zip;
 
-    db.Dish.findAll({where: {
-      price_rating: price}, 
+    db.Dish.findAll({ 
       include: [{
         model: db.Restaurant, 
-        where: {zip: zip}, 
         required: true
-      }]
+      }],
+      where: {
+        price_rating: price,
+        zip: zip
+      }
     }).then(function(results){
       res.send(results);
     });
@@ -34,14 +36,13 @@ module.exports = {
           restaurant.updateAttributes({
             rating: req.query.resRating
           })
-          .then(function(results){
+          .then(function(restaurant){
             // console.log("this is being passed to Dish.find === ", results);
             db.Dish.find({where: {
               name: req.query.dishName,
-              RestaurantId: results.dataValues.id
+              RestaurantId: restaurant.dataValues.id
             }})
             .then(function(results){
-              // console.log("results from Dish.find === ", results);
               if(!results){
                 db.Dish.create({
                   name: req.query.dishName,
@@ -49,7 +50,9 @@ module.exports = {
                   img_url: req.query.imgUrl,
                   price_rating: req.query.dishPrice,
                   rating: req.query.dishRating,
-                  num_ratings: 1
+                  num_ratings: 1,
+                  RestaurantId: restaurant.dataValues.id,
+                  zip: restaurant.dataValues.zip
                 })
                 .then(function(results){
                   res.sendStatus(201);
@@ -74,7 +77,9 @@ module.exports = {
               img_url: req.query.imgUrl,
               price_rating: req.query.dishPrice,
               rating: req.query.dishRating,
-              num_ratings: 1
+              num_ratings: 1,
+              RestaurantId: results.dataValues.id,
+              zip: results.dataValues.zip
             })
             .then(function(results){
               res.sendStatus(201);
