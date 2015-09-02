@@ -19,6 +19,12 @@ var Map = React.createClass({
   },
 
   componentDidMount: function (rootNode) {
+    FB.getLoginStatus(function(response){
+      if (response.status !== 'connected') {
+        self.context.router.transitionTo('/login');
+      }
+    });
+    
     localStorage.setItem('currentRoute', '/map');
     var mapOptions = {
         center: this.mapCenterLatLng(),

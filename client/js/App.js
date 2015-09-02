@@ -13,7 +13,6 @@ var Display = require('./Display');
 var fbid = require('../fbid');
 
 
-
 var Inbox = React.createClass({
   render: function () {
     return (
@@ -27,11 +26,15 @@ var App = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
-
-  // getInitialState: function() {
-  //   localStorage.setItem('currentRoute', )
-  //   return {};
-  // },
+  componentWillMount: function() {
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=" + fbid.fbid;
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  },
  
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
@@ -48,8 +51,6 @@ var App = React.createClass({
   statusChangeCallback: function(response) {
     console.log('statusChangeCallback');
     console.log(response);
-    // var currentRoute = localStorage.getItem('currentRoute');
-    // console.log(currentRoute)
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
@@ -57,7 +58,6 @@ var App = React.createClass({
     if (response.status === 'connected') {
       if (localStorage.getItem('currentRoute')) {
         var currentRoute = localStorage.getItem('currentRoute');
-        // this.context.router.transitionTo()
       } else {
         this.context.router.transitionTo('/main', null, {id: FB.getUserID()});
         this.testAPI();
@@ -81,13 +81,6 @@ var App = React.createClass({
   },
 
   render: function () {
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=" + fbid.fbid;
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
 
     window.fbAsyncInit = function() {
       FB.init({

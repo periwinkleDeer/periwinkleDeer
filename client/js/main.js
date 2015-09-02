@@ -18,10 +18,11 @@ var Main = React.createClass({
         type: "GET",
         data: {id: self.props.query.id},
         success: function(data) {
+          console.log(data, 'posting');
           var dishes = [
-            {'id': 1, 'name': 'Sisig', 'rating': 4},
-            {'id': 2, 'name': 'Ravioli', 'rating': 2},
-            {'id': 3, 'name': 'Deep Dish Pizza', 'rating': 3}
+          {'id': 1, 'name': 'Sisig', 'rating': 4},
+          {'id': 2, 'name': 'Ravioli', 'rating': 2},
+          {'id': 3, 'name': 'Deep Dish Pizza', 'rating': 3}
           ];
 
           self.setState({dishes: 
@@ -42,6 +43,7 @@ var Main = React.createClass({
       })
 
     FB.getLoginStatus(function(response){
+      console.log(response)
       if (response.status !== 'connected') {
         self.context.router.transitionTo('/login');
       }
@@ -80,33 +82,33 @@ var Main = React.createClass({
     this.context.router.transitionTo('/' + link);
   },
   render: function() {
-    var self = this;
-    var submit;
-    if (this.state.dishes.length) {
-      submit = 
-        <div className="center-block">
-          <button className="center-block btn btn-warning" onClick={this.handleSubmit}>
-            Submit Ratings
-          </button>
-        </div>;
-    } else {
-      submit = '';
-    }
-    return (
-      <div className="container">
-        <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-          <div className="form-group">
-            <button type="button" className="btn btn-warning btn-lg btn-block" onClick={this.handleClick.bind(this, "parameters")}>Search for Foodie!</button>
-            <button type="button" className="btn btn-warning btn-lg btn-block spacing" onClick={this.handleClick.bind(this, "entry")}>Share Foodie!</button>
+      var self = this;
+      var submit;
+      if (this.state.dishes.length) {
+        submit = 
+          <div className="center-block">
+            <button className="center-block btn btn-warning" onClick={this.handleSubmit}>
+              Submit Ratings
+            </button>
+          </div>;
+      } else {
+        submit = '';
+      }
+      return (
+        <div className="container">
+          <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+            <div className="form-group">
+              <button type="button" className="btn btn-warning btn-lg btn-block" onClick={this.handleClick.bind(this, "parameters")}>Search for Foodie!</button>
+              <button type="button" className="btn btn-warning btn-lg btn-block spacing" onClick={this.handleClick.bind(this, "entry")}>Share Foodie!</button>
+            </div>
+            <div>
+              {this.state.dishes}
+            </div>
+            {submit}
           </div>
-          <div>
-            {this.state.dishes}
-          </div>
-          {submit}
         </div>
-      </div>
-    );
-  }
+      );
+    }
 });
 
 module.exports = Main;

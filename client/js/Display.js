@@ -1,5 +1,5 @@
 var router = require('./App');
-var Slider = require('react-slick');
+// var Slider = require('react-slick');
 
 var Display = React.createClass({
   contextTypes: {

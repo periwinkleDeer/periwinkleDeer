@@ -75,6 +75,7 @@ var Entry = React.createClass({
       });
 
       FB.getLoginStatus(function(response){
+        console.log("test")
         if (response.status !== 'connected') {
           self.context.router.transitionTo('/login');
         }
