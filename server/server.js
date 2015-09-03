@@ -4,6 +4,7 @@ var cors = require('cors');
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
+//INVWNVKLJWNVKWJNVKJVNKSDJVKSDJVNKSDJVN
 
 app.set('port', (process.env.PORT || 8080));
 app.use(express.static('dist'));
