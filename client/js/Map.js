@@ -22,6 +22,9 @@ var Map = React.createClass({
     console.log(this.props.query);
     var restaurants = this.props.query.dishes;
     console.log(restaurants);
+    self.setState({info_window: new google.maps.InfoWindow({
+        content: 'loading'
+    })});
     if (typeof(FB) !== 'undefined' && FB !== null) {
       FB.getLoginStatus(function(response){
         // console.log("map.js", response)
@@ -40,8 +43,8 @@ var Map = React.createClass({
            self.setState({locations: data}); 
            //set the 3 map markers here
            self.state.locations.forEach(function(loc){
-             // console.log("loc.Restaurant ==== ", loc.Restaurant);
-             geocodeAddress(geocoder, map, loc.Restaurant.location);
+             console.log("loc.Restaurant ==== ", loc.Restaurant);
+             geocodeAddress(geocoder, map, loc.Restaurant.location, loc.Restaurant.name);
            });   
        }.bind(this),
        error: function(xhr, status, err) {
@@ -59,7 +62,7 @@ var Map = React.createClass({
 
     var geocoder = new google.maps.Geocoder();
     //convert the address into a marker on the map
-    var geocodeAddress = function (geocoder, resultsMap, address) {
+    var geocodeAddress = function (geocoder, resultsMap, address, name) {
       // console.log("geocoding address")
       geocoder.geocode({'address': address}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
@@ -68,13 +71,17 @@ var Map = React.createClass({
             map: resultsMap,
             position: results[0].geometry.location
           });
-          var contentString = "<a href='http://maps.google.com/?q=" + address + "'>"+address+"</a>"
+          var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'>"+name+"</a><br><a target='_blank' href='http://maps.google.com/?q=" + address + "'>"+'(click to go to google maps)'+"</a>"
           var infowindow = new google.maps.InfoWindow({
-              content: contentString
-            });
-          marker.addListener('click', function() {
-              infowindow.open(map, marker);
-            });
+            content: contentString
+          });
+          google.maps.event.addListener(marker, 'click', function () {                
+            self.state.info_window.setContent(contentString);
+            self.state.info_window.open(map, this);
+          });
+          // marker.addListener('click', function() {
+          //     infowindow.open(map, marker);
+          //   });
         } else {
           alert('Geocode was not successful for the following reason: ' + status);
         }
@@ -98,7 +105,7 @@ var Map = React.createClass({
           <div className="mapdiv">
             <div>
               <div className="form-group">
-                <div className="btn-lg btn-block mapgreeting">Great Choices, Here They Are On A Map!
+                <div className="btn-lg btn-block mapgreeting">Great choices! Here they are on a map!
                 </div>
               </div>
             </div>
