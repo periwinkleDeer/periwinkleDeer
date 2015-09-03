@@ -1,4 +1,4 @@
-var db = require('db');
+var pg = require('pg');
 var food = require('./foodController');
 // var server = require('./server');
 var user = require('./userController');
