@@ -4,7 +4,7 @@ var db = require('./db');
 var rateDish = function(UserId, DishId, DishRating) {
   //updates ratings table
   db.Rating.findOne({
-    UserId: UserId, DishId: DishId
+    where: {UserId: UserId, DishId: DishId}
   })
   .then(function(dishRating) {
     dishRating.updateAttributes({rating: DishRating});
@@ -17,7 +17,7 @@ var updateDish = function(DishId, DishRating) {
   db.Dish.findOne({id: DishId})
   .then(function(dish) {
     dish.updateAttributes({
-      rating: (dish.get('rating') * dish.get('num_ratings') + DishRating)/(dish.get('num_ratings') + 1)
+      rating: Math.round((parseInt(dish.get('rating')) * parseInt(dish.get('num_ratings')) + parseInt(DishRating))/(parseInt(dish.get('num_ratings')) + 1)).toString()
     });
     dish.increment('num_ratings');
   }).then(function() {
@@ -61,9 +61,8 @@ module.exports = {
       console.log(req.query.dishes)
       var storage = [];
       for (var i = 0; i < req.query.dishes; i++) {
-        storage.push({UserId: user.id, DishId: req.query.dishes[i]});
+        db.Rating.findOrCreate({where: {UserId: user.id, DishId: req.query.dishes[i]}});
       }
-      db.Rating.bulkCreate(storage);
     }).then(function(results) {
       res.send(req.query);
     });
@@ -74,7 +73,7 @@ module.exports = {
     .then(function(user) {
       user = user.dataValues;
       req.query.dishes.forEach(function(dish) {
-        if (dish.rating === -1) {
+        if (dish.rating === "-1") {
           deleteDish(user.id, dish.id);
         } else {
           rateDish(user.id, dish.id, dish.rating)
@@ -88,9 +87,3 @@ module.exports = {
   }
 
  };
-
-//Option 2
-// Dish.find({user: user, rated: false}, function(err, res) {
-//   return res;
-// });
-// }
