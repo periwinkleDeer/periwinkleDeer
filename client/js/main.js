@@ -38,7 +38,6 @@ var Main = React.createClass({
       })
 
     FB.getLoginStatus(function(response){
-      console.log(response)
       if (response.status !== 'connected') {
         self.context.router.transitionTo('/login');
       }
@@ -50,15 +49,12 @@ var Main = React.createClass({
   },
   foodRate: function(dish, value) {
     this.ratings[dish.DishId] = value;
-    console.log(dish)
   }, 
   handleSubmit: function() {
     var self = this;
     var query = {id: this.props.query.id};
     query.dishes = [];
     for (var prop in this.ratings) {
-      console.log(prop)
-      console.log(this.ratings[prop])
       query.dishes.push({id: prop, rating: this.ratings[prop]})
     }
     $.ajax({
