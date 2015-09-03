@@ -29,8 +29,11 @@ if(process.env.DATABASE_URL) {
 global.db = {
     Sequelize: Sequelize,
     sequelize: sequelize,
-    // add your other models here
-  }
+    User: User,
+    Rating: Rating,
+    Dish: Dish,
+    Restaurant: Restaurant
+  };
 
 var User = sequelize.define('User', {
   fb_id: Sequelize.STRING

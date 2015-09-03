@@ -6,7 +6,6 @@ var db = require('./db');
 var http = require('http');
 app.use(bodyParser.json());
 app.use(cors());
-//INVWNVKLJWNVKWJNVKJVNKSDJVKSDJVNKSDJVN
 
 app.set('port', (process.env.PORT || 8080));
 app.use(express.static('dist'));
