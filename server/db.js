@@ -26,15 +26,6 @@ if(process.env.DATABASE_URL) {
   });
 }
 
-global.db = {
-    Sequelize: Sequelize,
-    sequelize: sequelize,
-    User: User,
-    Rating: Rating,
-    Dish: Dish,
-    Restaurant: Restaurant
-  };
-
 var User = sequelize.define('User', {
   fb_id: Sequelize.STRING
 });
@@ -60,6 +51,16 @@ var Restaurant = sequelize.define('Restaurant', {
   phone: Sequelize.STRING,
   zip: Sequelize.STRING
 });
+
+global.db = {
+    Sequelize: Sequelize,
+    sequelize: sequelize,
+    User: User,
+    Rating: Rating,
+    Dish: Dish,
+    Restaurant: Restaurant
+  };
+
 
 User.hasMany(Rating);
 Rating.belongsTo(User);
