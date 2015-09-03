@@ -1,8 +1,7 @@
 var Sequelize = require('sequelize');
-var sequelize = null;
 
 if(process.env.DATABASE_URL) {
-  sequelize = new Sequelize(process.env.DATABASE_URL, {
+  var sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     protocol: 'postgres',
 
@@ -14,7 +13,7 @@ if(process.env.DATABASE_URL) {
   });
 
 }else{
-  sequelize = new Sequelize('foodie', 'postgres', '', {
+  var sequelize = new Sequelize('foodie', 'postgres', '', {
     host: 'localhost',
     dialect: 'postgres',
 
