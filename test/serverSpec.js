@@ -1,6 +1,5 @@
 var request = require('supertest');
 var expect = require('chai').expect;
-var db = require('./dbSpec');
 
 
 describe('loading express', function () {
