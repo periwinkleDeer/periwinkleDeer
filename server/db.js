@@ -68,7 +68,6 @@ Dish.belongsTo(Restaurant);
 Restaurant.hasMany(Dish);
 
 // sequelize.sync({force: true});
-
 // sequelize.sync();
 
 exports.User = User;
