@@ -131,23 +131,38 @@ DISPLAY
 
 ***********************/
 
-.center div {
+.center div{
   margin: 0 auto;
   text-align: center;
   background: #fff;
   height: 200px;
 }
 
-.center div p strong {
+.center div p {
+  font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
+  margin: 0;
 
+}
+
+.center span div {
+  font-size:16px;
+  height: 20px;
 }
 
 .center div img{
   margin: 0 auto;
   height: 50%;
   max-width: 100%;
+}
+
+.category {
+  color: #c33;
+}
+.restaurant-name {
+  font-size: 12px;
+  color: #777;
 }
 
 .highlighted {
@@ -160,8 +175,10 @@ DISPLAY
 }
 
 .display.container h4 {
-  margin-left: 20px;
+  text-align: center;
+  font-weight: bold;
 }
+
 /***********************
 
 Login

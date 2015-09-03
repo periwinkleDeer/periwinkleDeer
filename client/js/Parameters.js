@@ -17,7 +17,6 @@ var Parameters = React.createClass({
   },
 
   getInitialState: function() {
-    console.log("arawr")
     return {neighborhoods: [
       {"94102": "Hayes Valley | Tenderloin | North of Market"},
       {"94103": "Soma"},

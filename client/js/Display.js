@@ -18,42 +18,24 @@ var Display = React.createClass({
         price: this.props.query.price
       },
       success: function(data) {
-        console.log(data)
-        var snackdivs = [];
-        var grubdivs = [];
-        var dessertdivs = []
-        var divs = data.forEach(function(item) {
-          var rating = item.rating
-          var el = <div id={item.id} onClick={self.handleClick.bind(null, item)}>
-            <p><strong>{item.name}</strong></p>
-            <img src={item.img_url}/>
-            <p>{item.num_ratings} Reviews</p>
-            <Rating initialRate={rating} readonly="true" full="glyphicon glyphicon-star-empty star orange" empty="glyphicon glyphicon-star-empty star"/>
-          </div>;
-          if (item.category === 'Snack') {
-            snackdivs.push(el);
-          } else if (item.category === 'Grub') {
-            grubdivs.push(el);
-          } else {
-            dessertdivs.push(el);
-          }
-        });
+        var food = self.sortData(data);
         var dishes = 
           <div>
-          <h4>Snacks</h4>
+          <div className="slider-for"></div>
+          <h4 className="category">Snacks</h4>
           <div className="center">
-            {snackdivs}
+            {food.snackdivs}
           </div>
-          <h4>Grub</h4>
+          <h4 className="category">Grub</h4>
           <div className="center">
-            {grubdivs}
+            {food.grubdivs}
           </div>
-          <h4>Dessert</h4>
+          <h4 className="category">Dessert</h4>
           <div className="center">
-            {dessertdivs}
+            {food.dessertdivs}
           </div>
-          <div className="center-block">
-            <button className="btn btn-warning center-block" onClick={self.mapRoute}>Map</button>
+          <div className="col-xs-10 col-xs-offset-1">
+            <button className="form-control btn btn-warning center-block" onClick={self.mapRoute}><strong>Map</strong></button>
           </div>
           </div>;
           self.setState({dishes: dishes});
@@ -68,7 +50,6 @@ var Display = React.createClass({
   initializeSlick: function () {
     console.log("initializing");
     $('.center').slick({
-      infinite: true,
       centerPadding: '60px',
       arrows: true,
       slidesToShow: 4,
@@ -93,13 +74,48 @@ var Display = React.createClass({
       ]
     });
   },
-  handleClick: function(value){
+  sortData: function(data) {
+    var self = this;
+    var food = {};
+    food.snackdivs = [];
+    food.grubdivs = [];
+    food.dessertdivs = []
+    var divs = data.forEach(function(item) {
+      var rating = item.rating
+      var el = <div id={item.id} className="slide" onClick={self.handleClick.bind(null, item)}>
+        <p><strong>{item.name}</strong></p>
+        <p className="restaurant-name"><em>{item.Restaurant.name}</em></p>
+        <img src={item.img_url}/>
+        <p>{item.num_ratings} Reviews</p>
+        <Rating initialRate={rating} readonly="true" full="glyphicon glyphicon-star-empty star orange" empty="glyphicon glyphicon-star-empty star"/>
+      </div>;
+      if (item.category === 'Snack') {
+        food.snackdivs.push(el);
+      } else if (item.category === 'Grub') {
+        food.grubdivs.push(el);
+      } else if (item.category == 'Dessert') {
+        food.dessertdivs.push(el);
+      }
+    });
+    return food;
+  },
+  handleClick: function(value){ 
     if (this.choices.hasOwnProperty(value.category)) {
-      var previous = this.choices[value.category];
-      $('#'+previous.id).removeClass('highlighted');
+      if (value.id === this.choices[value.category].id) {
+        $('#' + value.id).removeClass('highlighted');
+        delete this.choices[value.category];
+        return;
+      } else {
+        var previous = this.choices[value.category];
+        $('#'+previous.id).removeClass('highlighted');
+        $('#'+value.id).addClass('highlighted');
+        this.choices[value.category]= value;
+        return;
+      }
+    } else {
+      $('#'+value.id).addClass('highlighted');
+        this.choices[value.category]= value;
     }
-    $('#'+value.id).addClass('highlighted');
-    this.choices[value.category]= value;
   },
   mapRoute:function(){
     var self = this;

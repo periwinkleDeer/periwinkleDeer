@@ -50,8 +50,6 @@ var App = React.createClass({
 
   // This is called with the results from from FB.getLoginStatus().
   statusChangeCallback: function(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
     // The response object is returned with a status field that lets the
     // app know the current login status of the person.
     // Full docs on the response object can be found in the documentation
@@ -82,7 +80,6 @@ var App = React.createClass({
   },
 
   render: function () {
-      console.log("App.js")
 
     window.fbAsyncInit = function() {
       FB.init({
@@ -96,7 +93,7 @@ var App = React.createClass({
       var self = this;
       FB.Event.subscribe('auth.login', function (response) {
         console.log(response,"Logged")
-        self.context.router.transitionTo('/main');
+        self.context.router.transitionTo('/main', null, {id: FB.getUserID()});
         self.statusChangeCallback(response);
       });
 
