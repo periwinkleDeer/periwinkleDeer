@@ -4,6 +4,7 @@ var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
+var NotFoundRoute = Router.NotFoundRoute;
 var Login = require('./Login');
 var Main = require('./Main');
 var Entry = require('./Entry');
@@ -81,6 +82,7 @@ var App = React.createClass({
   },
 
   render: function () {
+      console.log("App.js")
 
     window.fbAsyncInit = function() {
       FB.init({
@@ -98,11 +100,14 @@ var App = React.createClass({
         self.statusChangeCallback(response);
       });
 
+
       FB.getLoginStatus(function(response) {
         this.statusChangeCallback(response);
       }.bind(this));
     }.bind(this);
     
+    // Insert facebook status check here
+
     return (
       <div>
         {/* this is the important part */}
@@ -121,6 +126,7 @@ var routes = (
     <Route name="map" handler={Map} />
     <Route name="display" handler={Display}/>
     <DefaultRoute handler={Login}/>
+    <NotFoundRoute handler={Login} />
   </Route>
 );
 

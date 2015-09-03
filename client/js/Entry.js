@@ -82,10 +82,12 @@ var Entry = React.createClass({
       });
    },
 
-   facebookShare: function() {
+   facebookShare: function(pic) {
+      var test = {};
+      test.url = "http://www.yahoo.com"
       FB.ui({
         method: 'share',
-        href: 'http://www.yahoo.com'
+        href: test.url
       }, function(response){});
    },
 
