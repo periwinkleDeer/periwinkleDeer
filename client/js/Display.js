@@ -18,6 +18,7 @@ var Display = React.createClass({
         price: this.props.query.price
       },
       success: function(data) {
+        console.log(data)
         var snackdivs = [];
         var grubdivs = [];
         var dessertdivs = []
