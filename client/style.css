@@ -126,13 +126,19 @@ DISPLAY
 .center div {
   margin: 0 auto;
   text-align: center;
-  background: #faa;
+  background: #fff;
   height: 200px;
+}
+
+.center div p strong {
+  white-space: nowrap;
+  overflow: hidden;
+
 }
 
 .center div img{
   margin: 0 auto;
-  max-height: 50%;
+  height: 50%;
   max-width: 100%;
 }
 
