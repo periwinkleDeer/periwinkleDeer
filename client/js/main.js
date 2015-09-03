@@ -18,18 +18,13 @@ var Main = React.createClass({
         type: "GET",
         data: {id: self.props.query.id},
         success: function(data) {
-          console.log("DATA FROM UNRATED", data)
-          var dishes = [
-          {'id': 1, 'name': 'Sisig', 'rating': 4},
-          {'id': 2, 'name': 'Ravioli', 'rating': 2},
-          {'id': 3, 'name': 'Deep Dish Pizza', 'rating': 3}
-          ];
 
           self.setState({dishes: 
-            dishes.map(function(dish) {
+            data.map(function(dish) {
               return (
               <div className="card">
-                <div>{dish.name}</div>
+                <div>{dish.Dish.name}</div>
+                <img src={dish.Dish.img_url}/>
                 <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={self.foodRate.bind(null, dish)}/>
                 <span id={dish.id} className="glyphicon glyphicon-remove remove" onClick={self.handleRemove.bind(null, dish)}></span>
               </div>
@@ -43,18 +38,17 @@ var Main = React.createClass({
       })
 
     FB.getLoginStatus(function(response){
-      console.log(response)
       if (response.status !== 'connected') {
         self.context.router.transitionTo('/login');
       }
     })
   },
   handleRemove: function(dish) { 
-    $('#' + dish.id).parent().hide('slow');
-    this.ratings[dish.id] = -1;
+    $('#' + dish.id).parent().hide(400);
+    this.ratings[dish.DishId] = -1;
   },
   foodRate: function(dish, value) {
-    this.ratings[dish.id] = value;
+    this.ratings[dish.DishId] = value;
   }, 
   handleSubmit: function() {
     var self = this;
@@ -63,13 +57,11 @@ var Main = React.createClass({
     for (var prop in this.ratings) {
       query.dishes.push({id: prop, rating: this.ratings[prop]})
     }
-    console.log(query)
     $.ajax({
       method: 'GET',
       url: '/rate',
       data: query,
       success: function(data) {
-        console.log('yay!', data);
         self.componentDidMount();
       },
       error: function(err) {
@@ -95,7 +87,7 @@ var Main = React.createClass({
         submit = '';
       }
       return (
-        <div className="container">
+        <div className="container display">
           <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
             <div className="form-group">
               <button type="button" className="btn btn-warning btn-lg btn-block" onClick={this.handleClick.bind(this, "parameters")}>Search for Foodie!</button>

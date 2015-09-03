@@ -73,6 +73,10 @@ MAIN
   color: #888;
 }
 
+.card img {
+  margin: 10px 10%;
+  max-width: 80%;
+}
 .remove{
   position: absolute;
   top: 5px;
@@ -149,6 +153,10 @@ DISPLAY
 .display.container {
   top: 0;
   padding: 20px 0;
+}
+
+.display.container h4 {
+  margin-left: 20px;
 }
 /***********************
 
