@@ -43,7 +43,7 @@ var Map = React.createClass({
            self.setState({locations: data}); 
            //set the 3 map markers here
            self.state.locations.forEach(function(loc){
-             // console.log("loc.Restaurant ==== ", loc.Restaurant);
+             console.log("loc.Restaurant ==== ", loc.Restaurant);
              geocodeAddress(geocoder, map, loc.Restaurant.location, loc.Restaurant.name);
            });   
        }.bind(this),
@@ -71,7 +71,7 @@ var Map = React.createClass({
             map: resultsMap,
             position: results[0].geometry.location
           });
-          var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'>"+name+"</a>";
+          var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'>"+name+"</a><br><a target='_blank' href='http://maps.google.com/?q=" + address + "'>"+'(click to go to google maps)'+"</a>"
           var infowindow = new google.maps.InfoWindow({
             content: contentString
           });
@@ -105,7 +105,7 @@ var Map = React.createClass({
           <div className="mapdiv">
             <div>
               <div className="form-group">
-                <div className="btn-lg btn-block mapgreeting">Great Choices, Here They Are On A Map!
+                <div className="btn-lg btn-block mapgreeting">Great choices! Here they are on a map!
                 </div>
               </div>
             </div>

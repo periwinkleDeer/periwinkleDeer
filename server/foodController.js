@@ -22,14 +22,12 @@ module.exports = {
 
   get3Dishes: function(req, res){
     //this is an array of 3 dishIds
-    console.log("=============req.query============", req.query);
+    // console.log("=============req.query============", req.query);
     var parsedDishes = [];
-    req.query.restaurants.forEach(function(dish){
-      for(var key in dish){
-        parsedDishes.push(parseInt(dish[key]));
-      }
+    req.query.restaurants.forEach(function(id){
+        parsedDishes.push(parseInt(id));
     });
-    console.log("parsedDishes==============", parsedDishes);
+    // console.log("parsedDishes==============", parsedDishes);
 
     db.Dish.findAll({where: {
       id: {$in: parsedDishes}
@@ -39,7 +37,7 @@ module.exports = {
       }]
     })
     .then(function(results){
-      console.log("get3Dishes results ===========", results);
+      // console.log("get3Dishes results ===========", results);
       res.send(results);
     });
     
@@ -55,7 +53,7 @@ module.exports = {
       zip: req.query.zip
       }})
       .then(function(restaurant) {
-        console.log("find Restaurant ===", restaurant);
+        // console.log("find Restaurant ===", restaurant);
         if(restaurant) {
           restaurant.updateAttributes({
             rating: req.query.resRating
