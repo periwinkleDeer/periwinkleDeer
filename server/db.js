@@ -1,7 +1,8 @@
 var Sequelize = require('sequelize');
+var sequelize = null;
 
 if(process.env.DATABASE_URL) {
-  var sequelize = new Sequelize(process.env.DATABASE_URL, {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     protocol: 'postgres',
 
@@ -13,7 +14,7 @@ if(process.env.DATABASE_URL) {
   });
 
 }else{
-  var sequelize = new Sequelize('foodie', 'postgres', '', {
+  sequelize = new Sequelize('foodie', 'postgres', '', {
     host: 'localhost',
     dialect: 'postgres',
 
@@ -23,8 +24,13 @@ if(process.env.DATABASE_URL) {
       idle: 10000
     }
   });
-  
 }
+
+global.db = {
+    Sequelize: Sequelize,
+    sequelize: sequelize,
+    // add your other models here
+  }
 
 var User = sequelize.define('User', {
   fb_id: Sequelize.STRING
@@ -69,3 +75,4 @@ exports.User = User;
 exports.Rating = Rating;
 exports.Dish = Dish;
 exports.Restaurant = Restaurant;
+module.exports = global.db;
