@@ -92,9 +92,7 @@ var Entry = React.createClass({
    },
 
    handleSubmit: function(link){
-      console.log(link);
       var self= this;
-      this.context.router.transitionTo('/' + link, null, {id: self.props.query.id});
       var store = {
          restaurant : this.state.restaurant.name,
          address    : this.state.restaurant.formatted_address,
@@ -113,7 +111,7 @@ var Entry = React.createClass({
          type: "GET",
          data: store,
          success: function(data) {
-             console.log("success!!! This is the data ==== ", data);
+                self.context.router.transitionTo('/' + link, null, {id: self.props.query.id});
          }.bind(this),
          error: function(xhr, status, err) {
              console.log(xhr, status, err);
@@ -201,7 +199,6 @@ var Entry = React.createClass({
              </div>
 
                <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}>Share My Food!</button>
-               <button className="btn btn-warning form-control" onClick={this.facebookShare.bind(this, "entry")}>TESTING FB SHARE!</button>
 
            </div>
         </div>
