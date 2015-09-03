@@ -3,8 +3,6 @@ var sequelize = null;
 
 if(process.env.DATABASE_URL) {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
-    host: match[3],
-    port: match[4],
     dialect: 'postgres',
     protocol: 'postgres',
 
