@@ -47,34 +47,34 @@ module.exports = {
   },
   
   insertDish: function(req, res){
-    // console.log("req.query === ", req.query);
+    // console.log("req.body === ", req.body);
 
     db.Restaurant.find({where: {
-      name: req.query.restaurant,
-      location: req.query.address,
-      phone: req.query.phone,
-      zip: req.query.zip
+      name: req.body.restaurant,
+      location: req.body.address,
+      phone: req.body.phone,
+      zip: req.body.zip
       }})
       .then(function(restaurant) {
         // console.log("find Restaurant ===", restaurant);
         if(restaurant) {
           restaurant.updateAttributes({
-            rating: req.query.resRating
+            rating: req.body.resRating
           })
           .then(function(restaurant){
             // console.log("this is being passed to Dish.find === ", results);
             db.Dish.find({where: {
-              name: {$iLike: req.query.dishName},
+              name: {$iLike: req.body.dishName},
               RestaurantId: restaurant.dataValues.id
             }})
             .then(function(results){
               if(!results){
                 db.Dish.create({
-                  name: req.query.dishName,
-                  category: req.query.category,
-                  img_url: req.query.imgUrl,
-                  price_rating: req.query.dishPrice,
-                  rating: req.query.dishRating,
+                  name: req.body.dishName,
+                  category: req.body.category,
+                  img_url: req.body.imgUrl,
+                  price_rating: req.body.dishPrice,
+                  rating: req.body.dishRating,
                   num_ratings: 1,
                   RestaurantId: restaurant.dataValues.id,
                   zip: restaurant.dataValues.zip
@@ -89,19 +89,19 @@ module.exports = {
           })
         }else{
           db.Restaurant.create({
-            name: req.query.restaurant,
-            location: req.query.address,
-            rating: req.query.resRating,
-            phone: req.query.phone,
-            zip: req.query.zip
+            name: req.body.restaurant,
+            location: req.body.address,
+            rating: req.body.resRating,
+            phone: req.body.phone,
+            zip: req.body.zip
           }).then(function(results){
             // console.log("results from Restaurant.create === ", results);
             db.Dish.create({
-              name: req.query.dishName,
-              category: req.query.category,
-              img_url: req.query.imgUrl,
-              price_rating: req.query.dishPrice,
-              rating: req.query.dishRating,
+              name: req.body.dishName,
+              category: req.body.category,
+              img_url: req.body.imgUrl,
+              price_rating: req.body.dishPrice,
+              rating: req.body.dishRating,
               num_ratings: 1,
               RestaurantId: results.dataValues.id,
               zip: results.dataValues.zip

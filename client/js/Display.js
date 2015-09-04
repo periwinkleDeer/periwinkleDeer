@@ -19,6 +19,12 @@ var Display = React.createClass({
       },
       success: function(data) {
         var food = self.sortData(data);
+        for (var category in food) {
+          if (!food[category].length) {
+            console.log('hi!')
+            food[category] = <div>Sorry, No dishes found...</div>;
+          }
+        };
         var dishes = 
           <div>
           <div className="slider-for"></div>
@@ -34,7 +40,7 @@ var Display = React.createClass({
           <div className="center">
             {food.dessertdivs}
           </div>
-          <div className="col-xs-10 col-xs-offset-1">
+          <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
             <button className="form-control btn btn-warning center-block" onClick={self.mapRoute}><strong>Map</strong></button>
           </div>
           </div>;
@@ -87,7 +93,7 @@ var Display = React.createClass({
         <p className="restaurant-name"><em>{item.Restaurant.name}</em></p>
         <img src={item.img_url}/>
         <p>{item.num_ratings} Reviews</p>
-        <Rating initialRate={rating} readonly="true" full="glyphicon glyphicon-star-empty star orange" empty="glyphicon glyphicon-star-empty star"/>
+        <Rating initialRate={rating} readonly="true" full="glyphicon glyphicon-star-empty star orange" empty="glyphicon glyphicon-star star"/>
       </div>;
       if (item.category === 'Snack') {
         food.snackdivs.push(el);

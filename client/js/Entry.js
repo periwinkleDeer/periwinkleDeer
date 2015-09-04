@@ -108,7 +108,7 @@ var Entry = React.createClass({
       console.log(store);
       $.ajax({
          url: "/insertdish",
-         type: "GET",
+         type: "POST",
          data: store,
          success: function(data) {
                 self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Foodie Added!!!"});

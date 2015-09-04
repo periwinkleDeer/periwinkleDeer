@@ -4,8 +4,8 @@ var cors = require('cors');
 var app = express();
 var db = require('./db');
 var http = require('http');
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.urlencoded());
 
 app.set('port', (process.env.PORT || 8080));
 app.use(express.static('dist'));
