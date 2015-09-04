@@ -21,7 +21,6 @@ var Display = React.createClass({
         var food = self.sortData(data);
         for (var category in food) {
           if (!food[category].length) {
-            console.log('hi!')
             food[category] = <div>Sorry, No dishes found...</div>;
           }
         };
@@ -93,7 +92,7 @@ var Display = React.createClass({
         <p className="restaurant-name"><em>{item.Restaurant.name}</em></p>
         <img src={item.img_url}/>
         <p>{item.num_ratings} Reviews</p>
-        <Rating initialRate={rating} readonly="true" full="glyphicon glyphicon-star-empty star orange" empty="glyphicon glyphicon-star star"/>
+        <Rating initialRate={rating} readonly="true" full="glyphicon glyphicon-star star orange" empty="glyphicon glyphicon-star-empty star"/>
       </div>;
       if (item.category === 'Snack') {
         food.snackdivs.push(el);
