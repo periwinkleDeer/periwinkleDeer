@@ -8,7 +8,6 @@ var http = require('http');
 app.use(cors());
 app.use(bodyParser.urlencoded());
 
-
 app.set('port', (process.env.PORT || 8080));
 app.use(express.static('dist'));
 require('./routes')(app);
