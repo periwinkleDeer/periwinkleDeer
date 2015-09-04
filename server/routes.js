@@ -8,7 +8,7 @@ module.exports = function(app) {
 //food related routes
   app.get('/dishes', food.getDishList);
   app.get('/get3dishes', food.get3Dishes);
-  app.get('/insertdish', food.insertDish);
+  app.post('/insertdish', food.insertDish);
 //for specific users
   app.get('/unrated', user.findUnrated);
   app.get('/selecting', user.selectingDishes);
