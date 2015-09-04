@@ -55,17 +55,15 @@ var App = React.createClass({
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
+      console.log(localStorage.getItem('currentRoute'))
       if (localStorage.getItem('currentRoute')) {
         var currentRoute = localStorage.getItem('currentRoute');
-      } else {
-        this.context.router.transitionTo('/main', null, {id: FB.getUserID()});
-        this.testAPI();
-      }
 
-      // Logged into your app and Facebook.
-
-
-      
+        if (currentRoute === '/login') {
+          this.context.router.transitionTo('/main', null, {id: FB.getUserID()});
+          this.testAPI();
+        }
+      } 
 
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
