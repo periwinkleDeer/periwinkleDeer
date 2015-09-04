@@ -19,6 +19,12 @@ var Display = React.createClass({
       },
       success: function(data) {
         var food = self.sortData(data);
+        for (var category in food) {
+          if (!food[category].length) {
+            console.log('hi!')
+            food[category] = <div>Sorry, No dishes found...</div>;
+          }
+        };
         var dishes = 
           <div>
           <div className="slider-for"></div>
