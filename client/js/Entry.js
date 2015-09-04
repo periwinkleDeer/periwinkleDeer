@@ -111,10 +111,11 @@ var Entry = React.createClass({
          type: "GET",
          data: store,
          success: function(data) {
-                self.context.router.transitionTo('/' + link, null, {id: self.props.query.id});
+                self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Foodie Added!!!"});
          }.bind(this),
          error: function(xhr, status, err) {
              console.log(xhr, status, err);
+             self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Foodie Already in Database!!!"});
          }.bind(this)
       });
    },
