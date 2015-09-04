@@ -76,6 +76,7 @@ var Main = React.createClass({
   render: function() {
       var self = this;
       var submit;
+      var added = this.props.query.added || '';
       if (this.state.dishes.length) {
         submit = 
           <div className="center-block">
@@ -93,6 +94,7 @@ var Main = React.createClass({
               <button type="button" className="btn btn-warning btn-lg btn-block" onClick={this.handleClick.bind(this, "parameters")}>Search for Foodie!</button>
               <button type="button" className="btn btn-warning btn-lg btn-block spacing" onClick={this.handleClick.bind(this, "entry")}>Share Foodie!</button>
             </div>
+            <div><p>{added}</p></div>
             <div>
               {this.state.dishes}
             </div>
