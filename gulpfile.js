@@ -79,8 +79,8 @@ gulp.task('build', function(){
     .pipe(gulp.dest(path.DEST_BUILD));
 });
 
+gulp.task('moving', ['copy', 'copyCSS', 'copyASSETS']);
 
+gulp.task('production', ['moving', 'replaceHTML', 'build']);
 
-gulp.task('production', ['replaceHTML', 'build']);
-
-gulp.task('default', ['copy', 'copyCSS', 'copyASSETS', 'watch']);
+gulp.task('default', ['moving', 'watch']);
