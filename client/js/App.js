@@ -11,14 +11,7 @@ var Entry = require('./Entry');
 var Parameters = require('./Parameters');
 var Map = require('./Map');
 var Display = require('./Display');
-var fbid;
-
-if(process.env.NODE_ENV !== 'production') {
-  fbid = require('../fbid');
-}
-
-fbid = process.env.fbid || fbid;
-
+var fbid = '389293527934009';
 
 var Inbox = React.createClass({
   render: function () {
