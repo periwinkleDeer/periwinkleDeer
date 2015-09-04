@@ -11,8 +11,7 @@ var Entry = require('./Entry');
 var Parameters = require('./Parameters');
 var Map = require('./Map');
 var Display = require('./Display');
-var fbid = require('../fbid');
-
+var fbid = '389293527934009';
 
 var Inbox = React.createClass({
   render: function () {
@@ -32,7 +31,7 @@ var App = React.createClass({
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=" + fbid.fbid;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=" + fbid;
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
   },
@@ -81,7 +80,7 @@ var App = React.createClass({
 
     window.fbAsyncInit = function() {
       FB.init({
-        appId      : fbid.fbid,
+        appId      : fbid,
         cookie     : true,  // enable cookies to allow the server to access
                           // the session
         xfbml      : true,  // parse social plugins on this page
