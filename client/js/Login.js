@@ -20,12 +20,6 @@ var Login = React.createClass({
       }
     });
 
-    // FB.login(function(response){
-    //   if (response.status === 'connected') {
-    //     console.log("login PG")
-    //     self.context.router.transitionTo('/main', null, {id: FB.getUserID()});
-    //   }
-    // })
   },
 
 
