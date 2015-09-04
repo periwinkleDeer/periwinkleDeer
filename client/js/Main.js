@@ -100,6 +100,11 @@ var Main = React.createClass({
             </div>
             {submit}
           </div>
+          <div style="text-align:center">
+            <h2> A PeriwinkleDeer Production </h2>
+            <h4> Nibbler </h4>
+            <h6> Patent Pending </h6>
+          </div>
         </div>
       );
     }
