@@ -21,7 +21,6 @@ var Display = React.createClass({
         var food = self.sortData(data);
         for (var category in food) {
           if (!food[category].length) {
-            console.log('hi!')
             food[category] = <div>Sorry, No dishes found...</div>;
           }
         };
