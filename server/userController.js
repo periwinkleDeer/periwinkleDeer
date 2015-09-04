@@ -69,6 +69,7 @@ module.exports = {
   },
 
   ratings: function(req, res) {
+    console.log(req.query)
     findUser(req.query.id)
     .then(function(user) {
       user = user.dataValues;

@@ -13,7 +13,18 @@ if(process.env.DATABASE_URL) {
     }
   });
 
-}else{
+}else if (process.env.NODE_ENV === 'test') {
+  sequelize = new Sequelize('test', 'postgres', '', {
+    host: 'localhost',
+    dialect: 'postgres',
+
+    pool:{
+      max: 5,
+      min: 0,
+      idle: 10000
+    }
+  });
+} else {
   sequelize = new Sequelize('foodie', 'postgres', '', {
     host: 'localhost',
     dialect: 'postgres',
