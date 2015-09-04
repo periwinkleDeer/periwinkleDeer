@@ -1,14 +1,30 @@
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('foodie', 'postgres', '', {
-  host: 'localhost',
-  dialect: 'postgres',
+var sequelize = null;
 
-  pool:{
-    max: 5,
-    min: 0,
-    idle: 10000
-  }
-});
+if(process.env.DATABASE_URL) {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialect: 'postgres',
+    protocol: 'postgres',
+
+    pool:{
+      max: 5,
+      min: 0,
+      idle: 10000
+    }
+  });
+
+}else{
+  sequelize = new Sequelize('foodie', 'postgres', '', {
+    host: 'localhost',
+    dialect: 'postgres',
+
+    pool:{
+      max: 5,
+      min: 0,
+      idle: 10000
+    }
+  });
+}
 
 var User = sequelize.define('User', {
   fb_id: Sequelize.STRING
@@ -36,6 +52,16 @@ var Restaurant = sequelize.define('Restaurant', {
   zip: Sequelize.STRING
 });
 
+global.db = {
+    Sequelize: Sequelize,
+    sequelize: sequelize,
+    User: User,
+    Rating: Rating,
+    Dish: Dish,
+    Restaurant: Restaurant
+  };
+
+
 User.hasMany(Rating);
 Rating.belongsTo(User);
 
@@ -46,10 +72,10 @@ Dish.belongsTo(Restaurant);
 Restaurant.hasMany(Dish);
 
 // sequelize.sync({force: true});
-
-sequelize.sync();
+// sequelize.sync();
 
 exports.User = User;
 exports.Rating = Rating;
 exports.Dish = Dish;
 exports.Restaurant = Restaurant;
+module.exports = global.db;

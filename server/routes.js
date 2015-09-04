@@ -1,3 +1,4 @@
+var pg = require('pg');
 var food = require('./foodController');
 // var server = require('./server');
 var user = require('./userController');
@@ -5,16 +6,23 @@ var user = require('./userController');
 
 module.exports = function(app) {
 //food related routes
-  //get all dishes for appetizer, maincourse & dessert
   app.get('/dishes', food.getDishList);
   app.get('/get3dishes', food.get3Dishes);
-
-
   app.get('/insertdish', food.insertDish);
-
-
 //for specific users
   app.get('/unrated', user.findUnrated);
   app.get('/selecting', user.selectingDishes);
   app.get('/rate', user.ratings);
+//Heroku deployment
+  app.get('/db', function (request, response) {
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+      client.query('SELECT * FROM User', function(err, result) {
+        done();
+        if (err)
+         { console.error(err); response.send("Error " + err); }
+        else
+         { response.render('pages/db', {results: result.rows} ); }
+      });
+    });
+  });
 };

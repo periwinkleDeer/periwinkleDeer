@@ -14,7 +14,10 @@ module.exports = {
       where: {
         price_rating: price,
         zip: zip
-      }
+      },
+      order: [
+        ['rating', 'DESC']
+      ]
     }).then(function(results){
       res.send(results);
     });
