@@ -13,7 +13,7 @@ var Map = require('./Map');
 var Display = require('./Display');
 var fbid;
 
-if(process.ENV.NODE_ENV !== 'production') {
+if(process.env.NODE_ENV !== 'production') {
   fbid = require('../fbid');
 }
 
