@@ -1,4 +1,3 @@
-var fb = require('./login');
 var router = require('./App');
 
 // var locations = this.props.query.locations

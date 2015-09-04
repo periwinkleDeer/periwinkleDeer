@@ -1,5 +1,4 @@
 var router = require('./App');
-var fbid = require('../fbid');
 
 var Login = React.createClass({  
   contextTypes: {

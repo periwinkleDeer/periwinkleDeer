@@ -1,6 +1,5 @@
 var Rating = require('react-rating');
 var router = require('./App');
-var fbid = require('../fbid');
 
 function resize(file, maxWidth, maxHeight, fn){
     var reader = new FileReader();

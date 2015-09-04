@@ -1,6 +1,4 @@
-var fb = require('./login');
 var router = require('./App');
-var fbid = require('../fbid');
 var Rating = require('react-rating');
 
 var Main = React.createClass({

@@ -13,7 +13,7 @@ var Parameters = React.createClass({
       if (response.status !== 'connected') {
         self.context.router.transitionTo('/login');
       }
-    })
+    });
   },
 
   getInitialState: function() {
