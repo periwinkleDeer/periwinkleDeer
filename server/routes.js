@@ -13,6 +13,7 @@ module.exports = function(app) {
   app.get('/unrated', user.findUnrated);
   app.get('/selecting', user.selectingDishes);
   app.get('/rate', user.ratings);
+  app.get('/recent', user.recent);
 //Heroku deployment
   app.get('/db', function (request, response) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
