@@ -21,10 +21,12 @@ var Main = React.createClass({
             data.map(function(dish) {
               return (
               <div className="card">
-                <div>{dish.Dish.name}</div>
+                <div><strong>{dish.Dish.name}</strong></div>
                 <img src={dish.Dish.img_url}/>
-                <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={self.foodRate.bind(null, dish)}/>
-                <span id={dish.id} className="glyphicon glyphicon-remove remove" onClick={self.handleRemove.bind(null, dish)}></span>
+                <div className="stars">
+                  <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={self.foodRate.bind(null, dish)}/>
+                  <span id={dish.id} className="glyphicon glyphicon-remove remove" onClick={self.handleRemove.bind(null, dish)}></span>
+                </div>
               </div>
                 );
             })

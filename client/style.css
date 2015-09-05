@@ -74,8 +74,12 @@ MAIN
 }
 
 .card img {
-  margin: 10px 10%;
-  max-width: 80%;
+  margin: 10px 25%;
+  max-width: 50%;
+}
+
+.card .stars {
+  text-align: center;
 }
 .remove{
   position: absolute;
