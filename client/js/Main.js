@@ -44,7 +44,7 @@ var Main = React.createClass({
     })
   },
   handleRemove: function(dish) { 
-    $('#' + dish.id).parent().hide(400);
+    $('#' + dish.id).parent().parent().hide(400);
     this.ratings[dish.DishId] = -1;
   },
   foodRate: function(dish, value) {
