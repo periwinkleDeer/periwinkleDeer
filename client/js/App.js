@@ -119,7 +119,7 @@ var App = React.createClass({
         <RouteHandler/>
         <footer className="footer">
           <div className="container2">
-            <h4 className="footer__heading">A <a className="footer__link" href="https://github.com/periwinkleDeer/periwinkleDeer" target="_blank">Periwinkle Deer</a> Production</h4>
+            <h5 className="footer__heading">A <a className="footer__link" href="https://github.com/periwinkleDeer/periwinkleDeer" target="_blank">Periwinkle Deer</a> Production</h5>
             <h6 className="footer__copyright">&copy; 2015, Periwinkle Deer</h6>
           </div>
         </footer>

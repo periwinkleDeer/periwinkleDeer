@@ -12,15 +12,15 @@ body, html {
 }
 
 body {
-  background: radial-gradient(ellipse, rgba(255,255,255,0.25), rgba(255,255,255,0.9)), url('../assets/vegetables-for-food-wide.jpg');
+  background: radial-gradient(ellipse, rgba(255,255,255,0.50), rgba(255,255,255,0.9)), url('../assets/vegetables-for-food-wide.jpg');
   background-size: cover;
   background-position: 80% 90%;
 }
 
 .container {
   margin-top: 50px;
-  margin-bottom: -75px;
-  background: radial-gradient(ellipse, rgba(255,255,255, .7), rgba(255,255,255, 0.4));
+  margin-bottom: -55px;
+  /*background: radial-gradient(ellipse, rgba(255,255,255, .7), rgba(255,255,255, 0.4));*/
   padding: 5% 0;
   position: absolute;
   top:0%;
@@ -37,24 +37,22 @@ FOOTER
 .container:after {
   content: "";
   display: block;
-  height: 75px;
+  height: 55px;
 }
 
 .container2 {
   margin: 0 auto;
   padding: 0 24px;
-  top:8%;
   width: 100%;
   border-radius: 5px;
 }
 
 .footer {
   background-color: rgba(58,58,60,0.8);
-  height: 75px;
+  height: 55px;
   width: 100%;
   position:fixed;
   bottom: 0%;
-  padding: 10px 0;
   text-align: center;
 }
 
@@ -82,9 +80,10 @@ HEADER
   background-color: rgba(58,58,60,0.8);
   height: 50px;
   width: 100%;
-  position:absolute;
+  position: fixed;
   top: 0%;
   text-align: center;
+  z-index: 1;
 }
 
 .header-main__inner {
