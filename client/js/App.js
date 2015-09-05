@@ -12,6 +12,7 @@ var Parameters = require('./Parameters');
 var Map = require('./Map');
 var Display = require('./Display');
 var Profile = require('./Profile');
+// var fbid = '391288257734536';
 var fbid = '389293527934009';
 
 var Inbox = React.createClass({
@@ -27,6 +28,12 @@ var App = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
+  getInitialState: function() {
+    return {
+      fbProfile: '',
+      name: ''
+    }
+  },
   componentWillMount: function() {
     (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
@@ -36,7 +43,7 @@ var App = React.createClass({
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
   },
- 
+  
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
   testAPI: function() {
@@ -99,6 +106,28 @@ var App = React.createClass({
       FB.getLoginStatus(function(response) {
         this.statusChangeCallback(response);
       }.bind(this));
+
+      FB.getLoginStatus(function(response){
+        if (response.status !== 'connected') {
+          self.context.router.transitionTo('/login');
+        } else {
+          FB.api(
+            "/" + response.authResponse.userID + "/picture",
+            function (response) {
+              if (response && !response.error) {
+                /* handle the result */
+                console.log(response.data)
+                self.setState({fbProfile: response.data.url});
+              } 
+            }
+          );
+          FB.api('/me', function(response){
+            console.log('response', response)
+            self.setState({name: response.name});
+          })
+
+        }
+      });
     }.bind(this);
     
     // Insert facebook status check here
@@ -111,6 +140,14 @@ var App = React.createClass({
             <div className="header-main__inner">
               <div className="header-main__logo">
                 <a><img src="../assets/nibbler_icon_01.png" alt=""></img></a>
+              </div>
+              <div className="header-main__user">
+                <a href="#" className="header-main__user-details">
+                  <h5 className="header-main__user-name"> {this.state.name} </h5>
+                  <div className="header-main__user-avatar">
+                    <img src={this.state.fbProfile} ></img>
+                  </div>
+                </a>
               </div>
             </div>
           </div>
