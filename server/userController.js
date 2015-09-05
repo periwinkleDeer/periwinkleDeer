@@ -9,17 +9,19 @@ var rateDish = function(UserId, DishId, DishRating) {
   .then(function(dishRating) {
     dishRating.updateAttributes({rating: DishRating});
   }).then(function() {
-    return;
+    updateDish(DishId, DishRating);
   });
 };
   //updates dishes table
 var updateDish = function(DishId, DishRating) {
-  db.Dish.findOne({id: DishId})
+  db.Dish.findOne({where: {id: DishId}})
   .then(function(dish) {
+    var average = Math.round((parseInt(dish.get('rating')) * dish.get('num_ratings') + parseInt(DishRating))/(dish.get('num_ratings') + 1)).toString();
+    var incremented = dish.get('num_ratings') + 1;
     dish.updateAttributes({
-      rating: Math.round((parseInt(dish.get('rating')) * parseInt(dish.get('num_ratings')) + parseInt(DishRating))/(parseInt(dish.get('num_ratings')) + 1)).toString()
+      rating: average,
+      num_ratings: incremented
     });
-    dish.increment('num_ratings');
   }).then(function() {
     return;
   });
@@ -79,7 +81,6 @@ module.exports = {
           deleteDish(user.id, dish.id);
         } else {
           rateDish(user.id, dish.id, dish.rating)
-          updateDish(dish.id, dish.rating);
         }
       })
     }).then(function() {
