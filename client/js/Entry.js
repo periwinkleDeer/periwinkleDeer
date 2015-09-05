@@ -1,5 +1,5 @@
 var Rating = require('react-rating');
-var router = require('./App');
+var router = require('./App'); 
 
 var Entry = React.createClass({
    contextTypes: {
@@ -7,7 +7,7 @@ var Entry = React.createClass({
    },
 
    getInitialState: function(){
-       return {};
+       return {error: ''};
      },
 
    componentDidMount: function(){
@@ -38,17 +38,9 @@ var Entry = React.createClass({
       });
    },
 
-   facebookShare: function(pic) {
-      var test = {};
-      test.url = "http://www.yahoo.com";
-      FB.ui({
-        method: 'share',
-        href: test.url
-      }, function(response){});
-   },
-
    handleSubmit: function(link){
       var self = this;
+      self.setState({error: ''}); 
       var zip = zipCheck(this.state.restaurant.address_components);
       var store = {
          restaurant : this.state.restaurant.name,
@@ -62,8 +54,12 @@ var Entry = React.createClass({
          imgUrl     : this.state.dataUrl,
          category   : document.getElementById('category').value
       };
-console.log(store.zip);
 
+      if(!checkObj(store)){
+        self.setState({error: "Fill Out Everything Yo!"});
+        $('.display-error').show();
+        return;
+      }
       $.ajax({
          url: "/insertdish",
          type: "POST",
@@ -112,7 +108,7 @@ console.log(store.zip);
        var image;
        var dataUrl = this.state.dataUrl;
        if(dataUrl){
-         image = <img src={dataUrl} className="img-rounded"/>
+         image = <img src={dataUrl} className="img-thumbnail"/>
        }
 
        return (
@@ -157,12 +153,22 @@ console.log(store.zip);
              </div>
 
                <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}>Share My Food!</button>
+               <p className="display-error">{this.state.error}</p>
 
            </div>
         </div>
        )
    }
 });
+
+function checkObj(object){
+  for(var key in object){
+    if(!object[key]){
+      return false;
+    }
+  }
+  return true;
+}; 
 
 function zipCheck(list){
   for(var i = 0; i < list.length; i++){
