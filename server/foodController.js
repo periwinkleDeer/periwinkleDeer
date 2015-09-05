@@ -63,8 +63,6 @@ module.exports = {
   },
   
   insertDish: function(req, res){
-    // console.log("req.body === ", req.body);
-
     db.Restaurant.find({where: {
       name: req.body.restaurant,
       location: req.body.address,

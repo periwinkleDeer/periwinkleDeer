@@ -1,7 +1,12 @@
 process.env.NODE_ENV = 'test';
 var request = require('supertest');
+var bodyParser = require('body-parser');
 var expect = require('chai').expect;
+var app = require('express')();
+var cors = require('cors');
 var db = require('../server/db');
+app.use(cors());
+app.use(bodyParser.urlencoded());
 
 
 describe('loading express', function () {
@@ -54,16 +59,30 @@ describe('loading express', function () {
       });
   });
 
+
   it ('responds to /insertDish route', function insertDishRoute(done) {
+    var dish= {restaurant: 'Burger King', zip: '94122', dishPrice: '2'};
     request(server)
       .post('/insertDish')
-      .send({restaurant: 'Burger King', zip: '94122', dishPrice: '2'})
+      .type('form')
+      .send(dish)
       .end(function(err, res) {
-        db.Dish.findOne({price_rating: 2})
+        if (err) {return done(err);}
+        db.Dish.findOne({where: {price_rating: '2'}})
         .then(function(dish) {
           expect(dish.dataValues.zip).to.equal('94122');
           done(); 
         });
+      });
+  });
+
+  it ('responds to /dishes route with no price', function dishesRoute(done) {
+    request(server)
+      .get('/dishes')
+      .query({zip: '94122', price: null})
+      .end(function(err, res) {
+        expect(res.body.length).to.equal(2);
+        done();
       });
   });
 
@@ -76,9 +95,27 @@ describe('loading express', function () {
         .then(function(rating) {
           expect(rating.UserId).to.equal(1);
           done();
-        })
+        });
+      });
+  });
+
+  it ('only allows one rating', function selectingRoute(done) {
+  request(server)
+    .get('/selecting')
+    .query({id: '1486709991645691', dishes: [1,2]})
+    .end(function(err, res) {
+      db.Rating.findAll({where: {UserId: 1, DishId: 2}})
+      .then(function(ratings) {
+        expect(ratings.length).to.equal(1);
+      }).then(function() {
+        db.Rating.findAll({where: {UserId:1, DishId: 1}})
+          .then(function(ratings) {
+          expect(ratings.length).to.equal(1);
+          done();
+        });
       })
-  })
+    });
+  });
 
   it('404 to nonexistant routes', function testPath(done) {
     request(server)
