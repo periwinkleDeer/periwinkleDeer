@@ -11,6 +11,7 @@ var Entry = require('./Entry');
 var Parameters = require('./Parameters');
 var Map = require('./Map');
 var Display = require('./Display');
+var Profile = require('./Profile');
 var fbid = '389293527934009';
 
 var Inbox = React.createClass({
@@ -119,6 +120,7 @@ var routes = (
     <Route name="parameters" handler={Parameters} />
     <Route name="map" handler={Map} />
     <Route name="display" handler={Display}/>
+    <Route name="profile" handler={Profile}/>
     <DefaultRoute handler={Login}/>
     <NotFoundRoute handler={Login} />
   </Route>
