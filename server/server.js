@@ -4,11 +4,14 @@ var cors = require('cors');
 var app = express();
 var db = require('./db');
 var http = require('http');
+var path = require('path');
+var favicon = require('serve-favicon');
 
 app.use(cors());
 app.use(bodyParser.urlencoded());
 
 app.set('port', (process.env.PORT || 8080));
+app.use(favicon(path.resolve('./client/assets/favicon.ico')));
 app.use(express.static('dist'));
 require('./routes')(app);
 // var port = process.env.PORT || 8080;

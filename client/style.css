@@ -272,6 +272,10 @@ DISPLAY
   font-weight: bold;
 }
 
+.slick-track {
+  background-color: rgba(256,256,256,0.8);
+}
+
 /***********************
 
 Login
