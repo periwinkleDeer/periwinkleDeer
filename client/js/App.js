@@ -103,10 +103,26 @@ var App = React.createClass({
     
     // Insert facebook status check here
 
+
     return (
       <div>
+        <div className="header-main">
+          <div className="container2">
+            <div className="header-main__inner">
+              <div className="header-main__logo">
+                <a><img src="../assets/nibbler_icon_01.png" alt=""></img></a>
+              </div>
+            </div>
+          </div>
+        </div>
         {/* this is the important part */}
         <RouteHandler/>
+        <footer className="footer">
+          <div className="container2">
+            <h5 className="footer__heading">A <a className="footer__link" href="https://github.com/periwinkleDeer/periwinkleDeer" target="_blank">Periwinkle Deer</a> Production</h5>
+            <h6 className="footer__copyright">&copy; 2015, Periwinkle Deer</h6>
+          </div>
+        </footer>
       </div>
     );
   }

@@ -27,7 +27,7 @@ var Login = React.createClass({
     return (
       <div className="container">
         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-            <button type="button" className="btn btn-warning btn-lg btn-block" onClick={this.login}><img className="fb-logo" src={"../assets/facebooklogo.png"} />Login using Facebook</button>
+            <button type="button" className="btn btn-warning btn-lg btn-block fb-button" onClick={this.login}><img className="fb-logo" src={"../assets/facebooklogo.png"} />Login using Facebook</button>
         </div>
       </div>
     )

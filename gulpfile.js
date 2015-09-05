@@ -10,7 +10,7 @@ var streamify = require('gulp-streamify');
 var path = {
   HTML: 'client/index.html',
   CSS: 'client/style.css',
-  ASSETS: ['client/assets/*.jpg', 'client/assets/*.png'],
+  ASSETS: ['client/assets/*.jpg', 'client/assets/*.png', 'client/assets/*.ico'],
   MINIFIED_OUT: 'build.min.js',
   OUT: 'build.js',
   DEST: 'dist',
@@ -33,7 +33,7 @@ gulp.task('copyCSS', function() {
 gulp.task('copyASSETS', function() {
   gulp.src(path.ASSETS)
     .pipe(gulp.dest(path.DEST_ASSETS));
-})
+});
 
 gulp.task('replaceHTML', function(){
   gulp.src(path.HTML)
@@ -78,7 +78,6 @@ gulp.task('build', function(){
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(path.DEST_BUILD));
 });
-
 
 gulp.task('moving', ['copy', 'copyCSS', 'copyASSETS']);
 
