@@ -1,47 +1,6 @@
 var Rating = require('react-rating');
 var router = require('./App');
 
-function resize(file, maxWidth, maxHeight, fn){
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function(event) {
-        var dataUrl = event.target.result;
-
-        var image = new Image();
-        image.src = dataUrl;
-        image.onload = function(){
-            var resizedDataUrl = resizeImage(image, maxWidth, maxHeight, 0.7);
-            fn(resizedDataUrl);
-        };
-    };
-}
-
-function resizeImage(image, maxWidth, maxHeight, quality){
-    var canvas = document.createElement('canvas');
-
-    var width = image.width;
-    var height = image.height;
-
-    if(width > height){
-        if(width > maxWidth){
-            height = Math.round(height * maxWidth / width);
-            width = maxWidth;
-        }
-    } else {
-        if(height > maxHeight){
-            width = Math.round(width * maxHeight / height);
-            height = maxHeight;
-        }
-    }
-
-    canvas.width = width;
-    canvas.height = height;
-
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(image, 0, 0, width, height);
-    return canvas.toDataURL("image/jpeg", quality);
-}
-
 var Entry = React.createClass({
    contextTypes: {
      router: React.PropTypes.func
@@ -51,8 +10,6 @@ var Entry = React.createClass({
        return {};
      },
 
-
- 
    componentDidMount: function(){
       localStorage.setItem('currentRoute', '/entry');
       var self = this;
@@ -74,7 +31,7 @@ var Entry = React.createClass({
       });
 
       FB.getLoginStatus(function(response){
-        console.log("test")
+        console.log("test");
         if (response.status !== 'connected') {
           self.context.router.transitionTo('/login');
         }
@@ -83,7 +40,7 @@ var Entry = React.createClass({
 
    facebookShare: function(pic) {
       var test = {};
-      test.url = "http://www.yahoo.com"
+      test.url = "http://www.yahoo.com";
       FB.ui({
         method: 'share',
         href: test.url
@@ -91,11 +48,12 @@ var Entry = React.createClass({
    },
 
    handleSubmit: function(link){
-      var self= this;
+      var self = this;
+      var zip = zipCheck(this.state.restaurant.address_components);
       var store = {
          restaurant : this.state.restaurant.name,
          address    : this.state.restaurant.formatted_address,
-         zip        : this.state.restaurant.address_components[5].long_name,
+         zip        : zip,
          phone      : this.state.restaurant.formatted_phone_number,
          resRating  : this.state.restaurant.rating,
          dishName   : document.getElementById('dish').value,
@@ -104,13 +62,14 @@ var Entry = React.createClass({
          imgUrl     : this.state.dataUrl,
          category   : document.getElementById('category').value
       };
-      console.log(store);
+console.log(store.zip);
+
       $.ajax({
          url: "/insertdish",
          type: "POST",
          data: store,
          success: function(data) {
-                self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Foodie Added!!!"});
+             self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Foodie Added!!!"});
          }.bind(this),
          error: function(xhr, status, err) {
              console.log(xhr, status, err);
@@ -151,10 +110,9 @@ var Entry = React.createClass({
       };
 
        var image;
-
        var dataUrl = this.state.dataUrl;
        if(dataUrl){
-         image = <img src={dataUrl}/>
+         image = <img src={dataUrl} className="img-rounded"/>
        }
 
        return (
@@ -205,5 +163,54 @@ var Entry = React.createClass({
        )
    }
 });
+
+function zipCheck(list){
+  for(var i = 0; i < list.length; i++){
+    if(/^\d{5}(?:[-\s]\d{4})?$/.test(list[i].long_name)){
+      return list[i].long_name;
+    }
+  }
+}
+
+function resize(file, maxWidth, maxHeight, fn){
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function(event) {
+        var dataUrl = event.target.result;
+
+        var image = new Image();
+        image.src = dataUrl;
+        image.onload = function(){
+            var resizedDataUrl = resizeImage(image, maxWidth, maxHeight, 0.7);
+            fn(resizedDataUrl);
+        };
+    };
+}
+
+function resizeImage(image, maxWidth, maxHeight, quality){
+    var canvas = document.createElement('canvas');
+
+    var width = image.width;
+    var height = image.height;
+
+    if(width > height){
+        if(width > maxWidth){
+            height = Math.round(height * maxWidth / width);
+            width = maxWidth;
+        }
+    } else {
+        if(height > maxHeight){
+            width = Math.round(width * maxHeight / height);
+            height = maxHeight;
+        }
+    }
+
+    canvas.width = width;
+    canvas.height = height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(image, 0, 0, width, height);
+    return canvas.toDataURL("image/jpeg", quality);
+}
 
 module.exports = Entry;
