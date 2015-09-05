@@ -1,12 +1,21 @@
 var router = require('./App');
 var Rating = require('react-rating');
 
+var emptyObject = function(object){
+  for (var prop in object) {
+    if (object[prop]) {
+      return false;
+    }
+  }
+  return true;
+};  
+
 var Display = React.createClass({
   contextTypes: {
      router: React.PropTypes.func
    },
   getInitialState: function() {
-    return {dishes: "Loading...."};
+    return {dishes: "Loading....", error: ''};
   },
   componentDidMount: function() {
     var self = this;
@@ -104,7 +113,8 @@ var Display = React.createClass({
     });
     return food;
   },
-  handleClick: function(value){ 
+  handleClick: function(value){
+    this.setState({error: ''}); 
     if (this.choices.hasOwnProperty(value.category)) {
       if (value.id === this.choices[value.category].id) {
         $('#' + value.id).removeClass('highlighted');
@@ -126,10 +136,13 @@ var Display = React.createClass({
     var self = this;
     var destinations = [];
     var dishIds = [];
+    if (emptyObject(this.choices)) {
+      this.setState({error: "No Choices Selected"});
+      return;
+    }
     for (var category in this.choices) {
       dishIds.push(this.choices[category].id)
     }
-    console.log(dishIds);
     $.ajax({
       method: 'GET',
       url: '/selecting',
@@ -148,6 +161,7 @@ var Display = React.createClass({
     return (
       <div className="container display">
         {this.state.dishes}
+        <p className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">{this.state.error}</p>
       </div>
     );
   }
