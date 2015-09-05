@@ -110,7 +110,7 @@ var App = React.createClass({
           <div className="container2">
             <div className="header-main__inner">
               <div className="header-main__logo">
-                <Link to="main" query={{id: this.props.query.id}}><img src="../assets/nibbler_icon_01.png" alt=""></img></a>
+                <Link to="main" query={{id: this.props.query.id}}><img src="../assets/nibbler_icon_01.png" alt=""></img></Link>
               </div>
             </div>
           </div>
