@@ -10,6 +10,14 @@ var emptyObject = function(object){
   return true;
 };  
 
+var displayMoney = function(num) {
+  var string = '';
+  for (var i = 0; i < parseInt(num); i++) {
+    string += '$';
+  }
+  return string;
+}
+
 var Display = React.createClass({
   contextTypes: {
      router: React.PropTypes.func
@@ -93,9 +101,9 @@ var Display = React.createClass({
     var divs = data.forEach(function(item) {
       var rating = item.rating
       var el = <div id={item.id} className="slide" onClick={self.handleClick.bind(null, item)}>
-        <p><strong>{item.name}</strong></p>
+        <p><strong>{item.name}</strong> <span className="green">{displayMoney(item.price_rating)}</span></p>
         <p className="restaurant-name"><em>{item.Restaurant.name}</em></p>
-        <img src={item.img_url}/>
+        <img className="img-thumbnail" src={item.img_url}/>
         <p>{item.num_ratings} Reviews</p>
         <Rating initialRate={rating} readonly="true" full="glyphicon glyphicon-star star orange" empty="glyphicon glyphicon-star-empty star"/>
       </div>;
