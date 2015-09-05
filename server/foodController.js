@@ -5,22 +5,38 @@ module.exports = {
   getDishList: function(req, res){
     var price = req.query.price;
     var zip = req.query.zip;
-
-    db.Dish.findAll({ 
-      include: [{
-        model: db.Restaurant, 
-        required: true
-      }],
-      where: {
-        price_rating: price,
-        zip: zip
-      },
-      order: [
-        ['rating', 'DESC']
-      ]
-    }).then(function(results){
-      res.send(results);
-    });
+    if (price) {
+      db.Dish.findAll({ 
+        include: [{
+          model: db.Restaurant, 
+          required: true
+        }],
+        where: {
+          price_rating: price,
+          zip: zip
+        },
+        order: [
+          ['rating', 'DESC']
+        ]
+      }).then(function(results){
+        res.send(results);
+      });
+    } else {
+      db.Dish.findAll({ 
+        include: [{
+          model: db.Restaurant, 
+          required: true
+        }],
+        where: {
+          zip: zip
+        },
+        order: [
+          ['rating', 'DESC']
+        ]
+      }).then(function(results){
+        res.send(results);
+      });
+    }
   },
 
   get3Dishes: function(req, res){
