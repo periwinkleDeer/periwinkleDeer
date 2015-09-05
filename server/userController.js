@@ -47,7 +47,9 @@ module.exports = {
     db.User.findOrCreate({where: {fb_id: req.query.id}})
     .then(function(user) {
       user = user[0].dataValues;
-        return db.Rating.findAll({where: {UserId: user.id, rating: null}, include: [{model: db.Dish, required: true}]
+        return db.Rating.findAll({
+          where: {UserId: user.id, rating: null}, 
+          include: [{model: db.Dish, required: true}]
         });
     }).then(function(results) {
       res.send(results);
@@ -80,10 +82,24 @@ module.exports = {
           updateDish(dish.id, dish.rating);
         }
       })
-      
     }).then(function() {
       res.send(req.query)
     })
+  },
+
+  recent: function(req, res) {
+    findUser(req.query.id)
+    .then(function(user) {
+      user = user.dataValues;
+      db.Ratings.findAll({
+        where: {UserId: user.id},
+        include: [{model: db.Dish, required: true}],
+        order: [['createdAt', 'DESC']],
+        limit: 5
+      }).then(function(results) {
+        res.send(results);
+      });
+    });
   }
 
  };

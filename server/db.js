@@ -38,7 +38,7 @@ if(process.env.DATABASE_URL) {
 }
 
 var User = sequelize.define('User', {
-  fb_id: Sequelize.STRING
+  fb_id: {type: Sequelize.STRING, unique: true, allowNull: false}
 });
 
 var Rating = sequelize.define('Rating', {

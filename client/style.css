@@ -12,7 +12,7 @@ body, html {
 }
 
 body {
-  background: radial-gradient(ellipse, rgba(255,255,255,0.50), rgba(255,255,255,0.9)), url('../assets/vegetables-for-food-wide.jpg');
+  background: radial-gradient(ellipse, rgba(255,255,255,0.5), rgba(255,255,255,0.9)), url('../assets/vegetables-for-food-wide.jpg');
   background-size: cover;
   background-position: 80% 90%;
 }
@@ -37,7 +37,7 @@ FOOTER
 .container:after {
   content: "";
   display: block;
-  height: 55px;
+  height: 75px;
 }
 
 .container2 {
@@ -227,7 +227,7 @@ DISPLAY
 .center div{
   margin: 0 auto;
   text-align: center;
-  background: #fff;
+  background: rgba(255,255,255,0.25);
   height: 200px;
 }
 
@@ -253,6 +253,23 @@ DISPLAY
 .category {
   color: #c33;
 }
+
+.display-missing {
+  background: rgba(255,255,255,0.5);
+  height: 30px;
+  text-align: center;
+}
+
+.display-error {
+  background: rgba(255,100,100,0.5);
+  text-align: center;
+  font-size: 15px;
+  color: #eee;
+  margin-top: 10px;
+  display: none;
+  width: 100%;
+}
+
 .restaurant-name {
   font-size: 12px;
   color: #777;
@@ -270,10 +287,6 @@ DISPLAY
 .display.container h4 {
   text-align: center;
   font-weight: bold;
-}
-
-.slick-track {
-  background-color: rgba(256,256,256,0.8);
 }
 
 /***********************
