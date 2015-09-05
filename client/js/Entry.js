@@ -63,12 +63,13 @@ var Entry = React.createClass({
          category   : document.getElementById('category').value
       };
 console.log(store.zip);
+
       $.ajax({
          url: "/insertdish",
          type: "POST",
          data: store,
          success: function(data) {
-                self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Foodie Added!!!"});
+             self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Foodie Added!!!"});
          }.bind(this),
          error: function(xhr, status, err) {
              console.log(xhr, status, err);
@@ -111,7 +112,7 @@ console.log(store.zip);
        var image;
        var dataUrl = this.state.dataUrl;
        if(dataUrl){
-         image = <img src={dataUrl}/>
+         image = <img src={dataUrl} className="img-rounded"/>
        }
 
        return (
