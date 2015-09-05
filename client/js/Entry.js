@@ -108,7 +108,7 @@ var Entry = React.createClass({
        var image;
        var dataUrl = this.state.dataUrl;
        if(dataUrl){
-         image = <img src={dataUrl} className="img-rounded"/>
+         image = <img src={dataUrl} className="img-thumbnail"/>
        }
 
        return (
