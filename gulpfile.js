@@ -79,17 +79,8 @@ gulp.task('build', function(){
     .pipe(gulp.dest(path.DEST_BUILD));
 });
 
-gulp.task('JSXTransform', function() {
-  browserify({
-    entries: [path.ENTRY_POINT],
-    transform: [reactify],
-  })
-    .bundle()
-    .pipe(source(path.OUT))
-    .pipe(gulp.dest(path.DEST_SRC));
-});
 
-gulp.task('moving', ['copy', 'copyCSS', 'copyASSETS', 'JSXTransform']);
+gulp.task('moving', ['copy', 'copyCSS', 'copyASSETS']);
 
 gulp.task('production', ['moving', 'replaceHTML', 'build']);
 

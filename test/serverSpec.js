@@ -67,31 +67,18 @@ describe('loading express', function () {
       });
   });
 
-  // it ('responds to /get3dishes route', function chooseDishes(done) {
-  //   request(server)
-  //   .get('/get3dishes')
-  //   .query({restaurants: [1]})
-  //   .end(function(err, res) {
-  //     console.log(res);
-  //     done();
-  //   })
-  // })
-  // it ('responds to /rating route', function ratingsRoute(done) {
-  //   request(server)
-  //   .get('/rate')
-  //   .query({
-  //     id: '1486709991645691', 
-  //     dishes: [{id: 1, rating: '3'}, {id:2, rating: '1'}]
-  //   })
-  //   .end(function(err, res) {
-  //     console.log(res)
-  //     db.Rating.findOne({where: {DishId: 1, UserId: 1}})
-  //     .then(function(rating) {
-  //       // console.log(rating);
-  //       expect(rating.dataValues.rating).to.equal('3');
-  //     })
-  //   })
-  // })
+  it ('responds to selecting route', function selectingRoute(done) {
+    request(server)
+      .get('/selecting')
+      .query({id: '1486709991645691', dishes: [2]})
+      .end(function(err, res) {
+        db.Rating.findOne({DishId: 2})
+        .then(function(rating) {
+          expect(rating.UserId).to.equal(1);
+          done();
+        })
+      })
+  })
 
   it('404 to nonexistant routes', function testPath(done) {
     request(server)
