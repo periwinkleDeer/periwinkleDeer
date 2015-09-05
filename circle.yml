@@ -1,2 +1,7 @@
 general:
   build_dir: test
+
+## Tests
+test:
+  override: 
+    - mocha test
