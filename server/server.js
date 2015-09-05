@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded());
 
 app.set('port', (process.env.PORT || 8080));
-app.use(favicon('/client/assets/myIcon.ico'));
+app.use(favicon('/dist/assets/myIcon.ico'));
 app.use(express.static('dist'));
 require('./routes')(app);
 // var port = process.env.PORT || 8080;
