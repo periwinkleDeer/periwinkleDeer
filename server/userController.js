@@ -58,12 +58,12 @@ module.exports = {
     findUser(req.query.id)
     .then(function(user) {
       user = user.dataValues;
-      console.log(req.query.dishes)
-      var storage = [];
-      for (var i = 0; i < req.query.dishes; i++) {
-        db.Rating.findOrCreate({where: {UserId: user.id, DishId: req.query.dishes[i]}});
+      var count = 0;
+      while (count < req.query.dishes.length) {
+        db.Rating.findOrCreate({where: {UserId: user.id, DishId: req.query.dishes[count]}});
+        count++;
       }
-    }).then(function(results) {
+    }).then(function() {
       res.send(req.query);
     });
   },
