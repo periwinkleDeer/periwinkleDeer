@@ -15,7 +15,7 @@ var Display = React.createClass({
      router: React.PropTypes.func
    },
   getInitialState: function() {
-    return {dishes: "Loading....", error: ''};
+    return {dishes: "Loading...."};
   },
   componentDidMount: function() {
     var self = this;
@@ -28,26 +28,22 @@ var Display = React.createClass({
       },
       success: function(data) {
         var food = self.sortData(data);
+        var rows = [];
         for (var category in food) {
           if (!food[category].length) {
-            food[category] = <div>Sorry, No dishes found...</div>;
+            rows.push(<div><h4 className="category">{category}</h4>
+              <p className="display-missing">Sorry, No dishes found...</p></div>);
+          } else {
+            rows.push(<div><h4 className="category">{category}</h4>
+              <div className="center">
+                {food[category]}
+              </div></div>);
           }
         };
         var dishes = 
           <div>
-          <div className="slider-for"></div>
-          <h4 className="category">Snacks</h4>
-          <div className="center">
-            {food.snackdivs}
-          </div>
-          <h4 className="category">Grub</h4>
-          <div className="center">
-            {food.grubdivs}
-          </div>
-          <h4 className="category">Dessert</h4>
-          <div className="center">
-            {food.dessertdivs}
-          </div>
+            {rows}
+          <p className="display-error">No Choices Selected</p>
           <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
             <button className="form-control btn btn-warning center-block" onClick={self.mapRoute}><strong>Map</strong></button>
           </div>
@@ -91,9 +87,9 @@ var Display = React.createClass({
   sortData: function(data) {
     var self = this;
     var food = {};
-    food.snackdivs = [];
-    food.grubdivs = [];
-    food.dessertdivs = []
+    food.Snacks = [];
+    food.Grub = [];
+    food.Desserts = []
     var divs = data.forEach(function(item) {
       var rating = item.rating
       var el = <div id={item.id} className="slide" onClick={self.handleClick.bind(null, item)}>
@@ -104,17 +100,17 @@ var Display = React.createClass({
         <Rating initialRate={rating} readonly="true" full="glyphicon glyphicon-star star orange" empty="glyphicon glyphicon-star-empty star"/>
       </div>;
       if (item.category === 'Snack') {
-        food.snackdivs.push(el);
+        food.Snacks.push(el);
       } else if (item.category === 'Grub') {
-        food.grubdivs.push(el);
+        food.Grub.push(el);
       } else if (item.category == 'Dessert') {
-        food.dessertdivs.push(el);
+        food.Desserts.push(el);
       }
     });
     return food;
   },
   handleClick: function(value){
-    this.setState({error: ''}); 
+    $('.display-error').hide();
     if (this.choices.hasOwnProperty(value.category)) {
       if (value.id === this.choices[value.category].id) {
         $('#' + value.id).removeClass('highlighted');
@@ -137,7 +133,8 @@ var Display = React.createClass({
     var destinations = [];
     var dishIds = [];
     if (emptyObject(this.choices)) {
-      this.setState({error: "No Choices Selected"});
+      $('.display-error').show();
+      $('html, body').animate({scrollTop: $(document).height()}, 'slow');
       return;
     }
     for (var category in this.choices) {
@@ -161,7 +158,6 @@ var Display = React.createClass({
     return (
       <div className="container display">
         {this.state.dishes}
-        <p className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">{this.state.error}</p>
       </div>
     );
   }
