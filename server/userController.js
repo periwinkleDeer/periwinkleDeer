@@ -28,9 +28,9 @@ var updateDish = function(DishId, DishRating) {
 }; 
 
 var deleteDish = function(UserId, DishId) {
-  db.Rating.findOne({
-    UserId: UserId,
-    DishId: DishId
+  db.Rating.findOne({where: 
+    {UserId: UserId,
+    DishId: DishId}
   })
   .then(function(dishRating) {
     dishRating.destroy()

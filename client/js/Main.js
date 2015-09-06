@@ -48,6 +48,7 @@ var Main = React.createClass({
     this.ratings[dish.DishId] = -1;
   },
   foodRate: function(dish, value) {
+    console.log(value)
     this.ratings[dish.DishId] = value;
   }, 
   handleSubmit: function() {
@@ -57,6 +58,7 @@ var Main = React.createClass({
     for (var prop in this.ratings) {
       query.dishes.push({id: prop, rating: this.ratings[prop]})
     }
+    console.log(query)
     $.ajax({
       method: 'GET',
       url: '/rate',
