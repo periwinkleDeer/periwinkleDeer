@@ -2,6 +2,20 @@ var db = require('./db');
 
 module.exports = {
 
+  resInfo: function(req, res) {
+    var rest = req.query.resId;
+    db.Dish.findAll({
+      include: [{
+        model: db.Restaurant, 
+        required: true
+      }],
+      where: {RestaurantId: rest}
+    })
+    .then(function(dishes) {
+      res.send(dishes);
+    });
+  },
+
   getDishList: function(req, res){
     var price = req.query.price;
     var zip = req.query.zip;

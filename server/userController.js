@@ -16,10 +16,11 @@ var rateDish = function(UserId, DishId, DishRating) {
 var updateDish = function(DishId, DishRating) {
   db.Dish.findOne({where: {id: DishId}})
   .then(function(dish) {
-    var average = Math.round((parseInt(dish.get('rating')) * dish.get('num_ratings') + parseInt(DishRating))/(dish.get('num_ratings') + 1)).toString();
+    var average = (parseInt(dish.get('rating')) * dish.get('num_ratings') + parseInt(DishRating))/(dish.get('num_ratings') + 1);
+    console.log(typeof average)
     var incremented = dish.get('num_ratings') + 1;
     dish.updateAttributes({
-      rating: average,
+      rating: average.toString(),
       num_ratings: incremented
     });
   }).then(function() {

@@ -9,6 +9,7 @@ module.exports = function(app) {
   app.get('/dishes', food.getDishList);
   app.get('/get3dishes', food.get3Dishes);
   app.post('/insertdish', food.insertDish);
+  app.get('/resInfo', food.resInfo);
 //for specific users
   app.get('/unrated', user.findUnrated);
   app.get('/selecting', user.selectingDishes);

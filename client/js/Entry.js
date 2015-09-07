@@ -43,11 +43,13 @@ var Entry = React.createClass({
       self.setState({error: ''}); 
       var zip = zipCheck(this.state.restaurant.address_components);
       var rating = this.state.restaurant.rating || '!!';
+      var phone = this.state.restaurant.formatted_phone_number || '!!';
+
       var store = {
          restaurant : this.state.restaurant.name,
          address    : this.state.restaurant.formatted_address,
          zip        : zip,
-         phone      : this.state.restaurant.formatted_phone_number,
+         phone      : phone,
          resRating  : rating,
          dishName   : document.getElementById('dish').value,
          dishRating : this.foodRate,
