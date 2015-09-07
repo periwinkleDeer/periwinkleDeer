@@ -132,7 +132,6 @@ HEADER
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  box-shadow: inset 0 0 0 2px #fff;
 }
 
 .header-main__user-avatar img {

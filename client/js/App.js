@@ -46,6 +46,10 @@ var App = React.createClass({
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
   },
+
+  componentDidMount: function() {
+    $('.header-main__user-avatar').hide();
+  },
   
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
@@ -108,6 +112,7 @@ var App = React.createClass({
                 /* handle the result */
                 console.log(response.data)
                 self.setState({fbProfile: response.data.url});
+                $('.header-main__user-avatar').show();
               } 
             }
           );
