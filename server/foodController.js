@@ -12,7 +12,7 @@ module.exports = {
           required: true
         }],
         where: {
-          price_rating: price,
+          price_rating: {$lte: price},
           zip: zip
         },
         order: [

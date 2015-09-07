@@ -28,9 +28,9 @@ var updateDish = function(DishId, DishRating) {
 }; 
 
 var deleteDish = function(UserId, DishId) {
-  db.Rating.findOne({
-    UserId: UserId,
-    DishId: DishId
+  db.Rating.findOne({where: 
+    {UserId: UserId,
+    DishId: DishId}
   })
   .then(function(dishRating) {
     dishRating.destroy()
@@ -92,7 +92,7 @@ module.exports = {
     findUser(req.query.id)
     .then(function(user) {
       user = user.dataValues;
-      db.Ratings.findAll({
+      db.Rating.findAll({
         where: {UserId: user.id},
         include: [{model: db.Dish, required: true}],
         order: [['createdAt', 'DESC']],
