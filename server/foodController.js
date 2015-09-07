@@ -12,7 +12,6 @@ module.exports = {
       where: {RestaurantId: rest}
     })
     .then(function(dishes) {
-      // console.log(restaurant)
       res.send(dishes);
     });
   },
