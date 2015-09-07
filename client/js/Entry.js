@@ -42,12 +42,13 @@ var Entry = React.createClass({
       var self = this;
       self.setState({error: ''}); 
       var zip = zipCheck(this.state.restaurant.address_components);
+      var rating = this.state.restaurant.rating || '!!';
       var store = {
          restaurant : this.state.restaurant.name,
          address    : this.state.restaurant.formatted_address,
          zip        : zip,
          phone      : this.state.restaurant.formatted_phone_number,
-         resRating  : this.state.restaurant.rating,
+         resRating  : rating,
          dishName   : document.getElementById('dish').value,
          dishRating : this.foodRate,
          dishPrice  : this.priceRate,
@@ -74,7 +75,7 @@ var Entry = React.createClass({
       });
    },
 
-   onChange: function(e){
+   change: function(e){
        var files = e.target.files;
        var self = this;
        var maxWidth = 250;
@@ -126,7 +127,7 @@ var Entry = React.createClass({
 
              <div className="form-group">
                  <label>Upload Picture</label>
-                 <input style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.onChange }/>
+                 <input style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.change }/>
                  <p className="help-block">{ image }</p>
              </div>           
 
@@ -163,7 +164,9 @@ var Entry = React.createClass({
 
 function checkObj(object){
   for(var key in object){
+    console.log(key);
     if(!object[key]){
+      console.log("REJECTED", key)
       return false;
     }
   }
