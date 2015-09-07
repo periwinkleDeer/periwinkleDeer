@@ -16,7 +16,6 @@ var Main = React.createClass({
         type: "GET",
         data: {id: self.props.query.id},
         success: function(data) {
-
           self.setState({dishes: 
             data.map(function(dish) {
               return (
