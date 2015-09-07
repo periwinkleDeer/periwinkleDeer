@@ -12,9 +12,9 @@ var Parameters = require('./Parameters');
 var Map = require('./Map');
 var Display = require('./Display');
 var Profile = require('./Profile');
-var fbid = '391288257734536';
-// var fbid = '389293527934009';
-
+var Restaurant = require('./Restaurant');
+// var fbid = '391288257734536';
+var fbid = '389293527934009';
 
 var Inbox = React.createClass({
   render: function () {
@@ -189,6 +189,7 @@ var routes = (
     <Route name="map" handler={Map} />
     <Route name="display" handler={Display}/>
     <Route name="profile" handler={Profile}/>
+    <Route name="restaurant" handler={Restaurant}/>
     <DefaultRoute handler={Login}/>
     <NotFoundRoute handler={Login} />
   </Route>

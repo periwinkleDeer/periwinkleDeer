@@ -100,10 +100,10 @@ var Display = React.createClass({
     food.Desserts = []
     var divs = data.forEach(function(item) {
       var rating = item.rating
-      var el = <div id={item.id} className="slide" onClick={self.handleClick.bind(null, item)}>
+      var el = <div id={item.id} className="slide">
         <p><strong>{item.name}</strong> <span className="green">{displayMoney(item.price_rating)}</span></p>
-        <p className="restaurant-name"><em>{item.Restaurant.name}</em></p>
-        <img className="img-thumbnail" src={item.img_url}/>
+        <a href={'#/restaurant?resId=' + item.Restaurant.id}className="restaurant-name"><em>{item.Restaurant.name}</em></a>
+        <img className="img-thumbnail picture" onClick={self.handleClick.bind(null, item)} src={item.img_url}/>
         <p>{item.num_ratings} Reviews</p>
         <Rating initialRate={rating} readonly="true" full="glyphicon glyphicon-star star orange" empty="glyphicon glyphicon-star-empty star"/>
       </div>;

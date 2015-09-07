@@ -21,7 +21,7 @@ var Main = React.createClass({
               return (
               <div className="card">
                 <div><strong>{dish.Dish.name}</strong></div>
-                <img src={dish.Dish.img_url}/>
+                <img className="img-thumbnail" src={dish.Dish.img_url}/>
                 <div className="stars">
                   <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={self.foodRate.bind(null, dish)}/>
                   <span id={dish.id} className="glyphicon glyphicon-remove remove" onClick={self.handleRemove.bind(null, dish)}></span>
@@ -57,7 +57,6 @@ var Main = React.createClass({
     for (var prop in this.ratings) {
       query.dishes.push({id: prop, rating: this.ratings[prop]})
     }
-    console.log(query)
     $.ajax({
       method: 'GET',
       url: '/rate',
@@ -93,7 +92,8 @@ var Main = React.createClass({
           <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
             <div className="form-group">
               <button type="button" className="btn btn-warning btn-lg btn-block" onClick={this.handleClick.bind(this, "parameters")}>Search for Foodie!</button>
-              <button type="button" className="btn btn-warning btn-lg btn-block spacing" onClick={this.handleClick.bind(this, "entry")}>Share Foodie!</button>
+
+              <button type="button" className="btn btn-warning btn-lg btn-block second" onClick={this.handleClick.bind(this, "entry")}>Share Foodie!</button>
             </div>
             <div><p>{added}</p></div>
             <div>
