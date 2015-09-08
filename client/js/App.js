@@ -162,7 +162,7 @@ var App = React.createClass({
           <div className="container2">
             <div className="header-main__inner">
               <div className="header-main__logo">
-                <a><img src="../assets/nibbler_icon_01.png" alt=""></img></a>
+                <a href={'#/main?id='+ FB.getUserID()}><img src="../assets/nibbler_icon_01.png" alt=""></img></a>
               </div>
               <div className="header-main__user">
                 <a className="header-main__user-details">

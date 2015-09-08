@@ -77,6 +77,9 @@ var Main = React.createClass({
       var self = this;
       var submit;
       var added = this.props.query.added || '';
+      if (added) {
+        $('.message').show();
+      }
       if (this.state.dishes.length) {
         submit = 
           <div className="center-block">
@@ -95,7 +98,7 @@ var Main = React.createClass({
 
               <button type="button" className="btn btn-warning btn-lg btn-block second" onClick={this.handleClick.bind(this, "entry")}>Share Foodie!</button>
             </div>
-            <div><p>{added}</p></div>
+            <div><p className="message">{added}</p></div>
             <div>
               {this.state.dishes}
             </div>
