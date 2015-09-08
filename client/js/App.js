@@ -16,6 +16,7 @@ var Restaurant = require('./Restaurant');
 // var fbid = '391288257734536';
 var fbid = '389293527934009';
 
+
 var Inbox = React.createClass({
   render: function () {
     return (
@@ -31,6 +32,7 @@ var App = React.createClass({
     router: React.PropTypes.func
   },
   getInitialState: function() {
+    // $('.header-main__user-avatar').hide();
     return {
       fbProfile: '',
       name: ''
@@ -44,6 +46,10 @@ var App = React.createClass({
       js.src = "//connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
+  },
+
+  componentDidMount: function() {
+    // $('.header-main__user-avatar').hide();
   },
   
   // Here we run a very simple test of the Graph API after login is
@@ -107,6 +113,7 @@ var App = React.createClass({
                 /* handle the result */
                 console.log(response.data)
                 self.setState({fbProfile: response.data.url});
+                $('.header-main__user-avatar').show();
               } 
             }
           );
