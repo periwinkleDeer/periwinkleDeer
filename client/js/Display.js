@@ -68,7 +68,6 @@ var Display = React.createClass({
   initializeSlick: function () {
     console.log("initializing");
     $('.center').slick({
-      centerPadding: '60px',
       lazyLoad: 'progressive',
       slidesToShow: 4,
       swipeToSlide: true,
@@ -77,7 +76,6 @@ var Display = React.createClass({
           breakpoint: 768,
           settings: {
             arrows: false,
-            centerPadding: '40px',
             slidesToShow: 3
           }
         },
@@ -85,7 +83,6 @@ var Display = React.createClass({
           breakpoint: 480,
           settings: {
             arrows: false,
-            centerPadding: '40px',
             slidesToShow: 2
           }
         }
@@ -105,7 +102,7 @@ var Display = React.createClass({
         <a href={'#/restaurant?resId=' + item.Restaurant.id}className="restaurant-name"><em>{item.Restaurant.name}</em></a>
         <img className="img-thumbnail picture" onClick={self.handleClick.bind(null, item)} data-lazy={item.img_url}/>
         <p>{item.num_ratings} Reviews</p>
-        <Rating initialRate={rating} readonly="true" full="glyphicon glyphicon-star star orange" empty="glyphicon glyphicon-star-empty star"/>
+        <Rating initialRate={parseInt(rating)} readonly={true} full="readonly glyphicon glyphicon-star star orange" empty="readonly glyphicon glyphicon-star-empty star"/>
       </section>;
       if (item.category === 'Snack') {
         food.Snacks.push(el);
