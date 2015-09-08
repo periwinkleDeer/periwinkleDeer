@@ -108,7 +108,7 @@ var App = React.createClass({
           self.context.router.transitionTo('/login');
          } else {
           FB.api(
-            "/" + response.authResponse.userID + "/picture",
+            "/" + response.authResponse.userID + "/picture?type=large",
             function (response) {
               if (response && !response.error) {
                 /* handle the result */
