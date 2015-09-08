@@ -6,7 +6,7 @@ var Profile = React.createClass({
     router: React.PropTypes.func
   },
   getInitialState: function() {
-    return {fbProfile: '', dishes: '', fbID: ''};
+    return {fbProfile: '', dishes: ''};
   },
 
   componentDidMount: function() {
@@ -21,12 +21,13 @@ var Profile = React.createClass({
       success: function(data) {
         self.setState({dishes: 
           data.map(function(dish) {
+            console.log(dish.Dish.img_url)
             return (
             <div className="card">
               <div><strong>{dish.Dish.name}</strong></div>
               <img src={dish.Dish.img_url}/>
               <div className="stars">
-                <Rating initialRate={dish.Dish.rating} empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" />
+                <Rating initialRate={dish.Dish.rating} readonly="true" empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" />
               </div>
             </div>
               );
