@@ -12,8 +12,8 @@ var Parameters = require('./Parameters');
 var Map = require('./Map');
 var Display = require('./Display');
 var Profile = require('./Profile');
-// var fbid = '391288257734536';
-var fbid = '389293527934009';
+var fbid = '391288257734536';
+// var fbid = '389293527934009';
 
 
 
@@ -32,6 +32,7 @@ var App = React.createClass({
     router: React.PropTypes.func
   },
   getInitialState: function() {
+    // $('.header-main__user-avatar').hide();
     return {
       fbProfile: '',
       name: ''
@@ -48,7 +49,7 @@ var App = React.createClass({
   },
 
   componentDidMount: function() {
-    $('.header-main__user-avatar').hide();
+    // $('.header-main__user-avatar').hide();
   },
   
   // Here we run a very simple test of the Graph API after login is

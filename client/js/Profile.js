@@ -63,6 +63,7 @@ var Profile = React.createClass({
   },
 
   render: function() {
+    console.log("this.state.fbProfile", this.state.fbProfile)
     
     return (
       <div className="container">
