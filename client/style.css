@@ -1,7 +1,5 @@
 /***********************
-
 ENTIRE SITE
-
 ***********************/
 
 body, html {
@@ -13,20 +11,18 @@ body, html {
 
 body {
   background: radial-gradient(ellipse, rgba(255,255,255,0.5), rgba(255,255,255,0.9)), url('../assets/vegetables-for-food-wide.jpg');
-  background-size: cover;
-  background-position: 80% 90%;
+  background-attachment: fixed;
+  background-position: 70% 90%;
 }
 
 .container {
   margin-top: 50px;
   margin-bottom: -55px;
-  /*background: radial-gradient(ellipse, rgba(255,255,255, .7), rgba(255,255,255, 0.4));*/
   padding: 5% 0;
   position: absolute;
-  top:0%;
+  top:0;
   width: 100%;
   height: 100%;
-  border-radius: 5px;
 }
 
 a {
@@ -38,7 +34,15 @@ a:hover {
 }
 
 .btn {
-  box-shadow: inset -2px -2px 10px 2px rgba(0,0,0,.2);
+  /*box-shadow: inset -2px -2px 10px 2px rgba(0,0,0,.2);*/
+  border-radius: 25px;
+  background-color: orange;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+img.img-thumbnail {
+  box-shadow: 0 0 10px 1px rgba(0,0,0,0.2);
 }
 
 .readonly {
@@ -46,9 +50,7 @@ a:hover {
 }
 
 /***********************
-
 FOOTER
-
 ***********************/
 .container:after {
   content: "";
@@ -87,9 +89,7 @@ FOOTER
 }
 
 /***********************
-
 HEADER
-
 ***********************/
 
 .header-main {
@@ -234,9 +234,7 @@ HEADER
 }
 
 /***********************
-
 FORMS
-
 ***********************/
 
 .orange {
@@ -265,10 +263,12 @@ FORMS
    text-align: center;
 }
 
+.icon {
+  margin-right: 20px;
+}
+
 /***********************
-
 MAIN
-
 ***********************/
 
 .card {
@@ -294,7 +294,7 @@ MAIN
   top: 5px;
   right: 5px;
   color: #f66;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
 }
 
@@ -302,9 +302,7 @@ MAIN
   margin-top: 15px;
 }
 /***********************
-
 MAP
-
 ***********************/
 
 .map-google {
@@ -352,7 +350,7 @@ MAP
 
 .iw-title {
   font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 16px;
+  font-size: 22px;
   font-weight: 400;
   padding: 10px;
   background-color: #48b5e9;
@@ -362,36 +360,31 @@ MAP
 }
 
 /***********************
-
 DISPLAY
-
 ***********************/
 
-.center div{
-  margin: 0 auto;
+.center {
+  margin: 0 auto 15px;
   text-align: center;
   background: rgba(255,255,255,0.5);
   box-shadow: 0 0 10px 2px rgba(0,0,0,0.2);
   height: 200px;
 }
 
-.center div p {
+.slide {
+  height: 200px;
+  padding-top: 10px;
+}
+.center div p, .restaurant-name {
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
   margin: 0;
-
 }
 
 .center span div {
   font-size:16px;
   height: 20px;
-}
-
-.center div img{
-  margin: 0 auto;
-  height: 50%;
-  max-width: 100%;
 }
 
 .category {
@@ -408,13 +401,6 @@ DISPLAY
   display: none;
   color: #777;
   text-align: center;
-  animation:message 0.5s 1;
-  -webkit-animation:message 0.5s 1;
-  animation-fill-mode: forwards;
-
-  animation-delay:2s;
-  -webkit-animation-delay:1s; /* Safari and Chrome */
-  -webkit-animation-fill-mode: forwards;
 }
  
 .display-error {
@@ -437,7 +423,8 @@ DISPLAY
 
 .display.container {
   top: 0;
-  padding: 20px 0;
+  padding: 10px 0;
+  margin-bottom: 100px;
 }
 
 .display.container h4 {
@@ -447,12 +434,13 @@ DISPLAY
 
 .picture {
   cursor: pointer;
+  margin: 0 auto;
+  height: 50%;
+  max-width: 100%;
 }
 
 /***********************
-
 Login
-
 ***********************/
 
 .fb-logo {
@@ -465,9 +453,7 @@ Login
 }
 
 /***********************
-
 Profile
-
 ***********************/
 
 .fb-profile {
@@ -477,7 +463,4 @@ Profile
 .usr-msg {
   margin-top: 30px;
 }
-
-
-
 
