@@ -17,7 +17,7 @@ describe('loading express', function () {
       return db.User.create({fb_id: '1486709991645691'})
     })
     .then(function(user) {
-      db.Restaurant.create({name: 'Burger King', zip: '94122'})
+      db.Restaurant.create({name: 'Burger King', location: ':)', phone: '626', zip: '94122'})
     })
     .then(function(rest) {
       return db.Dish.create({ RestaurantId: 1, zip: '94122', price_rating: '1'})
@@ -61,7 +61,7 @@ describe('loading express', function () {
 
 
   it ('responds to /insertDish route', function insertDishRoute(done) {
-    var dish= {restaurant: 'Burger King', zip: '94122', dishPrice: '2'};
+    var dish= {restaurant: 'Burger King', address: ':)', phone: '626', zip: '94122', dishPrice: '2'};
     request(server)
       .post('/insertDish')
       .type('form')
@@ -117,6 +117,26 @@ describe('loading express', function () {
     });
   });
 
+  it ('responds to recent route', function recentRoute(done) {
+    request(server)
+    .get('/recent')
+    .query({id: '1486709991645691'})
+    .end(function(err, res) {
+      expect(res.body.length).to.equal(2);
+      done();
+    });
+  });
+
+  it ('responds to resInfo Route', function resInfo(done) {
+    request(server)
+    .get('/resInfo')
+    .query({resId: 1})
+    .end(function(err, res) {
+      expect(res.body.length).to.equal(2);
+      done();
+    });
+  });
+  
   it('404 to nonexistant routes', function testPath(done) {
     request(server)
       .get('/foo/bar')
