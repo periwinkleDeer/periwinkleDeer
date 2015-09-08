@@ -139,6 +139,7 @@ var App = React.createClass({
       FB.Event.subscribe('auth.login', function (response) {
         console.log(response,"Logged")
         self.context.router.transitionTo('/main', null, {id: FB.getUserID()});
+        localStorage.setItem('fb_id', FB.getUserID());
         self.statusChangeCallback(response);
 
         getProfile();
@@ -162,7 +163,7 @@ var App = React.createClass({
           <div className="container2">
             <div className="header-main__inner">
               <div className="header-main__logo">
-                <a href={'#/main?id='+ FB.getUserID()}><img src="../assets/nibbler_icon_01.png" alt=""></img></a>
+                <a href={'#/main?id='+ localStorage.getItem('fb_id')}><img src="../assets/nibbler_icon_01.png" alt=""></img></a>
               </div>
               <div className="header-main__user">
                 <a className="header-main__user-details">
