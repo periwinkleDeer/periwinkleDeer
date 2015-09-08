@@ -21,13 +21,14 @@ var Profile = React.createClass({
       success: function(data) {
         self.setState({dishes: 
           data.map(function(dish) {
-            console.log(dish.Dish.img_url)
             return (
             <div className="card">
               <div><strong>{dish.Dish.name}</strong></div>
-              <img src={dish.Dish.img_url}/>
+              <p><small><em>{dish.Dish.category}</em></small></p>
+              <img className="img-thumbnail" src={dish.Dish.img_url}/>
               <div className="stars">
-                <Rating initialRate={dish.Dish.rating} readonly="true" empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" />
+              <p>{dish.num_ratings} Reviews</p>
+               <Rating initialRate={dish.rating} readonly="true" full="glyphicon glyphicon-star star orange" empty="glyphicon glyphicon-star-empty star"/>
               </div>
             </div>
               );
@@ -46,8 +47,8 @@ var Profile = React.createClass({
     return (
       <div className="container">
         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-          <div className="fb-profile">
-            <center><img src={localStorage.getItem('profileUrl')} className="img-circle img-responsive" width="200" height="200" /></center>
+          <div>
+            <center><img src={localStorage.getItem('profileUrl')} className="img-circle img-responsive" width="200" height="200" border="5"/></center>
           </div>
           <center><div><p className="usr-msg">Your 5 recent food ratings</p></div></center>
           <center><div>

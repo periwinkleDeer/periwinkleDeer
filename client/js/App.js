@@ -13,8 +13,8 @@ var Map = require('./Map');
 var Display = require('./Display');
 var Profile = require('./Profile');
 var Restaurant = require('./Restaurant');
-// var fbid = '391288257734536';
-var fbid = '389293527934009';
+var fbid = '391288257734536';
+// var fbid = '389293527934009';
 
 localStorage.setItem('fbid', fbid);
 
@@ -108,7 +108,7 @@ var App = React.createClass({
           self.context.router.transitionTo('/login');
          } else {
           FB.api(
-            "/" + response.authResponse.userID + "/picture",
+            "/" + response.authResponse.userID + "/picture?type=large",
             function (response) {
               if (response && !response.error) {
                 /* handle the result */
