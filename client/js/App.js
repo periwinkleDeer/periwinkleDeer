@@ -18,6 +18,7 @@ var fbid = '389293527934009';
 
 localStorage.setItem('fbid', fbid);
 
+
 var Inbox = React.createClass({
   render: function () {
     return (

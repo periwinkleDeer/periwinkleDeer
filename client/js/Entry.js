@@ -68,11 +68,11 @@ var Entry = React.createClass({
          type: "POST",
          data: store,
          success: function(data) {
-             self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Foodie Added!!!"});
+             self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Food Added"});
          }.bind(this),
          error: function(xhr, status, err) {
              console.log(xhr, status, err);
-             self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Foodie Already in Database!!!"});
+             self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "That Food Item Already Exists"});
          }.bind(this)
       });
    },
