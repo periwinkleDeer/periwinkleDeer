@@ -11,6 +11,7 @@ var Main = React.createClass({
   componentDidMount: function() {
     this.ratings = {};
     var self = this;
+    localStorage.setItem('fb_id', this.props.query.id);
     $.ajax({
         url: "/unrated",
         type: "GET",
