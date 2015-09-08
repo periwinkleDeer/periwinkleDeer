@@ -16,7 +16,12 @@ var Login = React.createClass({
         console.log("login PG")
         self.context.router.transitionTo('/main', null, {id: FB.getUserID()});
       } else {
-        FB.login();
+        if( navigator.userAgent.match('CriOS') ) {
+          window.open('https://www.facebook.com/dialog/oauth?client_id='+ localStorage.getItem('fbid') +'&redirect_uri='+ document.location.href);
+        }
+        else {
+          FB.login();
+        }
       }
     });
 
