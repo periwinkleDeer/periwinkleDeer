@@ -13,8 +13,8 @@ var Map = require('./Map');
 var Display = require('./Display');
 var Profile = require('./Profile');
 var Restaurant = require('./Restaurant');
-// var fbid = '391288257734536';
-var fbid = '389293527934009';
+var fbid = '391288257734536';
+// var fbid = '389293527934009';
 
 
 var Inbox = React.createClass({
@@ -70,7 +70,7 @@ var App = React.createClass({
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
-      console.log(localStorage.getItem('currentRoute'))
+      localStorage.setItem('userId', response.authResponse.userID)
       if (localStorage.getItem('currentRoute')) {
         var currentRoute = localStorage.getItem('currentRoute');
 
@@ -112,6 +112,7 @@ var App = React.createClass({
               if (response && !response.error) {
                 /* handle the result */
                 console.log(response.data)
+                localStorage.setItem('profileUrl', response.data.url);
                 self.setState({fbProfile: response.data.url});
                 $('.header-main__user-avatar').show();
               } 
