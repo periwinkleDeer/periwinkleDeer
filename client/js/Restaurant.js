@@ -34,13 +34,18 @@ var Restaurant = React.createClass({
   },
   handleRestaurant: function(data) {
     var restaurant = data[0].Restaurant;
-    var phoneLink = restaurant.phone.match(/\d+/g).join('');
+    var phoneLinkArr = restaurant.phone.match(/\d+/g);
+    if (phoneLinkArr) {
+      var phoneLink = phoneLinkArr.join('');
+    } else {
+      restaurant.phone = '';
+    }
     return(
       <div>
         <h1>{restaurant.name}</h1>
         <p><a target='_blank' href={'http://maps.google.com/?q=' + restaurant.location}>{restaurant.location}</a></p>
         <p><a href={'tel://'+ phoneLink}>{restaurant.phone}</a></p>
-        <Rating initialRate={restaurant.rating} readonly="true" full="glyphicon glyphicon-star star orange" empty="glyphicon glyphicon-star-empty star"/>
+        <Rating initialRate={parseInt(restaurant.rating)} readonly={true} full="readonly glyphicon glyphicon-star star orange" empty="readonly glyphicon glyphicon-star-empty star"/>
       </div>
     );
   },
@@ -55,7 +60,7 @@ var Restaurant = React.createClass({
          <img className="img-thumbnail" src={dish.img_url}/>
          <div className="stars">
          <p>{dish.num_ratings} Reviews</p>
-          <Rating initialRate={dish.rating} readonly="true" full="glyphicon glyphicon-star star orange" empty="glyphicon glyphicon-star-empty star"/>
+          <Rating initialRate={parseInt(dish.rating)} readonly={true} full="readonly glyphicon glyphicon-star star orange" empty="readonly glyphicon glyphicon-star-empty star"/>
          </div>
        </div>
        );

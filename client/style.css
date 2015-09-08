@@ -47,6 +47,10 @@ img.img-thumbnail {
   box-shadow: 0 0 10px 1px rgba(0,0,0,0.2);
 }
 
+.readonly {
+  cursor: default;
+}
+
 /***********************
 
 FOOTER
@@ -378,6 +382,7 @@ DISPLAY
   text-align: center;
   background: rgba(255,255,255,0.5);
   box-shadow: 0 0 10px 2px rgba(0,0,0,0.2);
+  height: 200px;
 }
 
 .slide {
