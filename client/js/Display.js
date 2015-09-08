@@ -53,7 +53,7 @@ var Display = React.createClass({
             {rows}
           <p className="display-error">No Choices Selected</p>
           <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-            <button className="form-control btn btn-warning center-block" onClick={self.mapRoute}><strong>Map</strong></button>
+            <button className="form-control btn btn-warning center-block" onClick={self.mapRoute}>Map</button>
           </div>
           </div>;
           self.setState({dishes: dishes});

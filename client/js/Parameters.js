@@ -83,7 +83,7 @@ var Parameters = React.createClass({
               <Rating start={0} stop={4} step={1} empty="glyphicon glyphicon-usd usd" full="glyphicon glyphicon-usd green usd" onChange={this.rate}/><span className="popup"></span>
             </div>
           </div>
-          <button className="btn btn-warning form-control" onClick={this.handleClick}>Click Me</button>
+          <button className="btn btn-warning form-control" onClick={this.handleClick}><span className="glyphicon glyphicon-search icon"></span>Search</button>
         </div>
       </div>
     );

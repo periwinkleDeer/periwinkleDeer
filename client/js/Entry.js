@@ -155,7 +155,7 @@ var Entry = React.createClass({
                  <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.foodRate}/>
              </div>
 
-               <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}>Share My Food!</button>
+               <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}><span className="glyphicon glyphicon-plus icon"></span>Add Food</button>
                <p className="display-error">{this.state.error}</p>
 
            </div>

@@ -25,7 +25,7 @@ var Main = React.createClass({
                 <img className="img-thumbnail" src={dish.Dish.img_url}/>
                 <div className="stars">
                   <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={self.foodRate.bind(null, dish)}/>
-                  <span id={dish.id} className="glyphicon glyphicon-remove remove" onClick={self.handleRemove.bind(null, dish)}></span>
+                  <span id={dish.id} className="glyphicon glyphicon-remove-circle remove" onClick={self.handleRemove.bind(null, dish)}></span>
                 </div>
               </div>
                 );
@@ -95,9 +95,9 @@ var Main = React.createClass({
         <div className="container">
           <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
             <div className="form-group">
-              <button type="button" className="btn btn-warning btn-lg btn-block" onClick={this.handleClick.bind(this, "parameters")}>Search for Foodie!</button>
+              <button type="button" className="btn btn-warning btn-lg btn-block" onClick={this.handleClick.bind(this, "parameters")}><span className="glyphicon glyphicon-search icon"></span>Search for Food</button>
 
-              <button type="button" className="btn btn-warning btn-lg btn-block second" onClick={this.handleClick.bind(this, "entry")}>Share Foodie!</button>
+              <button type="button" className="btn btn-warning btn-lg btn-block second" onClick={this.handleClick.bind(this, "entry")}><span className="glyphicon glyphicon-plus icon"></span>Add Food</button>
             </div>
             <div><p className="message">{added}</p></div>
             <div>
