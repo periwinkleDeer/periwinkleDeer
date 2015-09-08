@@ -53,7 +53,7 @@ var Display = React.createClass({
             {rows}
           <p className="display-error">No Choices Selected</p>
           <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-            <button className="form-control btn btn-warning center-block" onClick={self.mapRoute}><strong>Map</strong></button>
+            <button className="form-control btn btn-warning center-block" onClick={self.mapRoute}>Map</button>
           </div>
           </div>;
           self.setState({dishes: dishes});
@@ -69,9 +69,9 @@ var Display = React.createClass({
     console.log("initializing");
     $('.center').slick({
       centerPadding: '60px',
-      arrows: true,
+      lazyLoad: 'progressive',
       slidesToShow: 4,
-      slidesToScroll:2,
+      swipeToSlide: true,
       responsive: [
         {
           breakpoint: 768,
@@ -100,13 +100,13 @@ var Display = React.createClass({
     food.Desserts = []
     var divs = data.forEach(function(item) {
       var rating = item.rating
-      var el = <div id={item.id} className="slide">
+      var el = <section id={item.id} className="slide">
         <p><strong>{item.name}</strong> <span className="green">{displayMoney(item.price_rating)}</span></p>
         <a href={'#/restaurant?resId=' + item.Restaurant.id}className="restaurant-name"><em>{item.Restaurant.name}</em></a>
-        <img className="img-thumbnail picture" onClick={self.handleClick.bind(null, item)} src={item.img_url}/>
+        <img className="img-thumbnail picture" onClick={self.handleClick.bind(null, item)} data-lazy={item.img_url}/>
         <p>{item.num_ratings} Reviews</p>
         <Rating initialRate={rating} readonly="true" full="glyphicon glyphicon-star star orange" empty="glyphicon glyphicon-star-empty star"/>
-      </div>;
+      </section>;
       if (item.category === 'Snack') {
         food.Snacks.push(el);
       } else if (item.category === 'Grub') {

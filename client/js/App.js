@@ -120,7 +120,7 @@ var App = React.createClass({
             }
           );
           FB.api('/me', function(response){
-            console.log('response', response)
+            localStorage.setItem('fb_id', FB.getUserID());
             self.setState({name: response.name});
           })
 

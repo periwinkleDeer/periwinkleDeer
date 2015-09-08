@@ -52,7 +52,9 @@ module.exports = {
       user = user[0].dataValues;
         return db.Rating.findAll({
           where: {UserId: user.id, rating: null}, 
-          include: [{model: db.Dish, required: true}]
+          include: [{model: db.Dish, required: true}],
+          order: [['createdAt', 'DESC']],
+          limit: 5
         });
     }).then(function(results) {
       res.send(results);
