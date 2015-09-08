@@ -41,6 +41,7 @@ var Profile = React.createClass({
   },
 
   render: function() {
+    
     return (
       <div className="container">
         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
