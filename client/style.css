@@ -342,6 +342,21 @@ MAP
   text-align: center;
 }
 
+.iw-img {
+  height:75px;
+}
+
+.iw-title {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  padding: 10px;
+  background-color: #48b5e9;
+  color: white;
+  margin: 1px;
+  border-radius: 2px 2px 0 0;
+}
+
 /***********************
 
 DISPLAY
