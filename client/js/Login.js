@@ -16,10 +16,9 @@ var Login = React.createClass({
         console.log("login PG")
         self.context.router.transitionTo('/main', null, {id: FB.getUserID()});
       } else {
-        if( navigator.userAgent.match('CriOS') ) {
+        if( navigator.userAgent.match('CriOS') || !!navigator.userAgent.match(/Trident.*rv[ :]*11\./)) {
           window.open('https://www.facebook.com/dialog/oauth?client_id='+ localStorage.getItem('fbid') +'&redirect_uri='+ document.location.href);
-        }
-        else {
+        } else {
           FB.login();
         }
       }
