@@ -181,6 +181,8 @@ HEADER
   height: 36px;
   border-radius: 50%;
   display: none;
+  position: absolute;
+
 }
 
 .header-main__user-avatar img {
@@ -188,6 +190,8 @@ HEADER
   height: 36px;
   border-radius: 50%;
   left: 0;
+  position: absolute;
+
 }
 
 .header-main__user-name {
@@ -195,6 +199,8 @@ HEADER
   color: white;
   font-weight: 300;
   left: 0;
+  position: absolute;
+
 }
 
 /***********************
