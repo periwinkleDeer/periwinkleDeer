@@ -299,6 +299,7 @@ MAP
 
 .mapbutton {
   margin-top: 20px;
+  margin-bottom: 150px;
 }
 
 .mapgreet {
@@ -314,7 +315,7 @@ MAP
   margin: 0 auto;
   width:300px;
   height:auto;
-  margin-bottom: 125px;
+  margin-bottom: 75px;
 }
 
 .gm-style-iw {
