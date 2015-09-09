@@ -1,4 +1,12 @@
 general:
   build_dir: periwinkleDeer
 
+## Dependencies
+dependencies:
+  pre:
+    - package.json
 
+## Tests
+test:
+  override: 
+    - mocha test
