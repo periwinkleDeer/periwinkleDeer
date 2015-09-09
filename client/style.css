@@ -502,7 +502,7 @@ Profile
 ***********************/
 
 .fb-profile {
-  border: 5;
+  border: 5px solid #FFFFFF;
 }
 
 .usr-msg {
