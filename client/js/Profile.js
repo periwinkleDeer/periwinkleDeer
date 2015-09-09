@@ -44,7 +44,6 @@ var Profile = React.createClass({
       success: function(data) {
         self.setState({dishes: 
           data.map(function(dish) {
-            console.log(dish)
             return (
             <div className="card">
               <div><strong>{dish.Dish.name}</strong></div>
