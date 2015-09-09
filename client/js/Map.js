@@ -15,6 +15,29 @@ var Map = React.createClass({
   },
 
   componentDidMount: function (rootNode) {
+    $(document).ready(function () {
+        DoRotate(360);
+        AnimateRotate(360);
+    });
+
+    function DoRotate(d) {
+        $(".header-main__logo").css({
+            transform: 'rotate(' + d + 'deg)'
+        });
+    }
+
+    function AnimateRotate(d){
+        var elem = $(".header-main__logo");
+
+        $({deg: 0}).animate({deg: d}, {
+            duration: 5000,
+            step: function(now){
+                elem.css({
+                     transform: "rotate(" + now + "deg)"
+                });
+            }
+        });
+    }
     var self = this;
     console.log(this.props.query);
     var restaurants = this.props.query.dishes;
@@ -41,7 +64,7 @@ var Map = React.createClass({
            //set the 3 map markers here
            self.state.locations.forEach(function(loc){
              console.log("loc.img_url ==== ", loc.img_url);
-             geocodeAddress(geocoder, map, loc.Restaurant.location, loc.Restaurant.name, loc.img_url);
+             geocodeAddress(geocoder, map, loc.Restaurant.location, loc.Restaurant.name, loc.img_url, loc.name);
            });   
        }.bind(this),
        error: function(xhr, status, err) {
@@ -59,7 +82,7 @@ var Map = React.createClass({
 
     var geocoder = new google.maps.Geocoder();
     //convert the address into a marker on the map
-    var geocodeAddress = function (geocoder, resultsMap, address, name, img) {
+    var geocodeAddress = function (geocoder, resultsMap, address, name, img, dish) {
       // console.log("geocoding address")
       geocoder.geocode({'address': address}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
@@ -68,7 +91,7 @@ var Map = React.createClass({
             map: resultsMap,
             position: results[0].geometry.location
           });
-          var contentString = "<div class='iw-title' target='_blank' href='http://maps.google.com/?q=" + address + "'>"+name+"</div><br><div class='iw-link' target='_blank' href='http://maps.google.com/?q=" + address + "'>"+'(click to go to google maps)'+"</div><br><image class='iw-img' src='"+img+"' target='_blank' href='http://maps.google.com/?q=" + address + "'></image>"
+          var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'><div class='iw-title'  >"+name+"</div></a><br><div class='iw-link' target='_blank' href='http://maps.google.com/?q=" + address + "'>"+dish+"</div><br><image class='iw-img' src='"+img+"' target='_blank' href='http://maps.google.com/?q=" + address + "'></image>"
           var infowindow = new google.maps.InfoWindow({
             content: contentString
           });
@@ -101,9 +124,9 @@ var Map = React.createClass({
         <div> 
           <div className="mapdiv">
             <div>
-              <div className="form-group">
-                <div className="btn-lg btn-block mapgreeting">Great choices! Here they are on a map!
-                </div>
+              <div className="mapgreet">
+                <label>Go Out And Nibbler!
+                </label>
               </div>
             </div>
             <div className="map-google"></div>

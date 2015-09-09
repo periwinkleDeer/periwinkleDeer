@@ -1,5 +1,5 @@
 /***********************
-ENTIRE SITE
+ENTIREITE
 ***********************/
 
 body, html {
@@ -129,7 +129,7 @@ HEADER
 }
 
 .header-main__inner {
-  display: -webkit-box;
+/*  display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -140,18 +140,33 @@ HEADER
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
       -ms-flex-pack: justify;
-          justify-content: space-between;
+          justify-content: space-between;*/
 }
 
 .header-main__logo {
   width: 50px;
+  position: relative;
+}
+
+.header-main__logo_fork img {
+  /*display: block;*/
+  margin: 0;
+  width: 50px;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 23px;
 }
 
 .header-main__logo img {
-  display: block;
+  /*display: block;*/
   margin: 0;
   width: 100%;
   height: auto;
+  transform-origin: left 20px;
+  top: 0;
+  left: -23px;
+  z-index:10;
 }
 
 .header-main__user {
@@ -368,14 +383,12 @@ MAP
   margin-top: 20px;
 }
 
-.mapgreeting {
+.mapgreet {
+  position: relative;
   margin-top: 50px;
-  opacity: 0.8;
+  font-size: 20px;
+  font-weight: 600;
   text-align: center;
-  border-radius: 0px;
-  color: #ffae19;
-  background-color: white;
-  border-radius: 5px;
 }
 
 .mapdiv {
@@ -390,20 +403,29 @@ MAP
   text-align: center;
 }
 
-.iw-img {
-  height:75px;
-}
-
 .iw-title {
   font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 22px;
+  font-size: 12px;
   font-weight: 400;
   padding: 10px;
-  background-color: #48b5e9;
+  background-color: #CC3333;
   color: white;
-  margin: 1px;
-  border-radius: 2px 2px 0 0;
+  border-radius: 2px;
 }
+
+.iw-img {
+  height: 60px;
+  margin: 0 auto;
+}
+
+.iw-link {
+  margin-top: -15px !important;
+  margin-bottom: -15px !important;
+  text-align: center;
+  font-weight: 600;
+  margin: 0 auto;
+}
+
 
 /***********************
 DISPLAY
@@ -443,10 +465,42 @@ DISPLAY
   text-align: center;
 }
 
-.message {
+/*.message {
   display: none;
   color: #777;
   text-align: center;
+}*/
+
+.message {
+  -webkit-animation: seconds 2.0s forwards;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 2s;
+  animation: seconds 2.0s forwards;
+  animation-iteration-count: 1;
+  animation-delay: 2s;
+  position: relative;
+  display: none;
+  color: #777;
+  font-weight: 600;
+  text-align: center;
+}
+@-webkit-keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px; 
+  }
+}
+@keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px; 
+  }
 }
  
 .display-error {

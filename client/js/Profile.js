@@ -10,6 +10,29 @@ var Profile = React.createClass({
   },
 
   componentDidMount: function() {
+    $(document).ready(function () {
+        DoRotate(360);
+        AnimateRotate(360);
+    });
+
+    function DoRotate(d) {
+        $(".header-main__logo").css({
+            transform: 'rotate(' + d + 'deg)'
+        });
+    }
+
+    function AnimateRotate(d){
+        var elem = $(".header-main__logo");
+
+        $({deg: 0}).animate({deg: d}, {
+            duration: 5000,
+            step: function(now){
+                elem.css({
+                     transform: "rotate(" + now + "deg)"
+                });
+            }
+        });
+    }
     var self = this;
     
     localStorage.setItem('currentRoute', '/profile');
