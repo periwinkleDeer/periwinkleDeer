@@ -61,7 +61,7 @@ describe('loading express', function () {
 
 
   it ('responds to /insertDish route', function insertDishRoute(done) {
-    var dish= {restaurant: 'Burger King', address: ':)', phone: '626', zip: '94122', dishPrice: '2'};
+    var dish= {id: '1486709991645691', restaurant: 'Burger King', address: ':)', phone: '626', zip: '94122', dishPrice: '2', dishRating: '3'};
     request(server)
       .post('/insertDish')
       .type('form')
@@ -71,8 +71,14 @@ describe('loading express', function () {
         db.Dish.findOne({where: {price_rating: '2'}})
         .then(function(dish) {
           expect(dish.dataValues.zip).to.equal('94122');
-          done(); 
-        });
+        })
+        .then(function() {
+          db.Rating.findOne({where: {UserId: 1, DishId: 2}})
+          .then(function(rating) {
+            expect(rating.dataValues.rating).to.equal('3');
+            done();
+          })
+        })
       });
   });
 

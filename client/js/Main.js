@@ -48,7 +48,6 @@ var Main = React.createClass({
     this.ratings[dish.DishId] = -1;
   },
   foodRate: function(dish, value) {
-    console.log(value)
     this.ratings[dish.DishId] = value;
   }, 
   handleSubmit: function() {
@@ -76,12 +75,13 @@ var Main = React.createClass({
   },
   render: function() {
       var self = this;
-      var submit;
+      var submit, directions;
       var added = this.props.query.added || '';
       if (added) {
         $('.message').show();
       }
       if (this.state.dishes.length) {
+        directions = <p className="directions">Rate your recent dishes or delete</p>;
         submit = 
           <div className="center-block">
             <button className="center-block btn btn-warning" onClick={this.handleSubmit}>
@@ -100,6 +100,7 @@ var Main = React.createClass({
               <button type="button" className="btn btn-warning btn-lg btn-block second" onClick={this.handleClick.bind(this, "entry")}><span className="glyphicon glyphicon-plus icon"></span>Add Food</button>
             </div>
             <div><p className="message">{added}</p></div>
+            {directions}
             <div>
               {this.state.dishes}
             </div>

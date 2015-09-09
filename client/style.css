@@ -36,9 +36,18 @@ a:hover {
 .btn {
   /*box-shadow: inset -2px -2px 10px 2px rgba(0,0,0,.2);*/
   border-radius: 25px;
-  background-color: orange;
+  background-color: #ffae19;
   text-transform: uppercase;
   font-weight: 500;
+}
+
+.btn:hover, .btn:focus, .btn:active:focus {
+  /*background-color: #ffc04c;*/
+  /*border-color: #ffc04c;*/
+  background-color: #fff6e5;
+  border: solid 2px #ffae19;
+  color: #ffae19;
+  outline:none;
 }
 
 img.img-thumbnail {
@@ -47,6 +56,23 @@ img.img-thumbnail {
 
 .readonly {
   cursor: default;
+}
+
+#neighborhood:focus {
+  outline: none;
+  box-shadow: 0 0 5px 1px rgba(255,174,25,0.7);
+  border: solid 1px #ccc;
+}
+
+input.form-control:focus,
+select.form-control:focus {
+  outline: none;
+  box-shadow: 0 0 5px 1px rgba(35,181,175, 0.5);
+  border: solid 1px #ccc;
+}
+
+*:focus {
+  outline: none;
 }
 
 /***********************
@@ -238,11 +264,11 @@ FORMS
 ***********************/
 
 .orange {
-   color: #ec971f;
+   color: #ffae19;
 }
 
 .green {
-   color: #5cd65c;
+   color: #70db70;
 }
 
 .star, .usd{
@@ -253,6 +279,9 @@ FORMS
   margin-top: 20px;
 }
 
+.camera {
+  font-size: 16px;
+}
 .popup {
   color: #888;
   margin-left: 10px;
@@ -267,6 +296,17 @@ FORMS
   margin-right: 20px;
 }
 
+.upload {
+  background-color: #23B5AF;
+  border: #23B5AF;
+  margin-bottom: 10px;
+}
+
+.upload:hover {
+  background-color: #effcfb;
+  border: solid 2px #23B5AF;
+  color: #23B5AF;
+}
 /***********************
 MAIN
 ***********************/
@@ -301,6 +341,12 @@ MAIN
 .btn.second {
   margin-top: 15px;
 }
+
+.directions {
+  color: #777;
+  text-align: center;
+  font-weight: 500;
+}
 /***********************
 MAP
 ***********************/
@@ -327,7 +373,7 @@ MAP
   opacity: 0.8;
   text-align: center;
   border-radius: 0px;
-  color: orange;
+  color: #ffae19;
   background-color: white;
   border-radius: 5px;
 }
@@ -388,7 +434,7 @@ DISPLAY
 }
 
 .category {
-  color: #c33;
+  color: #C41E3A;
 }
 
 .display-missing {
@@ -404,7 +450,7 @@ DISPLAY
 }
  
 .display-error {
-  background: rgba(255,100,100,0.5);
+  background: rgba(225,60,88,0.5);
   text-align: center;
   font-size: 15px;
   color: #eee;
@@ -418,13 +464,12 @@ DISPLAY
 }
 
 .highlighted {
-  border: 3px solid orange;
+  border: 3px solid rgba(255,174,25,0.7);
 }
 
 .display.container {
   top: 0;
   padding: 10px 0;
-  margin-bottom: 100px;
 }
 
 .display.container h4 {

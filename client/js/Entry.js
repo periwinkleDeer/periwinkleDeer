@@ -22,16 +22,12 @@ var Entry = React.createClass({
 
       autocomplete.addListener('place_changed', function(){
         var place = autocomplete.getPlace();
-
-        console.log(place);
         self.setState({
          restaurant: place
         });
-        console.log(self.state.restaurant);
       });
 
       FB.getLoginStatus(function(response){
-        console.log("test");
         if (response.status !== 'connected') {
           self.context.router.transitionTo('/login');
         }
@@ -46,6 +42,7 @@ var Entry = React.createClass({
       var phone = this.state.restaurant.formatted_phone_number || '!!';
 
       var store = {
+         id         : this.props.query.id,
          restaurant : this.state.restaurant.name,
          address    : this.state.restaurant.formatted_address,
          zip        : zip,
@@ -78,6 +75,7 @@ var Entry = React.createClass({
    },
 
    change: function(e){
+        e.preventDefault();
        var files = e.target.files;
        var self = this;
        var maxWidth = 250;
@@ -87,7 +85,7 @@ var Entry = React.createClass({
        });
    },
 
-   priceRate: function(value){
+   ratePrice: function(value){
       this.priceRate = value;
       var values = {
          1: "under $10",
@@ -98,16 +96,19 @@ var Entry = React.createClass({
       $('.popup').text(values[value]);
    },
 
-   foodRate: function(value){
+   rateFood: function(value){
       this.foodRate = value;
    },
 
    render: function(){
       var style = {
         color: 'white',
-        fontSize: 13
+        fontSize: 13,
+        outline: 'none'
       };
 
+      this.foodRate = this.foodRate || 0;
+      this.priceRate = this.priceRate || 0;
        var image;
        var dataUrl = this.state.dataUrl;
        if(dataUrl){
@@ -128,8 +129,8 @@ var Entry = React.createClass({
              </div>
 
              <div className="form-group">
-                 <label>Upload Picture</label>
-                 <input style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.change }/>
+                 <div className="btn btn-warning upload form-control" onClick={uploadImage}><span className="glyphicon glyphicon-camera camera icon"></span>Add Image</div>
+                 <input className="hidden"style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.change }/>
                  <p className="help-block">{ image }</p>
              </div>           
 
@@ -145,14 +146,14 @@ var Entry = React.createClass({
              <div className="form-group">
               <label>Price Rating</label>
               <div></div>
-                 <Rating empty="glyphicon glyphicon-usd usd" full="glyphicon glyphicon-usd green usd" start={0} stop={4} step={1} onChange={this.priceRate}/>
+                 <Rating initialRate={this.priceRate} empty="glyphicon glyphicon-usd usd" full="glyphicon glyphicon-usd green usd" start={0} stop={4} step={1} onChange={this.ratePrice}/>
                  <span className="popup"></span>
              </div>
 
              <div className="form-group">
-              <label>Rate Your Foodie!</label>
+              <label>Rate Dish</label>
               <div></div>
-                 <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.foodRate}/>
+                 <Rating initialRate={this.foodRate} empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.rateFood}/>
              </div>
 
                <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}><span className="glyphicon glyphicon-plus icon"></span>Add Food</button>
@@ -166,9 +167,7 @@ var Entry = React.createClass({
 
 function checkObj(object){
   for(var key in object){
-    console.log(key);
     if(!object[key]){
-      console.log("REJECTED", key)
       return false;
     }
   }
@@ -181,6 +180,10 @@ function zipCheck(list){
       return list[i].long_name;
     }
   }
+}
+
+function uploadImage() {
+  $('input[type=file]').click();
 }
 
 function resize(file, maxWidth, maxHeight, fn){
