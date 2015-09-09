@@ -458,13 +458,12 @@ DISPLAY
 }
 
 .highlighted {
-  border: 3px solid rgba(35,181,175,0.7);
+  border: 3px solid rgba(255,174,25,0.7);
 }
 
 .display.container {
   top: 0;
   padding: 10px 0;
-  margin-bottom: 100px;
 }
 
 .display.container h4 {
