@@ -1,7 +1,4 @@
 general:
-  build_dir: test
+  build_dir: periwinkleDeer
 
-## Tests
-test:
-  override: 
-    - mocha test
+
