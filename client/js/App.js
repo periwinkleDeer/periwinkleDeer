@@ -192,13 +192,10 @@ var App = React.createClass({
               <div className="header-main__logo">
                 <a href={'#/main?id='+ localStorage.getItem('fb_id')}><img src="../assets/nibbler_icon_plate.png" alt=""></img></a>
               </div>
-              <div className="header-main__user">
-                <a className="header-main__user-details">
-                  <h5 className="header-main__user-name"> {this.state.name} </h5>
-                  <div className="header-main__user-avatar">
-                    <img src={this.state.fbProfile} onClick={this.handleClick.bind(this, 'profile')}></img>
-                  </div>
-                </a>
+            
+              <h5 className="header-main__user-name"> {this.state.name} </h5>
+              <div className="header-main__user-avatar">
+                <img src={this.state.fbProfile} onClick={this.handleClick.bind(this, 'profile')}></img>
               </div>
             </div>
           </div>
