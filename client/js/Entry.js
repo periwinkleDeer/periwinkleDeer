@@ -78,6 +78,7 @@ var Entry = React.createClass({
    },
 
    change: function(e){
+        e.preventDefault();
        var files = e.target.files;
        var self = this;
        var maxWidth = 250;
@@ -87,7 +88,7 @@ var Entry = React.createClass({
        });
    },
 
-   priceRate: function(value){
+   ratePrice: function(value){
       this.priceRate = value;
       var values = {
          1: "under $10",
@@ -98,7 +99,7 @@ var Entry = React.createClass({
       $('.popup').text(values[value]);
    },
 
-   foodRate: function(value){
+   rateFood: function(value){
       this.foodRate = value;
    },
 
@@ -109,6 +110,8 @@ var Entry = React.createClass({
         outline: 'none'
       };
 
+      this.foodRate = this.foodRate || 0;
+      this.priceRate = this.priceRate || 0;
        var image;
        var dataUrl = this.state.dataUrl;
        if(dataUrl){
@@ -146,14 +149,14 @@ var Entry = React.createClass({
              <div className="form-group">
               <label>Price Rating</label>
               <div></div>
-                 <Rating empty="glyphicon glyphicon-usd usd" full="glyphicon glyphicon-usd green usd" start={0} stop={4} step={1} onChange={this.priceRate}/>
+                 <Rating initialRate={this.priceRate} empty="glyphicon glyphicon-usd usd" full="glyphicon glyphicon-usd green usd" start={0} stop={4} step={1} onChange={this.ratePrice}/>
                  <span className="popup"></span>
              </div>
 
              <div className="form-group">
               <label>Rate Dish</label>
               <div></div>
-                 <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.foodRate}/>
+                 <Rating initialRate={this.foodRate} empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.rateFood}/>
              </div>
 
                <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}><span className="glyphicon glyphicon-plus icon"></span>Add Food</button>
