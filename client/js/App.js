@@ -51,7 +51,29 @@ var App = React.createClass({
   },
 
   componentDidMount: function() {
-    // $('.header-main__user-avatar').hide();
+    $(document).ready(function () {
+        DoRotate(360);
+        AnimateRotate(360);
+    });
+
+    function DoRotate(d) {
+        $(".header-main__logo").css({
+            transform: 'rotate(' + d + 'deg)'
+        });
+    }
+
+    function AnimateRotate(d){
+        var elem = $(".header-main__logo");
+
+        $({deg: 0}).animate({deg: d}, {
+            duration: 5000,
+            step: function(now){
+                elem.css({
+                     transform: "rotate(" + now + "deg)"
+                });
+            }
+        });
+    }
   },
   
   // Here we run a very simple test of the Graph API after login is
@@ -164,16 +186,16 @@ var App = React.createClass({
         <div className="header-main">
           <div className="container2">
             <div className="header-main__inner">
-              <div className="header-main__logo">
-                <a href={'#/main?id='+ localStorage.getItem('fb_id')}><img src="../assets/nibbler_icon_01.png" alt=""></img></a>
+              <div className="header-main__logo_fork">
+                <a href={'#/main?id='+ localStorage.getItem('fb_id')}><img src="../assets/nibbler_icon_forkknife.png" alt=""></img></a>
               </div>
-              <div className="header-main__user">
-                <a className="header-main__user-details">
-                  <h5 className="header-main__user-name"> {this.state.name} </h5>
-                  <div className="header-main__user-avatar">
-                    <img src={this.state.fbProfile} onClick={this.handleClick.bind(this, 'profile')}></img>
-                  </div>
-                </a>
+              <div className="header-main__logo">
+                <a href={'#/main?id='+ localStorage.getItem('fb_id')}><img src="../assets/nibbler_icon_plate.png" alt=""></img></a>
+              </div>
+            
+              <h5 className="header-main__user-name"> {this.state.name} </h5>
+              <div className="header-main__user-avatar">
+                <img src={this.state.fbProfile} onClick={this.handleClick.bind(this, 'profile')}></img>
               </div>
             </div>
           </div>

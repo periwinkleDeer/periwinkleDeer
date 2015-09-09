@@ -1,5 +1,5 @@
 /***********************
-ENTIRE SITE
+ENTIREITE
 ***********************/
 
 body, html {
@@ -129,134 +129,67 @@ HEADER
 }
 
 .header-main__inner {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  position: relative;
 }
 
 .header-main__logo {
   width: 50px;
-}
-
-.header-main__logo img {
-  display: block;
-  margin: 0;
-  width: 100%;
-  height: auto;
-}
-
-.header-main__user {
   position: relative;
 }
 
-.header-main__user-details {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-      -ms-flex-align: center;
-          align-items: center;
+.header-main__logo_fork img {
+  /*display: block;*/
+  margin: 0;
+  width: 50px;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0px;
+}
+
+.header-main__logo img {
+  /*display: block;*/
+  margin: 0;
+  width: 100%;
+  height: auto;
+  top: 0;
+  left: -23px;
+  z-index:10;
 }
 
 .header-main__user-avatar {
   margin-left: 10px;
+  top: 7px;
+  right: 0;
   width: 36px;
   height: 36px;
   border-radius: 50%;
   display: none;
+  position: absolute;
+
 }
 
 .header-main__user-avatar img {
+  margin: 0;
   width: 36px;
   height: 36px;
   border-radius: 50%;
+  right: 0;
+  top: 0;
+  position: absolute;
+
 }
 
 .header-main__user-name {
   margin: 0;
   color: white;
   font-weight: 300;
-}
-
-.header-main__user-dropdown {
-  visibility: hidden;
-  list-style: none;
+  right: 50px;
+  width: auto;
+  height: auto;
   position: absolute;
-  top: 100%;
-  right: 0;
-  z-index: -1;
-  margin: 0;
-  padding: 12px;
-  width: 240px;
-  background-color: #fff;
-  box-shadow: -4px 4px 24px rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  -webkit-transition: opacity 0.3s;
-          transition: opacity 0.3s;
-}
+  top: 15px;
 
-.header-main__user-dropdown::before {
-  display: block;
-  position: absolute;
-  top: -6px;
-  right: 12px;
-  width: 12px;
-  height: 6px;
-  border-bottom: solid 6px #fff;
-  border-left: solid 6px transparent;
-  border-right: solid 6px transparent;
-  content: "";
-}
-
-.header-main__user-dropdown-item {
-  padding: 4px 0;
-}
-
-.header-main__user-dropdown-sep {
-  border-bottom: solid 1px #BDD4DE;
-}
-
-.header-main__user-dropdown-item a {
-  display: block;
-  padding: 4px 8px;
-  color: #3F5765;
-}
-
-.header-main__user-dropdown-item a:hover {
-  color: #fff;
-  background-color: red;
-}
-
-/* hover state */
-.header-main__user:hover .header-main__user-dropdown {
-  visibility: visible;
-  z-index: 100;
-  opacity: 1;
-}
-
-/**
- * Some modifiers for right side opponent
- */
-.header-main__user-details--right {
-  -webkit-box-pack: end;
-  -webkit-justify-content: flex-end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-
-.header-main__user-details--right > .header-main__user-avatar {
-  margin: 0 0 0 24px;
 }
 
 /***********************
@@ -366,16 +299,15 @@ MAP
 
 .mapbutton {
   margin-top: 20px;
+  margin-bottom: 100px;
 }
 
-.mapgreeting {
+.mapgreet {
+  position: relative;
   margin-top: 50px;
-  opacity: 0.8;
+  font-size: 20px;
+  font-weight: 600;
   text-align: center;
-  border-radius: 0px;
-  color: #ffae19;
-  background-color: white;
-  border-radius: 5px;
 }
 
 .mapdiv {
@@ -390,20 +322,29 @@ MAP
   text-align: center;
 }
 
-.iw-img {
-  height:75px;
-}
-
 .iw-title {
   font-family: 'Open Sans Condensed', sans-serif;
-  font-size: 22px;
+  font-size: 12px;
   font-weight: 400;
   padding: 10px;
-  background-color: #48b5e9;
+  background-color: #CC3333;
   color: white;
-  margin: 1px;
-  border-radius: 2px 2px 0 0;
+  border-radius: 2px;
 }
+
+.iw-img {
+  height: 60px;
+  margin: 0 auto;
+}
+
+.iw-link {
+  margin-top: -15px !important;
+  margin-bottom: -15px !important;
+  text-align: center;
+  font-weight: 600;
+  margin: 0 auto;
+}
+
 
 /***********************
 DISPLAY
@@ -443,10 +384,42 @@ DISPLAY
   text-align: center;
 }
 
-.message {
+/*.message {
   display: none;
   color: #777;
   text-align: center;
+}*/
+
+.message {
+  -webkit-animation: seconds 2.0s forwards;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 2s;
+  animation: seconds 2.0s forwards;
+  animation-iteration-count: 1;
+  animation-delay: 2s;
+  position: relative;
+  display: none;
+  color: #777;
+  font-weight: 600;
+  text-align: center;
+}
+@-webkit-keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px; 
+  }
+}
+@keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px; 
+  }
 }
  
 .display-error {
