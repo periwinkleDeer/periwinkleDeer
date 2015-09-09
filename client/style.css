@@ -257,6 +257,7 @@ MAIN
 .card img {
   margin: 10px 25%;
   max-width: 50%;
+  max-height: 40%;
 }
 
 .card .stars {
