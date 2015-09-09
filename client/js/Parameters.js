@@ -81,7 +81,7 @@ var Parameters = React.createClass({
       1: "under $10",
       2: "under $20",
       3: "under $30",
-      4: "$under $40"
+      4: "over $30"
     }
     $('.popup').text(values[value]);
   },
