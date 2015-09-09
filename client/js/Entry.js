@@ -105,7 +105,8 @@ var Entry = React.createClass({
    render: function(){
       var style = {
         color: 'white',
-        fontSize: 13
+        fontSize: 13,
+        outline: 'none'
       };
 
        var image;
@@ -128,8 +129,8 @@ var Entry = React.createClass({
              </div>
 
              <div className="form-group">
-                 <label>Upload Picture</label>
-                 <input style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.change }/>
+                 <div className="btn btn-warning upload form-control" onClick={uploadImage}><span className="glyphicon glyphicon-camera camera icon"></span>Add Image</div>
+                 <input className="hidden"style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.change }/>
                  <p className="help-block">{ image }</p>
              </div>           
 
@@ -150,7 +151,7 @@ var Entry = React.createClass({
              </div>
 
              <div className="form-group">
-              <label>Rate Your Foodie!</label>
+              <label>Rate Dish</label>
               <div></div>
                  <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.foodRate}/>
              </div>
@@ -181,6 +182,10 @@ function zipCheck(list){
       return list[i].long_name;
     }
   }
+}
+
+function uploadImage() {
+  $('input[type=file]').click();
 }
 
 function resize(file, maxWidth, maxHeight, fn){
