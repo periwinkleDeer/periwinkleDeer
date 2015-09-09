@@ -77,6 +77,7 @@ module.exports = {
   },
   
   insertDish: function(req, res){
+    console.log(req.body)
     db.Restaurant.find({where: {
       name: req.body.restaurant,
       location: req.body.address,
@@ -107,8 +108,13 @@ module.exports = {
                   RestaurantId: restaurant.dataValues.id,
                   zip: restaurant.dataValues.zip
                 })
-                .then(function(results){
-                  res.sendStatus(201);
+                .then(function(dish){
+                  db.User.findOne({where: {fb_id: req.body.id}})
+                  .then(function(user) {
+                    db.Rating.create({UserId: user.id, DishId: dish.id, rating: req.body.dishRating});
+                  }).then(function(results) {
+                    res.sendStatus(201);
+                  });
                 });
               }else{
                 res.sendStatus(412);
@@ -134,8 +140,14 @@ module.exports = {
               RestaurantId: results.dataValues.id,
               zip: results.dataValues.zip
             })
-            .then(function(results){
-              res.sendStatus(201);
+            .then(function(dish){
+              db.User.findOne({where: {fb_id: req.body.id}})
+              .then(function(user) {
+                db.Rating.create({UserId: user.id, DishId: dish.id, rating: req.body.dishRating})
+                  .then(function(results) {
+                    res.sendStatus(201);
+                  })
+              })
             });
           });
         }

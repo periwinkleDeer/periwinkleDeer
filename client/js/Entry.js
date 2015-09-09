@@ -22,16 +22,12 @@ var Entry = React.createClass({
 
       autocomplete.addListener('place_changed', function(){
         var place = autocomplete.getPlace();
-
-        console.log(place);
         self.setState({
          restaurant: place
         });
-        console.log(self.state.restaurant);
       });
 
       FB.getLoginStatus(function(response){
-        console.log("test");
         if (response.status !== 'connected') {
           self.context.router.transitionTo('/login');
         }
@@ -46,6 +42,7 @@ var Entry = React.createClass({
       var phone = this.state.restaurant.formatted_phone_number || '!!';
 
       var store = {
+         id         : this.props.query.id,
          restaurant : this.state.restaurant.name,
          address    : this.state.restaurant.formatted_address,
          zip        : zip,
@@ -170,9 +167,7 @@ var Entry = React.createClass({
 
 function checkObj(object){
   for(var key in object){
-    console.log(key);
     if(!object[key]){
-      console.log("REJECTED", key)
       return false;
     }
   }
