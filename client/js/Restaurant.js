@@ -45,7 +45,7 @@ var Restaurant = React.createClass({
         <h1>{restaurant.name}</h1>
         <p><a target='_blank' href={'http://maps.google.com/?q=' + restaurant.location}>{restaurant.location}</a></p>
         <p><a href={'tel://'+ phoneLink}>{restaurant.phone}</a></p>
-        <img className="glogo" src="../assets/google.png"/><Rating initialRate={parseInt(restaurant.rating)} readonly={true} full="readonly glyphicon glyphicon-star star orange" empty="readonly glyphicon glyphicon-star-empty star"/>
+        <a target="_blank" href={"http://www.google.com/search?q=" + restaurant.name}><img className="glogo" src="../assets/google.png"/></a><Rating initialRate={parseInt(restaurant.rating)} readonly={true} full="readonly glyphicon glyphicon-star star orange" empty="readonly glyphicon glyphicon-star-empty star"/>
       </div>
     );
   },
