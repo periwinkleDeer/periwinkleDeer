@@ -80,7 +80,7 @@ var Restaurant = React.createClass({
        <div className="card">
          <div><strong>{dish.name}</strong></div>
          <p><small><em>{dish.category}</em></small></p>
-         <img className="img-thumbnail" src={dish.img_url}/>
+         <center><img className="img-thumbnail" src={dish.img_url}/></center>
          <div className="stars">
          <p>{dish.num_ratings} Reviews</p>
           <Rating initialRate={parseInt(dish.rating)} readonly={true} full="readonly glyphicon glyphicon-star star orange" empty="readonly glyphicon glyphicon-star-empty star"/>

@@ -39,15 +39,12 @@ var Map = React.createClass({
         });
     }
     var self = this;
-    console.log(this.props.query);
     var restaurants = this.props.query.dishes;
-    console.log(restaurants);
     self.setState({info_window: new google.maps.InfoWindow({
         content: 'loading'
     })});
     if (typeof(FB) !== 'undefined' && FB !== null) {
       FB.getLoginStatus(function(response){
-        // console.log("map.js", response)
         if (response.status !== 'connected') {
           self.context.router.transitionTo('/login');
         }
@@ -59,11 +56,9 @@ var Map = React.createClass({
        type: "GET",
        data: {restaurants: restaurants},
        success: function(data) {
-           console.log("success!!! This is the data ==== ", data);
            self.setState({locations: data}); 
            //set the 3 map markers here
            self.state.locations.forEach(function(loc){
-             console.log("loc.img_url ==== ", loc.img_url);
              geocodeAddress(geocoder, map, loc.Restaurant.location, loc.Restaurant.name, loc.img_url, loc.name);
            });   
        }.bind(this),
@@ -83,7 +78,6 @@ var Map = React.createClass({
     var geocoder = new google.maps.Geocoder();
     //convert the address into a marker on the map
     var geocodeAddress = function (geocoder, resultsMap, address, name, img, dish) {
-      // console.log("geocoding address")
       geocoder.geocode({'address': address}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           resultsMap.setCenter(results[0].geometry.location);
@@ -91,13 +85,18 @@ var Map = React.createClass({
             map: resultsMap,
             position: results[0].geometry.location
           });
-          var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'><div class='iw-title'  >"+name+"</div></a><br><div class='iw-link' target='_blank' href='http://maps.google.com/?q=" + address + "'>"+dish+"</div><br><image class='iw-img' src='"+img+"' target='_blank' href='http://maps.google.com/?q=" + address + "'></image>"
+          var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'><div class='iw-title'  >"+name+"</div></a><br><div class='iw-link' target='_blank' href='http://maps.google.com/?q=" + address + "'>"+dish+"</div><br><image class='img-thumbnail iw-img' src='"+img+"' target='_blank' href='http://maps.google.com/?q=" + address + "'></image>"
           var infowindow = new google.maps.InfoWindow({
             content: contentString
           });
           google.maps.event.addListener(marker, 'click', function () {                
             self.state.info_window.setContent(contentString);
             self.state.info_window.open(map, this);
+          });
+
+  // Event that closes the Info Window with a click on the map
+          google.maps.event.addListener(map, 'click', function() {
+            self.state.info_window.close();
           });
           // marker.addListener('click', function() {
           //     infowindow.open(map, marker);
@@ -115,7 +114,6 @@ var Map = React.createClass({
       return new google.maps.LatLng(props.mapCenterLat, props.mapCenterLng);
   },
   handleClick: function(link) {
-    console.log("btn click", this);
     // this.context.router.transitionTo('/' + link);
     this.context.router.transitionTo('/' + link, null, {id: this.props.query.id});
   },

@@ -89,7 +89,6 @@ var Display = React.createClass({
     this.choices = {};
   },
   initializeSlick: function () {
-    console.log("initializing");
     $('.center').slick({
       lazyLoad: 'progressive',
       slidesToShow: 4,
