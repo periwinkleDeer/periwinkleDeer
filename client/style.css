@@ -293,7 +293,7 @@ FORMS
 }
 
 .icon {
-  margin-right: 20px;
+  margin-right: 4vw;
 }
 
 .upload {
@@ -507,5 +507,16 @@ Profile
 
 .usr-msg {
   margin-top: 30px;
+}
+
+/***********************
+Restaurant
+***********************/
+
+.glogo {
+  position: relative;
+  top: -5px;
+  height: 30px;
+  margin-right: 10px;
 }
 
