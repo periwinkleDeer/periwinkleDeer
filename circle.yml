@@ -14,5 +14,5 @@ general:
 test:
   override: 
     - mocha test:
-    pwd: test
+
 
