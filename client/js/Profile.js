@@ -44,6 +44,10 @@ var Profile = React.createClass({
   
   },
 
+  handleClick: function(link) {
+    this.context.router.transitionTo('/' + link, null, {id: this.props.query.id});
+  },
+
   render: function() {
     
     return (
@@ -51,6 +55,7 @@ var Profile = React.createClass({
         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
           <div>
             <center><img src={localStorage.getItem('profileUrl')} className="img-circle fb-profile" width="200" height="200" border="5"/></center>
+            <center><button type="button" className="btn btn-warning btn-lg btn-block hist-btn" onClick={this.handleClick.bind(this, "hist")}>Map of Recent Food Items</button></center>
           </div>
           <center><div><p className="usr-msg">Your 5 recent food ratings</p></div></center>
           <center><div>

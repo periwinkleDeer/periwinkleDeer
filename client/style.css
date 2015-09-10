@@ -487,6 +487,12 @@ Profile
 
 .usr-msg {
   margin-top: 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.hist-btn {
+  margin-top: 5%;
 }
 
 /***********************
