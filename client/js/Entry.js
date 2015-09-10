@@ -123,12 +123,6 @@ var Entry = React.createClass({
   },
 
   render: function(){
-    var style = {
-      color: 'white',
-      fontSize: 13,
-      outline: 'none'
-    };
-
     this.foodRate = this.foodRate || 0;
     this.priceRate = this.priceRate || 0;
      var image;
@@ -158,7 +152,7 @@ var Entry = React.createClass({
 
            <div className="form-group">
                <div className="btn btn-warning upload form-control" onClick={uploadImage}><span className="glyphicon glyphicon-camera camera icon"></span>Add Image</div>
-               <input className="hidden"style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.change }/>
+               <input className="hidden" ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.change }/>
                <p className="help-block">{ image }</p>
            </div>           
 
