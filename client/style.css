@@ -239,6 +239,29 @@ FORMS
   border: solid 2px #23B5AF;
   color: #23B5AF;
 }
+
+.dietry-query {
+  width: 100%;
+}
+
+.dietry-query img {
+  width: 20%;
+  max-width: 60px;
+  margin: 10px 5px 0;
+  cursor: pointer;
+  -webkit-filter: grayscale(80%);
+}
+
+img.diet-filter {
+  border-radius: 50%;
+  -webkit-filter: grayscale(0) brightness(120%);
+  border: 2px solid rgba(255,255,255,1);
+  box-shadow: 0 0 15px 3px rgba(0,0, 0,0.6);
+}
+
+#glutenfree.diet-filter, #vegetarian.diet-filter {
+ -webkit-filter: grayscale(0) brightness(150%);
+}
 /***********************
 MAIN
 ***********************/
