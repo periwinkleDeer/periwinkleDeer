@@ -181,8 +181,6 @@ var Hist = React.createClass({
           var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'><div class='iw-title'>"+name+"</div></a><br>"+img+""
           var infowindow = new google.maps.InfoWindow({
             content: contentString,
-            max-height: 125,
-            overflow-y: auto
           });
           google.maps.event.addListener(marker, 'click', function () {                
             self.state.info_window.setContent(contentString);

@@ -181,7 +181,8 @@ var Map = React.createClass({
             <div className="map-google"></div>
             <div>
               <div className="form-group">
-                <button type="button" className="btn btn-warning btn-lg btn-block mapbutton" onClick={this.handleClick.bind(this, "main")}>Try Again?</button>
+                <button type="button" className="btn btn-warning btn-lg btn-block mapbutton" onClick={this.handleClick.bind(this, "main")}>Try Again?
+                </button>
               </div>
             </div>
           </div>   
