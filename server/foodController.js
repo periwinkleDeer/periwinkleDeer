@@ -33,14 +33,6 @@ module.exports = {
         {glutenfree: (req.query.glutenfree === 'true') ? true : {$in: [true, false]}},
         {lactosefree: (req.query.lactosefree === 'true') ? true : {$in: [true, false]}}
       ),
-      // where: {
-      //   price_rating: {$lte: price},
-      //   zip: req.query.zip,
-      //   vegan: (req.query.vegan === 'true'),
-      //   vegetarian: (req.query.vegetarian === 'true'),
-      //   glutenfree: (req.query.glutenfree === 'true'),
-      //   lactosefree: (req.query.lactosefree === 'true')
-      // },
       order: [
         ['rating', 'DESC']
       ]
@@ -50,13 +42,10 @@ module.exports = {
   },
 
   get3Dishes: function(req, res){
-    //this is an array of 3 dishIds
-    // console.log("=============req.query============", req.query);
     var parsedDishes = [];
     req.query.restaurants.forEach(function(id){
         parsedDishes.push(parseInt(id));
     });
-    // console.log("parsedDishes==============", parsedDishes);
 
     db.Dish.findAll({where: {
       id: {$in: parsedDishes}
@@ -66,14 +55,12 @@ module.exports = {
       }]
     })
     .then(function(results){
-      // console.log("get3Dishes results ===========", results);
       res.send(results);
     });
     
   },
   
   insertDish: function(req, res){
-    console.log(req.body)
     db.Restaurant.find({where: {
       name: req.body.restaurant,
       location: req.body.address,
@@ -103,10 +90,10 @@ module.exports = {
                   num_ratings: 1,
                   RestaurantId: restaurant.dataValues.id,
                   zip: restaurant.dataValues.zip,
-                  vegan: (req.body.vegan === true),
-                  vegetarian: (req.body.vegetarian === true),
-                  glutenfree: (req.body.glutenfree === true),
-                  lactosefree: (req.body.lactosefree === true)
+                  vegan: (req.body.vegan === 'true'),
+                  vegetarian: (req.body.vegetarian === 'true'),
+                  glutenfree: (req.body.glutenfree === 'true'),
+                  lactosefree: (req.body.lactosefree === 'true')
                 })
                 .then(function(dish){
                   db.User.findOne({where: {fb_id: req.body.id}})
@@ -139,10 +126,10 @@ module.exports = {
               num_ratings: 1,
               RestaurantId: results.dataValues.id,
               zip: results.dataValues.zip,
-              vegan: req.body.vegan,
-              vegetarian: req.body.vegetarian,
-              glutenfree: req.body.glutenfree,
-              lactosefree: req.body.lactosefree
+            vegan: (req.body.vegan === 'true'),
+                  vegetarian: (req.body.vegetarian === 'true'),
+                  glutenfree: (req.body.glutenfree === 'true'),
+                  lactosefree: (req.body.lactosefree === 'true')
             })
             .then(function(dish){
               db.User.findOne({where: {fb_id: req.body.id}})

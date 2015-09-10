@@ -61,7 +61,7 @@ describe('loading express', function () {
 
 
   it ('responds to /insertDish route', function insertDishRoute(done) {
-    var dish= {id: '1486709991645691', restaurant: 'Burger King', address: ':)', phone: '626', zip: '94122', dishPrice: '2', dishRating: '3', glutenfree: 'false', vegan: 'false', vegetarian: 'false', lactosefree: 'false'};
+    var dish= {id: '1486709991645691', restaurant: 'Burger King', address: ':)', phone: '626', zip: '94122', dishPrice: '2', dishRating: '3', glutenfree: 'false', vegan: 'false', vegetarian: 'true', lactosefree: 'false'};
     request(server)
       .post('/insertDish')
       .type('form')
@@ -88,6 +88,16 @@ describe('loading express', function () {
       .query({zip: '94122', price: null})
       .end(function(err, res) {
         expect(res.body.length).to.equal(2);
+        done();
+      });
+  });
+
+  it ('responds to /dishes route with vegetarian query', function vegequery(done) {
+    request(server)
+      .get('/dishes')
+      .query({zip: '94122', price: null, vegetarian: true})
+      .end(function(err,res) {
+        expect(res.body[0].id).to.equal(2);
         done();
       });
   });
@@ -119,7 +129,7 @@ describe('loading express', function () {
           expect(ratings.length).to.equal(1);
           done();
         });
-      })
+      });
     });
   });
 
