@@ -92,7 +92,6 @@ module.exports = {
   },
 
   getHistory:function(req, res) {
-    console.log(req.query)
     findUser(req.query.id)
     .then(function(user) {
       user = user.dataValues;
@@ -110,7 +109,6 @@ module.exports = {
           where: {id: {$in: dishArray}}, 
           include: [{model: db.Dish, required: true}]
         }).then(function(results) {
-          console.log(results)
           res.send(results);
         });
       })

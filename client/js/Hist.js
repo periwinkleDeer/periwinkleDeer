@@ -17,7 +17,6 @@ var Hist = React.createClass({
   componentDidMount: function (rootNode) {
     plateRotate();
     var self = this;
-    console.log(this.props.query);
     self.setState({info_window: new google.maps.InfoWindow({
         content: 'loading'
     })});
@@ -39,7 +38,6 @@ var Hist = React.createClass({
            self.setState({locations: data}); 
            //set the 3 map markers here
            self.state.locations.forEach(function(loc) {
-             console.log("loc ==== ", loc);
              dishes = [];
              loc.Dishes.forEach(function(dish) {
               dishes.push(dish);
@@ -173,15 +171,18 @@ var Hist = React.createClass({
           resultsMap.setCenter(results[0].geometry.location);
           var marker = new google.maps.Marker({
             map: resultsMap,
-            position: results[0].geometry.location
+            position: results[0].geometry.location,
+            icon: '../assets/restaurant-orange.png'
           });
           var img = "";
           dishes.forEach(function(dish) {
-            img = img + "<div class='iw-name'>"+dish.name+"</div><image class='iw-img img-thumbnail' src='"+dish.img_url+"'></image>"
+            img = img + "<div class='iw-name-hist'>"+dish.name+"</div><image class='iw-img img-thumbnail' src='"+dish.img_url+"'></image>"
           })
           var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'><div class='iw-title'>"+name+"</div></a><br>"+img+""
           var infowindow = new google.maps.InfoWindow({
-            content: contentString
+            content: contentString,
+            max-height: 125,
+            overflow-y: auto
           });
           google.maps.event.addListener(marker, 'click', function () {                
             self.state.info_window.setContent(contentString);
@@ -203,7 +204,7 @@ var Hist = React.createClass({
       return new google.maps.LatLng(props.mapCenterLat, props.mapCenterLng);
   },
   handleClick: function(link) {
-    console.log("btn click", this);
+    // console.log("btn click", this);
     // this.context.router.transitionTo('/' + link);
     this.context.router.transitionTo('/' + link, null, {id: this.props.query.id});
   },

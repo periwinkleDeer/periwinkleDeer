@@ -132,7 +132,8 @@ var Map = React.createClass({
           resultsMap.setCenter(results[0].geometry.location);
           var marker = new google.maps.Marker({
             map: resultsMap,
-            position: results[0].geometry.location
+            position: results[0].geometry.location,
+            icon: '../assets/restaurant.png'
           });
           var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'><div class='iw-title'  >"+name+"</div></a><br><div class='iw-link' target='_blank' href='http://maps.google.com/?q=" + address + "'>"+dish+"</div><br><image class='img-thumbnail iw-img' src='"+img+"' target='_blank' href='http://maps.google.com/?q=" + address + "'></image>"
 

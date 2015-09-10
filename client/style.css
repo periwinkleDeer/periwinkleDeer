@@ -332,7 +332,7 @@ MAP
 }
 
 .iw-img {
-  height: 100px;
+  height: 60px;
   margin: 0 auto;
 }
 
@@ -341,6 +341,15 @@ MAP
   margin-bottom: -15px !important;
   text-align: center;
   margin: 0 auto;
+}
+
+.iw-name-hist {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.iw-name-hist:first-of-type{
+  margin-top: -15px;
 }
 
 
