@@ -13,6 +13,6 @@ general:
 ## Tests
 test:
   override: 
-    - mocha test/serverSpec.js
+    - mocha ./test/*.js
 
 
