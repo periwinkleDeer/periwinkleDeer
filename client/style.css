@@ -242,7 +242,6 @@ FORMS
 
 .dietry-query {
   width: 100%;
-  text-align: center;
 }
 
 .dietry-query img {
@@ -530,3 +529,8 @@ Restaurant
   margin-right: 10px;
 }
 
+@media (max-width: 500px){
+  .dietry-query {
+    text-align: center;
+  }
+}
