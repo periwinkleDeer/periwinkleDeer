@@ -9,10 +9,6 @@ var Entry = React.createClass({
   getInitialState: function(){
      return {
       error: '',
-      vegetarian: 'false',
-      vegan: 'false',
-      lactosefree: 'false',
-      glutenfree: 'false'
     };
    },
 
@@ -24,6 +20,10 @@ var Entry = React.createClass({
     var options = {
       types: ['establishment']
     };
+    this.vegetarian = 'false';
+    this.vegan = 'false';
+    this.lactosefree = 'false';
+    this.glutenfree = 'false';
 
     var autocomplete = new google.maps.places.Autocomplete(input, options);
 
@@ -60,10 +60,10 @@ var Entry = React.createClass({
        dishPrice  : this.priceRate,
        imgUrl     : this.state.dataUrl,
        category   : document.getElementById('category').value,
-       vegetarian : this.state.vegetarian,
-       vegan      : this.state.vegan,
-       lactosefree: this.state.lactosefree,
-       glutenfree : this.state.glutenfree
+       vegetarian : this.vegetarian,
+       vegan      : this.vegan,
+       lactosefree: this.lactosefree,
+       glutenfree : this.glutenfree
     };
     console.log(store)
     if(!checkObj(store)){
@@ -112,35 +112,13 @@ var Entry = React.createClass({
     this.foodRate = value;
   },
 
-  toggleVegetarian: function(){
-    if(this.state.vegetarian === 'false'){
-      this.setState({vegetarian: 'true'})
+  selectDiet: function(value) {
+    $('#' + value).toggleClass('diet-filter');
+    if(this[value] === 'false'){
+      this[value] = 'true';
+      console.log("setting ", value, "to", this.state[value]);
     }else{
-      this.setState({vegetarian: 'false'})
-    }
-  },
-
-  toggleVegan: function(){
-    if(this.state.vegan === 'false'){
-      this.setState({vegan: 'true'})
-    }else{
-      this.setState({vegan: 'false'})
-    }
-  },
-
-  toggleLactoseFree: function(){
-    if(this.state.lactosefree === 'false'){
-      this.setState({lactosefree: 'true'})
-    }else{
-      this.setState({lactosefree: 'false'})
-    }
-  },
-
-  toggleGlutenFree: function(){
-    if(this.state.glutenfree === 'false'){
-      this.setState({glutenfree: 'true'})
-    }else{
-      this.setState({glutenfree: 'false'})
+      this[value] = 'false';
     }
   },
 
@@ -170,11 +148,11 @@ var Entry = React.createClass({
            <div className="form-group">
             <label>Nibble</label>
              <input type="text" className="form-control" id="dish" placeholder="What did you eat?"/>
-             <div class="dietry-query"> 
-               <img src="../assets/allergyIcons/vegetarian.png" onClick={this.toggleVegetarian}></img>
-               <img src="../assets/allergyIcons/vegan.png" onClick={this.toggleVegan}></img>
-               <img src="../assets/allergyIcons/lactosefree.png" onClick={this.toggleLactoseFree}></img>
-               <img src="../assets/allergyIcons/glutenfree.png" onClick={this.toggleGlutenFree}></img>
+             <div className="dietry-query"> 
+               <img id="vegetarian" src="../assets/allergyIcons/vegetarian.png" onClick={this.selectDiet.bind(this, 'vegetarian')}/>
+               <img id="vegan" src="../assets/allergyIcons/vegan.png"  onClick={this.selectDiet.bind(this, 'vegan')}/>
+               <img id="lactosefree" src="../assets/allergyIcons/lactosefree.png" onClick={this.selectDiet.bind(this, 'lactosefree')}/>
+               <img id="glutenfree" src="../assets/allergyIcons/glutenfree.png" onClick={this.selectDiet.bind(this, 'glutenfree')}/>
              </div>
            </div>
 

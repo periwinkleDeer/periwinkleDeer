@@ -92,10 +92,11 @@ var Parameters = React.createClass({
               {neighborhoods}
             </select>
             <div className="dietry-query">
-              <img id="glutenfree" src="../assets/allergyIcons/glutenfree.png" onClick={this.selectDiet.bind(this, 'glutenfree')}/>
-              <img id="lactosefree" src="../assets/allergyIcons/lactosefree.png" onClick={this.selectDiet.bind(this, 'lactosefree')}/>
-              <img id="vegan" src="../assets/allergyIcons/vegan.png"  onClick={this.selectDiet.bind(this, 'vegan')}/>
               <img id="vegetarian" src="../assets/allergyIcons/vegetarian.png" onClick={this.selectDiet.bind(this, 'vegetarian')}/>
+              <img id="vegan" src="../assets/allergyIcons/vegan.png"  onClick={this.selectDiet.bind(this, 'vegan')}/>
+              <img id="lactosefree" src="../assets/allergyIcons/lactosefree.png" onClick={this.selectDiet.bind(this, 'lactosefree')}/>
+              <img id="glutenfree" src="../assets/allergyIcons/glutenfree.png" onClick={this.selectDiet.bind(this, 'glutenfree')}/>
+              
             </div>
             <div className="form-group spacing">
               <label>Price Range (each item)?</label>
