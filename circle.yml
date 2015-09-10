@@ -13,6 +13,6 @@ general:
 ## Tests
 test:
   override: 
-    - mocha test:
+    - mocha test
 
 
