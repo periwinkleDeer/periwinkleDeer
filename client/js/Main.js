@@ -45,7 +45,8 @@ var Main = React.createClass({
               return (
               <div className="card">
                 <div><strong>{dish.Dish.name}</strong></div>
-                <img className="img-thumbnail" src={dish.Dish.img_url}/>
+                <p><em><small>{dish.Dish.category}</small></em></p>
+                <center><img className="img-thumbnail" src={dish.Dish.img_url}/></center>
                 <div className="stars">
                   <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={self.foodRate.bind(null, dish)}/>
                   <span id={dish.id} className="glyphicon glyphicon-remove-circle remove" onClick={self.handleRemove.bind(null, dish)}></span>
