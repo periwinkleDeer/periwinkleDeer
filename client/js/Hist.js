@@ -172,7 +172,7 @@ var Hist = React.createClass({
           var marker = new google.maps.Marker({
             map: resultsMap,
             position: results[0].geometry.location,
-            icon: '../assets/restaurant-orange.png'
+            icon: '../assets/mapMarkers/restaurant-orange.png'
           });
           var img = "";
           dishes.forEach(function(dish) {
