@@ -3,7 +3,7 @@ machine:
     version: 0.12.0
 
 general:
-  build_dir: ./periwinkleDeer
+  build_dir: periwinkleDeer
 
 # ## Database
 # database:
