@@ -20,7 +20,7 @@ describe('loading express', function () {
       db.Restaurant.create({name: 'Burger King', location: ':)', phone: '626', zip: '94122'})
     })
     .then(function(rest) {
-      return db.Dish.create({ RestaurantId: 1, zip: '94122', price_rating: '1'})
+      return db.Dish.create({ RestaurantId: 1, zip: '94122', price_rating: '1', glutenfree: 'false', vegan: 'false', vegetarian: 'false', lactosefree: 'false'})
     }).then(function(dish) {
       db.Rating.create({DishId: 1, UserId: 1})
     }).then(function() {
@@ -61,7 +61,7 @@ describe('loading express', function () {
 
 
   it ('responds to /insertDish route', function insertDishRoute(done) {
-    var dish= {id: '1486709991645691', restaurant: 'Burger King', address: ':)', phone: '626', zip: '94122', dishPrice: '2', dishRating: '3'};
+    var dish= {id: '1486709991645691', restaurant: 'Burger King', address: ':)', phone: '626', zip: '94122', dishPrice: '2', dishRating: '3', glutenfree: 'false', vegan: 'false', vegetarian: 'false', lactosefree: 'false'};
     request(server)
       .post('/insertDish')
       .type('form')
