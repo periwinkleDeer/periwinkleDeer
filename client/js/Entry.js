@@ -2,168 +2,217 @@ var Rating = require('react-rating');
 var router = require('./App'); 
 
 var Entry = React.createClass({
-   contextTypes: {
-     router: React.PropTypes.func
+  contextTypes: {
+   router: React.PropTypes.func
+  },
+
+  getInitialState: function(){
+     return {
+      error: '',
+      vegetarian: 'false',
+      vegan: 'false',
+      lactosefree: 'false',
+      glutenfree: 'false'
+    };
    },
 
-   getInitialState: function(){
-       return {error: ''};
-     },
+  componentDidMount: function(){
+    plateRotate();
+    localStorage.setItem('currentRoute', '/entry');
+    var self = this;
+    var input = document.getElementById('restaurant');
+    var options = {
+      types: ['establishment']
+    };
 
-   componentDidMount: function(){
-      plateRotate();
-      localStorage.setItem('currentRoute', '/entry');
-      var self = this;
-      var input = document.getElementById('restaurant');
-      var options = {
-        types: ['establishment']
-      };
+    var autocomplete = new google.maps.places.Autocomplete(input, options);
 
-      var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-      autocomplete.addListener('place_changed', function(){
-        var place = autocomplete.getPlace();
-        self.setState({
-         restaurant: place
-        });
+    autocomplete.addListener('place_changed', function(){
+      var place = autocomplete.getPlace();
+      self.setState({
+       restaurant: place
       });
+    });
 
-      FB.getLoginStatus(function(response){
-        if (response.status !== 'connected') {
-          self.context.router.transitionTo('/login');
-        }
-      });
-   },
-
-   handleSubmit: function(link){
-      var self = this;
-      self.setState({error: ''}); 
-      var zip = zipCheck(this.state.restaurant.address_components);
-      var rating = this.state.restaurant.rating || '!!';
-      var phone = this.state.restaurant.formatted_phone_number || '!!';
-
-      var store = {
-         id         : this.props.query.id,
-         restaurant : this.state.restaurant.name,
-         address    : this.state.restaurant.formatted_address,
-         zip        : zip,
-         phone      : phone,
-         resRating  : rating,
-         dishName   : document.getElementById('dish').value,
-         dishRating : this.foodRate,
-         dishPrice  : this.priceRate,
-         imgUrl     : this.state.dataUrl,
-         category   : document.getElementById('category').value
-      };
-
-      if(!checkObj(store)){
-        self.setState({error: "Fill Out Everything Yo!"});
-        $('.display-error').show();
-        return;
+    FB.getLoginStatus(function(response){
+      if (response.status !== 'connected') {
+        self.context.router.transitionTo('/login');
       }
-      $.ajax({
-         url: "/insertdish",
-         type: "POST",
-         data: store,
-         success: function(data) {
-             self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Food Added"});
-         }.bind(this),
-         error: function(xhr, status, err) {
-             // console.log(xhr, status, err);
-             self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "That Food Item Already Exists"});
-         }.bind(this)
-      });
-   },
+    });
+  },
 
-   change: function(e){
-        e.preventDefault();
-       var files = e.target.files;
-       var self = this;
-       var maxWidth = 250;
-       var maxHeight = 250;
-       resize(files[0], maxWidth, maxHeight, function (resizedDataUrl) {
-           self.setState({ dataUrl: resizedDataUrl });
-       });
-   },
+  handleSubmit: function(link){
+    var self = this;
+    self.setState({error: ''}); 
+    var zip = zipCheck(this.state.restaurant.address_components);
+    var rating = this.state.restaurant.rating || '!!';
+    var phone = this.state.restaurant.formatted_phone_number || '!!';
 
-   ratePrice: function(value){
-      this.priceRate = value;
-      var values = {
-         1: "under $10",
-         2: "under $20",
-         3: "under $30",
-         4: "over $30"
-      };
-      $('.popup').text(values[value]);
-   },
+    var store = {
+       id         : this.props.query.id,
+       restaurant : this.state.restaurant.name,
+       address    : this.state.restaurant.formatted_address,
+       zip        : zip,
+       phone      : phone,
+       resRating  : rating,
+       dishName   : document.getElementById('dish').value,
+       dishRating : this.foodRate,
+       dishPrice  : this.priceRate,
+       imgUrl     : this.state.dataUrl,
+       category   : document.getElementById('category').value,
+       vegetarian : this.state.vegetarian,
+       vegan      : this.state.vegan,
+       lactosefree: this.state.lactosefree,
+       glutenfree : this.state.glutenfree
+    };
+    console.log(store)
+    if(!checkObj(store)){
+      self.setState({error: "Fill Out Everything Yo!"});
+      $('.display-error').show();
+      return;
+    }
+    
+    $.ajax({
+       url: "/insertdish",
+       type: "POST",
+       data: store,
+       success: function(data) {
+           self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Food Added"});
+       }.bind(this),
+       error: function(xhr, status, err) {
+           // console.log(xhr, status, err);
+           self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "That Food Item Already Exists"});
+       }.bind(this)
+    });
+  },
 
-   rateFood: function(value){
-      this.foodRate = value;
-   },
+  change: function(e){
+      e.preventDefault();
+     var files = e.target.files;
+     var self = this;
+     var maxWidth = 250;
+     var maxHeight = 250;
+     resize(files[0], maxWidth, maxHeight, function (resizedDataUrl) {
+         self.setState({ dataUrl: resizedDataUrl });
+     });
+  },
 
-   render: function(){
-      var style = {
-        color: 'white',
-        fontSize: 13,
-        outline: 'none'
-      };
+  ratePrice: function(value){
+    this.priceRate = value;
+    var values = {
+       1: "under $10",
+       2: "under $20",
+       3: "under $30",
+       4: "over $30"
+    };
+    $('.popup').text(values[value]);
+  },
 
-      this.foodRate = this.foodRate || 0;
-      this.priceRate = this.priceRate || 0;
-       var image;
-       var dataUrl = this.state.dataUrl;
-       if(dataUrl){
-         image = <img src={dataUrl} className="img-thumbnail"/>
-       }
+  rateFood: function(value){
+    this.foodRate = value;
+  },
 
-       return (
-        <div className="container display">
-           <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-             <div className="form-group">
-              <label>Restaurant</label>
-               <input type="text" className="form-control" id="restaurant" placeholder="Where did you eat?"/>
-             </div>
+  toggleVegetarian: function(){
+    if(this.state.vegetarian === 'false'){
+      this.setState({vegetarian: 'true'})
+    }else{
+      this.setState({vegetarian: 'false'})
+    }
+  },
 
-             <div className="form-group">
-              <label>Foodie</label>
-               <input type="text" className="form-control" id="dish" placeholder="What did you eat?"/>
-             </div>
+  toggleVegan: function(){
+    if(this.state.vegan === 'false'){
+      this.setState({vegan: 'true'})
+    }else{
+      this.setState({vegan: 'false'})
+    }
+  },
 
-             <div className="form-group">
-                 <div className="btn btn-warning upload form-control" onClick={uploadImage}><span className="glyphicon glyphicon-camera camera icon"></span>Add Image</div>
-                 <input className="hidden"style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.change }/>
-                 <p className="help-block">{ image }</p>
-             </div>           
+  toggleLactoseFree: function(){
+    if(this.state.lactosefree === 'false'){
+      this.setState({lactosefree: 'true'})
+    }else{
+      this.setState({lactosefree: 'false'})
+    }
+  },
 
-             <div className="form-group">
-             <label>Category</label>
-               <select id="category" className="form-control">
-                 <option>Snack</option>
-                 <option>Grub</option>
-                 <option>Dessert</option>
-               </select>
-             </div>
+  toggleGlutenFree: function(){
+    if(this.state.glutenfree === 'false'){
+      this.setState({glutenfree: 'true'})
+    }else{
+      this.setState({glutenfree: 'false'})
+    }
+  },
 
-             <div className="form-group">
-              <label>Price Rating</label>
-              <div></div>
-                 <Rating initialRate={this.priceRate} empty="glyphicon glyphicon-usd usd" full="glyphicon glyphicon-usd green usd" start={0} stop={4} step={1} onChange={this.ratePrice}/>
-                 <span className="popup"></span>
-             </div>
+  render: function(){
+    var style = {
+      color: 'white',
+      fontSize: 13,
+      outline: 'none'
+    };
 
-             <div className="form-group">
-              <label>Rate Dish</label>
-              <div></div>
-                 <Rating initialRate={this.foodRate} empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.rateFood}/>
-             </div>
+    this.foodRate = this.foodRate || 0;
+    this.priceRate = this.priceRate || 0;
+     var image;
+     var dataUrl = this.state.dataUrl;
+     if(dataUrl){
+       image = <img src={dataUrl} className="img-thumbnail"/>
+     }
 
-               <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}><span className="glyphicon glyphicon-plus icon"></span>Add Food</button>
-               <p className="display-error">{this.state.error}</p>
-
+     return (
+      <div className="container display">
+         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+           <div className="form-group">
+            <label>Restaurant</label>
+             <input type="text" className="form-control" id="restaurant" placeholder="Where did you eat?"/>
            </div>
-        </div>
-       )
-   }
+
+           <div className="form-group">
+            <label>Nibble</label>
+             <input type="text" className="form-control" id="dish" placeholder="What did you eat?"/>
+             <div class="dietry-query"> 
+               <img src="../assets/allergyIcons/vegetarian.png" onClick={this.toggleVegetarian}></img>
+               <img src="../assets/allergyIcons/vegan.png" onClick={this.toggleVegan}></img>
+               <img src="../assets/allergyIcons/lactosefree.png" onClick={this.toggleLactoseFree}></img>
+               <img src="../assets/allergyIcons/glutenfree.png" onClick={this.toggleGlutenFree}></img>
+             </div>
+           </div>
+
+           <div className="form-group">
+               <div className="btn btn-warning upload form-control" onClick={uploadImage}><span className="glyphicon glyphicon-camera camera icon"></span>Add Image</div>
+               <input className="hidden"style={style} ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.change }/>
+               <p className="help-block">{ image }</p>
+           </div>           
+
+           <div className="form-group">
+           <label>Category</label>
+             <select id="category" className="form-control">
+               <option>Snack</option>
+               <option>Grub</option>
+               <option>Dessert</option>
+             </select>
+           </div>
+
+           <div className="form-group">
+            <label>Price Rating</label>
+            <div></div>
+               <Rating initialRate={this.priceRate} empty="glyphicon glyphicon-usd usd" full="glyphicon glyphicon-usd green usd" start={0} stop={4} step={1} onChange={this.ratePrice}/>
+               <span className="popup"></span>
+           </div>
+
+           <div className="form-group">
+            <label>Rate Dish</label>
+            <div></div>
+               <Rating initialRate={this.foodRate} empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.rateFood}/>
+           </div>
+
+             <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}><span className="glyphicon glyphicon-plus icon"></span>Add Food</button>
+             <p className="display-error">{this.state.error}</p>
+
+         </div>
+      </div>
+     )
+  }
 });
 
 function checkObj(object){
