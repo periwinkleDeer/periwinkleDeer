@@ -5,6 +5,10 @@ machine:
 general:
   build_dir: test
 
+dependencies: 
+  pre:
+    - npm install package.json
+
 # ## Database
 # database:
 #   override:
