@@ -5,10 +5,6 @@ machine:
 general:
   build_dir: test
 
-dependencies: 
-  pre:
-    - package.json
-
 # ## Database
 # database:
 #   override:
@@ -17,6 +13,6 @@ dependencies:
 ## Tests
 test:
   override: 
-    - mocha test
+    - mocha test/serverSpec.js
 
 
