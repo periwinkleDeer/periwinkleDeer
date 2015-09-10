@@ -17,40 +17,27 @@ module.exports = {
   },
 
   getDishList: function(req, res){
-    var price = req.query.price;
+    var price = req.query.price || '4';
     var zip = req.query.zip;
-    if (price) {
-      db.Dish.findAll({ 
-        include: [{
-          model: db.Restaurant, 
-          required: true
-        }],
-        where: {
-          price_rating: {$lte: price},
-          zip: zip
-        },
-        order: [
-          ['rating', 'DESC']
-        ]
-      }).then(function(results){
-        res.send(results);
-      });
-    } else {
-      db.Dish.findAll({ 
-        include: [{
-          model: db.Restaurant, 
-          required: true
-        }],
-        where: {
-          zip: zip
-        },
-        order: [
-          ['rating', 'DESC']
-        ]
-      }).then(function(results){
-        res.send(results);
-      });
-    }
+    db.Dish.findAll({ 
+      include: [{
+        model: db.Restaurant, 
+        required: true
+      }],
+      where: {
+        price_rating: {$lte: price},
+        zip: req.query.zip,
+        vegan: req.query.vegan,
+        vegetarian: req.query.vegetarian,
+        glutenfree: req.query.glutenfree,
+        lactosefree: req.query.lactosefree
+      },
+      order: [
+        ['rating', 'DESC']
+      ]
+    }).then(function(results){
+      res.send(results);
+    });
   },
 
   get3Dishes: function(req, res){

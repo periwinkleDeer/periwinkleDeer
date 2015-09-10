@@ -49,7 +49,11 @@ var Parameters = React.createClass({
     this.context.router.transitionTo('/display', null, {
       id: this.props.query.id,
       zip: document.getElementById('neighborhood').value,
-      price: this.value
+      price: this.value,
+      vegan: this.vegan,
+      vegetarian: this.vegetarian,
+      glutenfree: this.glutenfree,
+      lactosefree: this.lactosefree
     });
   },
 

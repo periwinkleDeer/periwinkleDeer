@@ -33,7 +33,11 @@ var Display = React.createClass({
       method: 'GET',
       data: {
         zip: this.props.query.zip,
-        price: this.props.query.price
+        price: this.props.query.price,
+        vegan: this.props.query.vegan,
+        vegetarian: this.props.query.vegetarian,
+        glutenfree: this.props.query.glutenfree,
+        lactosefree: this.props.query.lactosefree
       },
       success: function(data) {
         var food = self.sortData(data);
