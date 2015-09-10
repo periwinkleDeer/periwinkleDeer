@@ -7,7 +7,7 @@ general:
 
 dependencies: 
   pre:
-    - npm install package.json
+    - package.json
 
 # ## Database
 # database:
