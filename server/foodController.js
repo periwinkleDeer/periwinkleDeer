@@ -19,19 +19,28 @@ module.exports = {
   getDishList: function(req, res){
     var price = req.query.price || '4';
     var zip = req.query.zip;
+
     db.Dish.findAll({ 
       include: [{
         model: db.Restaurant, 
         required: true
       }],
-      where: {
-        price_rating: {$lte: price},
-        zip: req.query.zip,
-        vegan: (req.query.vegan === 'true'),
-        vegetarian: (req.query.vegetarian === 'true'),
-        glutenfree: (req.query.glutenfree === 'true'),
-        lactosefree: (req.query.lactosefree === 'true')
-      },
+      where: db.Sequelize.and(
+        {price_rating: {$lte: price}},
+        {zip: req.query.zip},
+        {vegan: (req.query.vegan === 'true') ? true : {$in: [true, false]} },
+        {vegetarian: (req.query.vegetarian === 'true') ? true : {$in: [true, false]}},
+        {glutenfree: (req.query.glutenfree === 'true') ? true : {$in: [true, false]}},
+        {lactosefree: (req.query.lactosefree === 'true') ? true : {$in: [true, false]}}
+      ),
+      // where: {
+      //   price_rating: {$lte: price},
+      //   zip: req.query.zip,
+      //   vegan: (req.query.vegan === 'true'),
+      //   vegetarian: (req.query.vegetarian === 'true'),
+      //   glutenfree: (req.query.glutenfree === 'true'),
+      //   lactosefree: (req.query.lactosefree === 'true')
+      // },
       order: [
         ['rating', 'DESC']
       ]
@@ -94,10 +103,10 @@ module.exports = {
                   num_ratings: 1,
                   RestaurantId: restaurant.dataValues.id,
                   zip: restaurant.dataValues.zip,
-                  vegan: req.body.vegan,
-                  vegetarian: req.body.vegetarian,
-                  glutenfree: req.body.glutenfree,
-                  lactosefree: req.body.lactosefree
+                  vegan: (req.body.vegan === true),
+                  vegetarian: (req.body.vegetarian === true),
+                  glutenfree: (req.body.glutenfree === true),
+                  lactosefree: (req.body.lactosefree === true)
                 })
                 .then(function(dish){
                   db.User.findOne({where: {fb_id: req.body.id}})
