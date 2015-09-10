@@ -6,6 +6,7 @@ var browserify = require('browserify');
 var watchify = require('watchify');
 var reactify = require('reactify');
 var streamify = require('gulp-streamify');
+var jshint = require('gulp-jshint');
 
 var path = {
   HTML: 'client/index.html',
@@ -42,10 +43,18 @@ gulp.task('replaceHTML', function(){
     }))
     .pipe(gulp.dest(path.DEST));
 });
+
+gulp.task('jshint', function() {
+  return gulp.src('client/js/*.js')
+    .pipe(jshint())
+    .pipe(jshint.reporter('YOUR_REPORTER_HERE'));
+});
+
 gulp.task('watch', function() {
   gulp.watch(path.HTML, ['copy']);
   gulp.watch(path.CSS, ['copyCSS']);
   gulp.watch(path.ASSETS, ['copyASSETS']);
+  gulp.watch('client/js/*.js', ['jshint']);
 
   var watcher  = watchify(browserify({
     entries: [path.ENTRY_POINT],
@@ -78,6 +87,8 @@ gulp.task('build', function(){
     .pipe(streamify(uglify()))
     .pipe(gulp.dest(path.DEST_BUILD));
 });
+
+gulp.task('test', ['jshint']);
 
 gulp.task('moving', ['copy', 'copyCSS', 'copyASSETS']);
 
