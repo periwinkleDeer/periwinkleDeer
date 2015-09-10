@@ -52,7 +52,11 @@ var Dish = sequelize.define('Dish', {
   price_rating: Sequelize.STRING,
   rating: Sequelize.STRING,
   num_ratings: Sequelize.INTEGER,
-  zip: Sequelize.STRING
+  zip: Sequelize.STRING,
+  vegan: Sequelize.BOOLEAN,
+  vegetarian: Sequelize.BOOLEAN,
+  glutenfree: Sequelize.BOOLEAN,
+  lactosefree: Sequelize.BOOLEAN
 });
 
 var Restaurant = sequelize.define('Restaurant', {

@@ -17,40 +17,27 @@ module.exports = {
   },
 
   getDishList: function(req, res){
-    var price = req.query.price;
+    var price = req.query.price || '4';
     var zip = req.query.zip;
-    if (price) {
-      db.Dish.findAll({ 
-        include: [{
-          model: db.Restaurant, 
-          required: true
-        }],
-        where: {
-          price_rating: {$lte: price},
-          zip: zip
-        },
-        order: [
-          ['rating', 'DESC']
-        ]
-      }).then(function(results){
-        res.send(results);
-      });
-    } else {
-      db.Dish.findAll({ 
-        include: [{
-          model: db.Restaurant, 
-          required: true
-        }],
-        where: {
-          zip: zip
-        },
-        order: [
-          ['rating', 'DESC']
-        ]
-      }).then(function(results){
-        res.send(results);
-      });
-    }
+    db.Dish.findAll({ 
+      include: [{
+        model: db.Restaurant, 
+        required: true
+      }],
+      where: {
+        price_rating: {$lte: price},
+        zip: req.query.zip,
+        vegan: (req.query.vegan === 'true'),
+        vegetarian: (req.query.vegetarian === 'true'),
+        glutenfree: (req.query.glutenfree === 'true'),
+        lactosefree: (req.query.lactosefree === 'true')
+      },
+      order: [
+        ['rating', 'DESC']
+      ]
+    }).then(function(results){
+      res.send(results);
+    });
   },
 
   get3Dishes: function(req, res){
@@ -106,7 +93,11 @@ module.exports = {
                   rating: req.body.dishRating,
                   num_ratings: 1,
                   RestaurantId: restaurant.dataValues.id,
-                  zip: restaurant.dataValues.zip
+                  zip: restaurant.dataValues.zip,
+                  vegan: req.body.vegan,
+                  vegetarian: req.body.vegetarian,
+                  glutenfree: req.body.glutenfree,
+                  lactosefree: req.body.lactosefree
                 })
                 .then(function(dish){
                   db.User.findOne({where: {fb_id: req.body.id}})
@@ -138,7 +129,11 @@ module.exports = {
               rating: req.body.dishRating,
               num_ratings: 1,
               RestaurantId: results.dataValues.id,
-              zip: results.dataValues.zip
+              zip: results.dataValues.zip,
+              vegan: req.body.vegan,
+              vegetarian: req.body.vegetarian,
+              glutenfree: req.body.glutenfree,
+              lactosefree: req.body.lactosefree
             })
             .then(function(dish){
               db.User.findOne({where: {fb_id: req.body.id}})

@@ -15,6 +15,10 @@ var Parameters = React.createClass({
         self.context.router.transitionTo('/login');
       }
     });
+    this.vegan = false;
+    this.vegetarian = false;
+    this.lactosefree = false;
+    this.glutenfree = false;
   },
 
   getInitialState: function() {
@@ -49,7 +53,11 @@ var Parameters = React.createClass({
     this.context.router.transitionTo('/display', null, {
       id: this.props.query.id,
       zip: document.getElementById('neighborhood').value,
-      price: this.value
+      price: this.value,
+      vegan: this.vegan,
+      vegetarian: this.vegetarian,
+      glutenfree: this.glutenfree,
+      lactosefree: this.lactosefree
     });
   },
 
@@ -62,6 +70,11 @@ var Parameters = React.createClass({
       4: "over $30"
     }
     $('.popup').text(values[value]);
+  },
+
+  selectDiet: function(value) {
+    $('#' + value).toggleClass('diet-filter');
+    this[value] = !this[value];
   },
 
   render: function(){
@@ -78,6 +91,12 @@ var Parameters = React.createClass({
             <select id="neighborhood" className="form-control">
               {neighborhoods}
             </select>
+            <div className="dietry-query">
+              <img id="glutenfree" src="../assets/allergyIcons/glutenfree.png" onClick={this.selectDiet.bind(this, 'glutenfree')}/>
+              <img id="lactosefree" src="../assets/allergyIcons/lactosefree.png" onClick={this.selectDiet.bind(this, 'lactosefree')}/>
+              <img id="vegan" src="../assets/allergyIcons/vegan.png"  onClick={this.selectDiet.bind(this, 'vegan')}/>
+              <img id="vegetarian" src="../assets/allergyIcons/vegetarian.png" onClick={this.selectDiet.bind(this, 'vegetarian')}/>
+            </div>
             <div className="form-group spacing">
               <label>Price Range (each item)?</label>
               <br/>
