@@ -25,6 +25,35 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
   <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.8/slick.min.js"></script>
+
+  <script>
+    var plateRotate = function() {
+      $(document).ready(function () {
+          DoRotate(360);
+          AnimateRotate(360);
+      });
+
+      function DoRotate(d) {
+          $(".header-main__logo").css({
+              transform: 'rotate(' + d + 'deg)'
+          });
+      }
+
+      function AnimateRotate(d){
+          var elem = $(".header-main__logo");
+
+          $({deg: 0}).animate({deg: d}, {
+              duration: 5000,
+              step: function(now){
+                  elem.css({
+                       transform: "rotate(" + now + "deg)"
+                  });
+              }
+          });
+      }
+    };
+    plateRotate();
+  </script>
   
   
   
