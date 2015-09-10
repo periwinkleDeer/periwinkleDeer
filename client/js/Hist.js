@@ -1,13 +1,13 @@
 var router = require('./App');
 
-var Map = React.createClass({
+var Hist = React.createClass({
   contextTypes: {
     router: React.PropTypes.func
   },
 
   getInitialState: function () {
     return {
-      initialZoom: 12,
+      initialZoom: 11,
       mapCenterLat: 37.783,
       mapCenterLng: 122.416,
       locations: []
@@ -17,27 +17,32 @@ var Map = React.createClass({
   componentDidMount: function (rootNode) {
     plateRotate();
     var self = this;
-    var restaurants = this.props.query.dishes;
     self.setState({info_window: new google.maps.InfoWindow({
         content: 'loading'
     })});
     if (typeof(FB) !== 'undefined' && FB !== null) {
       FB.getLoginStatus(function(response){
+        // console.log("map.js", response)
         if (response.status !== 'connected') {
           self.context.router.transitionTo('/login');
         }
       });
     }
-    // using dishIds in restaurants, ask the DB for these dishes
+    // using user id ask for 20 most recent dishes/restaurants
     $.ajax({
-       url: "/get3dishes",
+       url: "/history",
        type: "GET",
-       data: {restaurants: restaurants},
+       data: {id: this.props.query.id},
        success: function(data) {
+           console.log("success!!! This is the data ==== ", data);
            self.setState({locations: data}); 
            //set the 3 map markers here
-           self.state.locations.forEach(function(loc){
-             geocodeAddress(geocoder, map, loc.Restaurant.location, loc.Restaurant.name, loc.img_url, loc.name);
+           self.state.locations.forEach(function(loc) {
+             dishes = [];
+             loc.Dishes.forEach(function(dish) {
+              dishes.push(dish);
+             })
+             geocodeAddress(geocoder, map, loc.location, loc.name, dishes);
            });   
        }.bind(this),
        error: function(xhr, status, err) {
@@ -48,29 +53,20 @@ var Map = React.createClass({
     localStorage.setItem('currentRoute', '/map');
     var grayStyles = [
     {
-        "featureType": "landscape.natural",
-        "elementType": "geometry.fill",
+        "featureType": "water",
+        "elementType": "geometry",
         "stylers": [
             {
-                "visibility": "on"
-            },
-            {
-                "color": "#e0efef"
+                "color": "#193341"
             }
         ]
     },
     {
-        "featureType": "poi",
-        "elementType": "geometry.fill",
+        "featureType": "landscape",
+        "elementType": "geometry",
         "stylers": [
             {
-                "visibility": "on"
-            },
-            {
-                "hue": "#1900ff"
-            },
-            {
-                "color": "#c0e8e8"
+                "color": "#2c5a71"
             }
         ]
     },
@@ -79,16 +75,70 @@ var Map = React.createClass({
         "elementType": "geometry",
         "stylers": [
             {
-                "lightness": 100
+                "color": "#29768a"
             },
             {
-                "visibility": "simplified"
+                "lightness": -37
             }
         ]
     },
     {
-        "featureType": "road",
-        "elementType": "labels",
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#406d80"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#406d80"
+            }
+        ]
+    },
+    {
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#3e606f"
+            },
+            {
+                "weight": 2
+            },
+            {
+                "gamma": 0.84
+            }
+        ]
+    },
+    {
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "weight": 0.6
+            },
+            {
+                "color": "#1a3541"
+            }
+        ]
+    },
+    {
+        "elementType": "labels.icon",
         "stylers": [
             {
                 "visibility": "off"
@@ -96,26 +146,14 @@ var Map = React.createClass({
         ]
     },
     {
-        "featureType": "transit.line",
+        "featureType": "poi.park",
         "elementType": "geometry",
         "stylers": [
             {
-                "visibility": "on"
-            },
-            {
-                "lightness": 700
+                "color": "#2c5a71"
             }
         ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#7dcdcd"
-            }
-        ]
-    }]
+    }];
     var mapOptions = {
         center: this.mapCenterLatLng(),
         zoom: this.state.initialZoom,
@@ -126,28 +164,29 @@ var Map = React.createClass({
 
     var geocoder = new google.maps.Geocoder();
     //convert the address into a marker on the map
-    var geocodeAddress = function (geocoder, resultsMap, address, name, img, dish) {
+    var geocodeAddress = function (geocoder, resultsMap, address, name, dishes) {
+      // console.log("geocoding address")
       geocoder.geocode({'address': address}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           resultsMap.setCenter(results[0].geometry.location);
           var marker = new google.maps.Marker({
             map: resultsMap,
             position: results[0].geometry.location,
-            icon: '../assets/restaurant.png'
+            icon: '../assets/restaurant-orange.png'
           });
-          var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'><div class='iw-title'  >"+name+"</div></a><br><div class='iw-link' target='_blank' href='http://maps.google.com/?q=" + address + "'>"+dish+"</div><br><image class='img-thumbnail iw-img' src='"+img+"' target='_blank' href='http://maps.google.com/?q=" + address + "'></image>"
-
+          var img = "";
+          dishes.forEach(function(dish) {
+            img = img + "<div class='iw-name-hist'>"+dish.name+"</div><image class='iw-img img-thumbnail' src='"+dish.img_url+"'></image>"
+          })
+          var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'><div class='iw-title'>"+name+"</div></a><br>"+img+""
           var infowindow = new google.maps.InfoWindow({
-            content: contentString
+            content: contentString,
+            max-height: 125,
+            overflow-y: auto
           });
           google.maps.event.addListener(marker, 'click', function () {                
             self.state.info_window.setContent(contentString);
             self.state.info_window.open(map, this);
-          });
-
-  // Event that closes the Info Window with a click on the map
-          google.maps.event.addListener(map, 'click', function() {
-            self.state.info_window.close();
           });
           // marker.addListener('click', function() {
           //     infowindow.open(map, marker);
@@ -165,6 +204,7 @@ var Map = React.createClass({
       return new google.maps.LatLng(props.mapCenterLat, props.mapCenterLng);
   },
   handleClick: function(link) {
+    // console.log("btn click", this);
     // this.context.router.transitionTo('/' + link);
     this.context.router.transitionTo('/' + link, null, {id: this.props.query.id});
   },
@@ -174,14 +214,14 @@ var Map = React.createClass({
           <div className="mapdiv">
             <div>
               <div className="mapgreet">
-                <label>HERE ARE YOUR DESTINATIONS
+                <label>Your History Map
                 </label>
               </div>
             </div>
             <div className="map-google"></div>
             <div>
               <div className="form-group">
-                <button type="button" className="btn btn-warning btn-lg btn-block mapbutton" onClick={this.handleClick.bind(this, "main")}>Try Again?</button>
+                <button type="button" className="btn btn-warning btn-lg btn-block mapbutton" onClick={this.handleClick.bind(this, "profile")}>BACK</button>
               </div>
             </div>
           </div>   
@@ -190,4 +230,4 @@ var Map = React.createClass({
   }
 });
 
-module.exports = Map;
+module.exports = Hist;

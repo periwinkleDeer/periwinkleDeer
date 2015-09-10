@@ -11,29 +11,7 @@ var Entry = React.createClass({
      },
 
    componentDidMount: function(){
-      $(document).ready(function () {
-          DoRotate(360);
-          AnimateRotate(360);
-      });
-
-      function DoRotate(d) {
-          $(".header-main__logo").css({
-              transform: 'rotate(' + d + 'deg)'
-          });
-      }
-
-      function AnimateRotate(d){
-          var elem = $(".header-main__logo");
-
-          $({deg: 0}).animate({deg: d}, {
-              duration: 5000,
-              step: function(now){
-                  elem.css({
-                       transform: "rotate(" + now + "deg)"
-                  });
-              }
-          });
-      }
+      plateRotate();
       localStorage.setItem('currentRoute', '/entry');
       var self = this;
       var input = document.getElementById('restaurant');
@@ -91,7 +69,7 @@ var Entry = React.createClass({
              self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "Food Added"});
          }.bind(this),
          error: function(xhr, status, err) {
-             console.log(xhr, status, err);
+             // console.log(xhr, status, err);
              self.context.router.transitionTo('/' + link, null, {id: self.props.query.id, added: "That Food Item Already Exists"});
          }.bind(this)
       });

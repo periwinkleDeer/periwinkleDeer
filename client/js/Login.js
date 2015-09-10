@@ -6,10 +6,7 @@ var Login = React.createClass({
   },
 
   componentDidMount: function() {
-    $(document).ready(function () {
-        DoRotate(360);
-        AnimateRotate(360);
-    });
+    plateRotate();
 
     function DoRotate(d) {
         $(".header-main__logo").css({

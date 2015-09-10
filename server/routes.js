@@ -15,6 +15,7 @@ module.exports = function(app) {
   app.get('/selecting', user.selectingDishes);
   app.get('/rate', user.ratings);
   app.get('/recent', user.recent);
+  app.get('/history', user.getHistory);
 //Heroku deployment
   app.get('/db', function (request, response) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {

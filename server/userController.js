@@ -91,6 +91,30 @@ module.exports = {
     })
   },
 
+  getHistory:function(req, res) {
+    findUser(req.query.id)
+    .then(function(user) {
+      user = user.dataValues;
+      db.Rating.findAll({
+        where: {UserId: user.id},
+        include: [{model: db.Dish, required: true}],
+        order: [['createdAt', 'DESC']],
+        limit: 30
+      }).then(function(results) {
+        var dishArray = [];
+        results.forEach(function(dish) {
+          dishArray.push(dish.dataValues.Dish.RestaurantId);
+        })
+        db.Restaurant.findAll({
+          where: {id: {$in: dishArray}}, 
+          include: [{model: db.Dish, required: true}]
+        }).then(function(results) {
+          res.send(results);
+        });
+      })
+    });
+  },
+
   recent: function(req, res) {
     findUser(req.query.id)
     .then(function(user) {

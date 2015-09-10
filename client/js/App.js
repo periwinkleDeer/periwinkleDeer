@@ -10,6 +10,7 @@ var Main = require('./Main');
 var Entry = require('./Entry');
 var Parameters = require('./Parameters');
 var Map = require('./Map');
+var Hist = require('./Hist');
 var Display = require('./Display');
 var Profile = require('./Profile');
 var Restaurant = require('./Restaurant');
@@ -17,17 +18,6 @@ var Restaurant = require('./Restaurant');
 var fbid = '389293527934009';
 
 localStorage.setItem('fbid', fbid);
-
-
-var Inbox = React.createClass({
-  render: function () {
-    return (
-      <div>
-      </div>
-    );
-  }
-});
-
 
 var App = React.createClass({
   contextTypes: {
@@ -51,29 +41,7 @@ var App = React.createClass({
   },
 
   componentDidMount: function() {
-    $(document).ready(function () {
-        DoRotate(360);
-        AnimateRotate(360);
-    });
-
-    function DoRotate(d) {
-        $(".header-main__logo").css({
-            transform: 'rotate(' + d + 'deg)'
-        });
-    }
-
-    function AnimateRotate(d){
-        var elem = $(".header-main__logo");
-
-        $({deg: 0}).animate({deg: d}, {
-            duration: 5000,
-            step: function(now){
-                elem.css({
-                     transform: "rotate(" + now + "deg)"
-                });
-            }
-        });
-    }
+    plateRotate();
   },
   
   // Here we run a very simple test of the Graph API after login is
@@ -200,8 +168,10 @@ var App = React.createClass({
             </div>
           </div>
         </div>
-        {/* this is the important part */}
-        <RouteHandler/>
+        <div>
+          {/* this is the important part */}
+          <RouteHandler/>
+        </div>
         <footer className="footer">
           <div className="container2">
             <h5 className="footer__heading">A <a className="footer__link" href="https://github.com/periwinkleDeer/periwinkleDeer" target="_blank">Periwinkle Deer</a> Production</h5>
@@ -220,6 +190,7 @@ var routes = (
     <Route name="entry" handler={Entry}/>
     <Route name="parameters" handler={Parameters} />
     <Route name="map" handler={Map} />
+    <Route name="hist" handler={Hist} />
     <Route name="display" handler={Display}/>
     <Route name="profile" handler={Profile}/>
     <Route name="restaurant" handler={Restaurant}/>
