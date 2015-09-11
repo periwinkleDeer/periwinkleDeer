@@ -14,8 +14,8 @@ var Hist = require('./Hist');
 var Display = require('./Display');
 var Profile = require('./Profile');
 var Restaurant = require('./Restaurant');
-// var fbid = '391288257734536';
-var fbid = '389293527934009';
+var fbid = '391288257734536';
+// var fbid = '389293527934009';
 
 localStorage.setItem('fbid', fbid);
 
@@ -112,6 +112,8 @@ var App = React.createClass({
           );
           FB.api('/me', function(response){
             var firstName = response.name.split(' ').slice(0, 1).join('');
+            localStorage.setItem('username', firstName)
+            console.log('lol', localStorage)
             localStorage.setItem('fb_id', FB.getUserID());
             self.setState({name: firstName});
           })
@@ -162,7 +164,7 @@ var App = React.createClass({
                 <a href={'#/main?id='+ localStorage.getItem('fb_id')}><img src="../assets/nibbler_icon_plate.png" alt=""></img></a>
               </div>
             
-              <div className="header-main__user-name" onClick={this.handleClick.bind(this, 'profile')}> {this.state.name} </div>
+              <div className="header-main__user-name" onClick={this.handleClick.bind(this, 'profile')}>{this.state.name}</div>
               <div className="header-main__user-avatar">
                 <img src={this.state.fbProfile} onClick={this.handleClick.bind(this, 'profile')}></img>
               </div>
