@@ -1,18 +1,5 @@
-machine:
-  node:
-    version: 0.12.0
-
-general:
-  build_dir: ./periwinkleDeer
-
-# ## Database
-# database:
-#   override:
-#     - psql -u ubuntu circle_test < 
-
-## Tests
-test:
-  override: 
-    - mocha test
-
-
+deployment:
+  prod:
+    branch: master
+    heroku:
+      appname: nibbler
