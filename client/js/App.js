@@ -14,8 +14,8 @@ var Hist = require('./Hist');
 var Display = require('./Display');
 var Profile = require('./Profile');
 var Restaurant = require('./Restaurant');
-// var fbid = '391288257734536';
-var fbid = '389293527934009';
+var fbid = '391288257734536';
+// var fbid = '389293527934009';
 
 localStorage.setItem('fbid', fbid);
 
@@ -113,7 +113,7 @@ var App = React.createClass({
           );
           FB.api('/me', function(response){
             var firstName = response.name.split(' ').slice(0, 1).join('');
-            localStorage.setItem('username', firstName);
+            localStorage.setItem('username', firstName)
             localStorage.setItem('fb_id', FB.getUserID());
             self.setState({name: firstName});
           });

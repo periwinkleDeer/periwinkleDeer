@@ -16,7 +16,6 @@ var Hist = React.createClass({
   componentWillUnmount: function() {
     $(".historytitle").remove();
   },
-
   componentDidMount: function (rootNode) {
     $(".header-main__inner").append('<center><div class="historytitle" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">History</div></center>');
     $(".header-main__user-name").hide();
