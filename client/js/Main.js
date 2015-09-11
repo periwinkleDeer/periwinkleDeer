@@ -8,6 +8,9 @@ var Main = React.createClass({
   getInitialState: function() {
     return {dishes: 'Loading...'}
   },
+  componentWillUnmount: function() {
+    $(".nibbler").remove();
+  },
   componentDidMount: function() {
     plateRotate();
     this.ratings = {};

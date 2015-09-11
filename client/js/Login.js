@@ -30,6 +30,7 @@ var Login = React.createClass({
     localStorage.setItem('currentRoute', '/login');
   },
   componentWillUnmount: function() {
+    $(".nibbler").remove();
     console.log("unmounting")
   },
 
@@ -38,7 +39,6 @@ var Login = React.createClass({
     FB.getLoginStatus(function(response){
       if (response.status === 'connected') {
         console.log("meow")
-        $(".nibbler").remove();
         self.context.router.transitionTo('/main', null, {id: FB.getUserID()});
       } else {
         if( navigator.userAgent.match('CriOS') || !!navigator.userAgent.match(/Trident.*rv[ :]*11\./)) {
