@@ -186,9 +186,10 @@ var Hist = React.createClass({
             self.state.info_window.setContent(contentString);
             self.state.info_window.open(map, this);
           });
-          // marker.addListener('click', function() {
-          //     infowindow.open(map, marker);
-          //   });
+  // Event that closes the Info Window with a click on the map
+          google.maps.event.addListener(map, 'click', function() {
+            self.state.info_window.close();
+          });
         } else {
           alert('Geocode was not successful for the following reason: ' + status);
         }

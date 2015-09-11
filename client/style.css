@@ -128,6 +128,7 @@ HEADER
 }
 
 .header-main__inner {
+  margin-left: 5px;
   position: relative;
 }
 
@@ -156,8 +157,18 @@ HEADER
   z-index: 10;
 }
 
+.nibbler {
+  font-weight: 600;
+  left: 50%;
+  position: fixed;
+  top: 5px;
+  z-index: 10;
+  color: white;
+}
+
 .header-main__user-avatar {
   margin-left: 10px;
+  margin-right: 10px;
   top: 7px;
   right: 0;
   width: 36px;
@@ -181,14 +192,14 @@ HEADER
 
 .header-main__user-name {
   margin: 0;
-  color: white;
-  font-weight: 300;
-  right: 50px;
+  color: #C2D6D6;
+  font-weight: 400;
+  right: 60px;
   width: auto;
   height: auto;
   position: absolute;
-  top: 16px;
-
+  top: 14px;
+  cursor: pointer;
 }
 
 /***********************
@@ -261,6 +272,13 @@ img.diet-filter {
 
 #glutenfree.diet-filter, #vegetarian.diet-filter {
  -webkit-filter: grayscale(0) brightness(150%);
+}
+
+.allergy_sm {
+  width: 35px;
+  /*margin: 10px 5px 0;*/
+  /*cursor: pointer;*/
+  /*-webkit-filter: grayscale(80%);*/
 }
 /***********************
 MAIN

@@ -149,9 +149,6 @@ var Map = React.createClass({
           google.maps.event.addListener(map, 'click', function() {
             self.state.info_window.close();
           });
-          // marker.addListener('click', function() {
-          //     infowindow.open(map, marker);
-          //   });
         } else {
           alert('Geocode was not successful for the following reason: ' + status);
         }
