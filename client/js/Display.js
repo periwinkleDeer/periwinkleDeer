@@ -30,7 +30,7 @@ var Display = React.createClass({
   },
   componentDidMount: function() {
     $(".header-main__inner").append('<div class="filter" style="text-align:center;font-size:24px;font-weight:600;left:40%;position:fixed;top:5px;z-index:10;color:white">Filters :'+'  '+'</div>');
-    console.log(localStorage);
+    console.log(this.props);
     if(this.props.query.vegetarian === 'true'){
       $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegetarian.png"></img>')
     }
@@ -42,10 +42,14 @@ var Display = React.createClass({
     }
     if(this.props.query.glutenfree === 'true'){
       $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/glutenfree.png"></img>')
-    }else{
-      $(".filter").remove()
     }
-
+    if(this.props.query.vegetarian === 'false' 
+       && this.props.query.vegan === 'false'
+       && this.props.query.lactosefree === 'false'
+       && this.props.query.glutenfree === 'false') {
+      $(".filter").remove();
+    }
+    
     plateRotate();
     var self = this;
     $.ajax({
