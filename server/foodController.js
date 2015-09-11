@@ -1,5 +1,20 @@
 var db = require('./db');
 
+var createQuery = function(query) {
+  var price = query.price || '4';
+  var sqlQuery = {
+    price_rating: {$lte: price},
+    zip: query.zip
+  };
+
+  for (var prop in query) {
+    if (query[prop] === 'true') {
+      sqlQuery[prop] = true;
+    }
+  }
+  return sqlQuery;
+}
+
 module.exports = {
 
   resInfo: function(req, res) {
@@ -17,22 +32,14 @@ module.exports = {
   },
 
   getDishList: function(req, res){
-    var price = req.query.price || '4';
-    var zip = req.query.zip;
+    var query = createQuery(req.query);
 
     db.Dish.findAll({ 
       include: [{
         model: db.Restaurant, 
         required: true
       }],
-      where: db.Sequelize.and(
-        {price_rating: {$lte: price}},
-        {zip: req.query.zip},
-        {vegan: (req.query.vegan === 'true') ? true : {$in: [true, false]} },
-        {vegetarian: (req.query.vegetarian === 'true') ? true : {$in: [true, false]}},
-        {glutenfree: (req.query.glutenfree === 'true') ? true : {$in: [true, false]}},
-        {lactosefree: (req.query.lactosefree === 'true') ? true : {$in: [true, false]}}
-      ),
+      where: query,
       order: [
         ['rating', 'DESC']
       ]
