@@ -14,8 +14,8 @@ var Hist = require('./Hist');
 var Display = require('./Display');
 var Profile = require('./Profile');
 var Restaurant = require('./Restaurant');
-// var fbid = '391288257734536';
-var fbid = '389293527934009';
+var fbid = '391288257734536';
+// var fbid = '389293527934009';
 
 localStorage.setItem('fbid', fbid);
 

@@ -74,7 +74,7 @@ var Entry = React.createClass({
     }
     
     $.ajax({
-       url: "/insertdish",
+       url: "/food/newDish",
        type: "POST",
        data: store,
        success: function(data) {
@@ -134,11 +134,8 @@ var Entry = React.createClass({
 
      return (
       <div className="container display">
-         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-           <div className="form-group">
-            <label>Restaurant</label>
-             <input type="text" className="form-control" id="restaurant" placeholder="Where did you eat?"/>
-           </div>
+        <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+          <Restaurant />
 
            <div className="form-group">
             <label>Nibble</label>
@@ -185,6 +182,19 @@ var Entry = React.createClass({
          </div>
       </div>
      )
+  }
+});
+
+var Restaurant = React.createClass({
+  render: function(){
+    return(
+      <div>
+         <div className="form-group">
+          <label>Restaurant</label>
+           <input type="text" className="form-control" id="restaurant" placeholder="Where did you eat?"/>
+        </div>
+      </div>
+    )
   }
 });
 
