@@ -1,5 +1,5 @@
-deployment:
-  prod:
-    branch: master
-    heroku:
-      appname: nibbler
+# deployment:
+#   staging:
+#     branch: master
+#     heroku:
+#       appname: foo-bar-123
