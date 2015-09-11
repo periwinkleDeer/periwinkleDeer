@@ -45,7 +45,7 @@ gulp.task('replaceHTML', function(){
 });
 
 gulp.task('jshint', function() {
-  return gulp.src(path.MINIFIED_OUT)
+  return gulp.src(path.DEST_SRC)
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
@@ -54,7 +54,7 @@ gulp.task('watch', function() {
   gulp.watch(path.HTML, ['copy']);
   gulp.watch(path.CSS, ['copyCSS']);
   gulp.watch(path.ASSETS, ['copyASSETS']);
-  gulp.watch(path.MINIFIED_OUT, ['jshint']);
+  gulp.watch(path.DEST_SRC, ['jshint']);
 
   var watcher  = watchify(browserify({
     entries: [path.ENTRY_POINT],

@@ -11,7 +11,7 @@ var Profile = React.createClass({
 
   componentDidMount: function() {
     plateRotate();
-    var self = this;
+    var self = this
    
     localStorage.setItem('currentRoute', '/profile');
     
