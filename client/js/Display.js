@@ -159,7 +159,7 @@ var Display = React.createClass({
           dishes: dishIds
         });
       }
-    })
+    });
   },
   render: function () {
 
