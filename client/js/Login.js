@@ -7,6 +7,7 @@ var Login = React.createClass({
 
   componentDidMount: function() {
     plateRotate();
+    $(".header-main__inner").append('<center><div class="nibbler" style="margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">Nibbler</div></center>');
 
     function DoRotate(d) {
         $(".header-main__logo").css({
@@ -27,6 +28,10 @@ var Login = React.createClass({
         });
     }
     localStorage.setItem('currentRoute', '/login');
+  },
+  componentWillUnmount: function() {
+    $(".nibbler").remove();
+    console.log("unmounting")
   },
 
   login: function() {
@@ -50,7 +55,7 @@ var Login = React.createClass({
     return (
       <div className="container">
         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-            <button type="button" className="btn btn-warning btn-lg btn-block fb-button" onClick={this.login}><img className="fb-logo" src={"../assets/facebooklogo.png"} />Login using Facebook</button>
+            <button type="button" className="btn btn-warning btn-lg btn-block fb-button upload" onClick={this.login}><img className="fb-logo" src={"../assets/facebooklogo.png"} />  Login with Facebook</button>
         </div>
       </div>
     )

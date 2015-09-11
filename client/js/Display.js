@@ -25,7 +25,31 @@ var Display = React.createClass({
   getInitialState: function() {
     return {dishes: "Loading...."};
   },
+  componentWillUnmount: function() {
+    $(".filter").remove()
+  },
   componentDidMount: function() {
+    $(".header-main__inner").append('<center><div class="filter" style="margin-top:-38px;z-index:10"></div></center>');
+    console.log(this.props);
+    if(this.props.query.vegetarian === 'true'){
+      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegetarian.png"></img>')
+    }
+    if(this.props.query.vegan === 'true'){
+      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegan.png"></img>')
+    }
+    if(this.props.query.lactosefree === 'true'){
+      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/lactosefree.png"></img>')
+    }
+    if(this.props.query.glutenfree === 'true'){
+      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/glutenfree.png"></img>')
+    }
+    if(this.props.query.vegetarian === 'false' 
+       && this.props.query.vegan === 'false'
+       && this.props.query.lactosefree === 'false'
+       && this.props.query.glutenfree === 'false') {
+      $(".filter").remove();
+    }
+    
     plateRotate();
     var self = this;
     $.ajax({
