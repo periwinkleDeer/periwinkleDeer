@@ -45,16 +45,16 @@ gulp.task('replaceHTML', function(){
 });
 
 gulp.task('jshint', function() {
-  return gulp.src('client/js/*.js')
+  return gulp.src(path.MINIFIED_OUT)
     .pipe(jshint())
-    .pipe(jshint.reporter('YOUR_REPORTER_HERE'));
+    .pipe(jshint.reporter('default'));
 });
 
 gulp.task('watch', function() {
   gulp.watch(path.HTML, ['copy']);
   gulp.watch(path.CSS, ['copyCSS']);
   gulp.watch(path.ASSETS, ['copyASSETS']);
-  gulp.watch('client/js/*.js', ['jshint']);
+  gulp.watch(path.MINIFIED_OUT, ['jshint']);
 
   var watcher  = watchify(browserify({
     entries: [path.ENTRY_POINT],
@@ -88,7 +88,7 @@ gulp.task('build', function(){
     .pipe(gulp.dest(path.DEST_BUILD));
 });
 
-gulp.task('test', ['jshint']);
+gulp.task('lint', ['jshint']);
 
 gulp.task('moving', ['copy', 'copyCSS', 'copyASSETS']);
 
