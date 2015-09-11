@@ -5,7 +5,6 @@
   "main": "server.js",
   "scripts": {
     "start": "{ gulp & nodemon server/server.js & }",
-    "test": "gulp lint",
     "postinstall": "{ ./node_modules/bower/bin/bower install & gulp production & }"
   },
   "repository": {
