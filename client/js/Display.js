@@ -29,7 +29,7 @@ var Display = React.createClass({
     $(".filter").remove()
   },
   componentDidMount: function() {
-    $(".header-main__inner").append('<div class="filter" style="text-align:center;font-size:24px;font-weight:400;left:40%;position:fixed;top:6px;z-index:10;color:#23B5AF">Filters :'+'  '+'</div>');
+    $(".header-main__inner").append('<center><div class="filter" style="margin-top:-38px;z-index:10"></div></center>');
     console.log(this.props);
     if(this.props.query.vegetarian === 'true'){
       $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegetarian.png"></img>')

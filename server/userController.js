@@ -99,7 +99,7 @@ module.exports = {
         where: {UserId: user.id},
         include: [{model: db.Dish, required: true}],
         order: [['createdAt', 'DESC']],
-        limit: 30
+        limit: 20
       }).then(function(results) {
         var dishArray = [];
         results.forEach(function(dish) {
