@@ -38,7 +38,6 @@ var Login = React.createClass({
     var self = this;
     FB.getLoginStatus(function(response){
       if (response.status === 'connected') {
-        console.log("meow")
         self.context.router.transitionTo('/main', null, {id: FB.getUserID()});
       } else {
         if( navigator.userAgent.match('CriOS') || !!navigator.userAgent.match(/Trident.*rv[ :]*11\./)) {
