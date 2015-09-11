@@ -10,6 +10,7 @@ var Profile = React.createClass({
   },
 
   componentDidMount: function() {
+    $(".header-main__user-name").show();
     plateRotate();
     var self = this;
 

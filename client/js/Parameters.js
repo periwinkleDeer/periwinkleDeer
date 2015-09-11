@@ -7,6 +7,7 @@ var Parameters = React.createClass({
   },
 
   componentDidMount: function() {
+    $(".header-main__user-name").show();
     plateRotate();
     localStorage.setItem('currentRoute', '/parameters');
     var self = this;

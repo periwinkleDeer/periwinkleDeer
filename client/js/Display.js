@@ -32,16 +32,16 @@ var Display = React.createClass({
     $(".header-main__inner").append('<center><div class="filter" style="margin-top:-38px;z-index:10"></div></center>');
     console.log(this.props);
     if(this.props.query.vegetarian === 'true'){
-      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegetarian.png"></img>')
+      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegetarian.png"></img>');
     }
     if(this.props.query.vegan === 'true'){
-      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegan.png"></img>')
+      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegan.png"></img>');
     }
     if(this.props.query.lactosefree === 'true'){
-      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/lactosefree.png"></img>')
+      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/lactosefree.png"></img>');
     }
     if(this.props.query.glutenfree === 'true'){
-      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/glutenfree.png"></img>')
+      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/glutenfree.png"></img>');
     }
     if(this.props.query.vegetarian === 'false' 
        && this.props.query.vegan === 'false'
@@ -49,6 +49,7 @@ var Display = React.createClass({
        && this.props.query.glutenfree === 'false') {
       $(".filter").remove();
     }
+    $(".header-main__user-name").hide();
     
     plateRotate();
     var self = this;

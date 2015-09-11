@@ -13,8 +13,12 @@ var Hist = React.createClass({
       locations: []
     };
   },
-
+  componentWillUnmount: function() {
+    $(".historytitle").remove();
+  },
   componentDidMount: function (rootNode) {
+    $(".header-main__inner").append('<center><div class="historytitle" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">History</div></center>');
+    $(".header-main__user-name").hide();
     plateRotate();
     var self = this;
     self.setState({info_window: new google.maps.InfoWindow({
@@ -213,7 +217,7 @@ var Hist = React.createClass({
           <div className="mapdiv">
             <div>
               <div className="mapgreet">
-                <label>Your History Map
+                <label>Your last 20 destinations
                 </label>
               </div>
             </div>
