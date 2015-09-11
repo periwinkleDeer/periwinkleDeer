@@ -13,8 +13,6 @@ var Profile = React.createClass({
     plateRotate();
     var self = this;
 
-    <
-   
     localStorage.setItem('currentRoute', '/profile');
     
     $.ajax({
