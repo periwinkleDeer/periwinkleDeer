@@ -21,10 +21,13 @@
    - GoogleMaps API -- Shows restaurant locations and links to Google Maps Navigation
    - Facebook SDK 
    - Bootstrap
+
 <center><img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/map.png?raw=true"></center>
+
  - Back End
    - PostgreSQL with Sequelize -- Allows for relationships between restaurants, users, and dishes
    - Node.js/Express
+   
 <center><img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/db_schema.png?raw=true"></center>
 
 ### Requirements
