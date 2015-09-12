@@ -22,13 +22,13 @@
    - Facebook SDK 
    - Bootstrap
 
-<div style="text-align:center"><img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/map.png?raw=true"></div>
+<center><img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/map.png?raw=true">
 
  - Back End
    - PostgreSQL with Sequelize -- Allows for relationships between restaurants, users, and dishes
    - Node.js/Express
 
-<div style="text-align:center"><img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/db_schema.png?raw=true"></div>
+<center><img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/db_schema.png?raw=true"></center>
 
 ### Requirements
 
