@@ -1,26 +1,32 @@
-# Foodie Roulette
+##Nibbler
+###About  
+----------
+> Find up to 3 highly rated delectable tasty courses and have the app plan your night out. Found an insatiable treat? Upload it to the site so others can enjoy it too next time they plan their foodie-night-out event.
+> Users can use the site to find food via individual dishes. Content and ratings are user submitted.
+<center><img src='./client/assets/profile.png></center>
 
+### Table of Contents
 
-(https://waffle.io/periwinkleDeer/periwinkleDeer)
+ - [Tech Stack](#tech-stack)
+ - [Requirements](#requirements)
+ - [Keys](#keys)
+ - [Getting Started](#getting-started)
+ - [Team](#team)
+ - [Contributing](#contributing)
 
-> Find up to 3 highly rated delectable tasty courses and have the app plan your night out. Found an insatiable treat? Upload it to the app so others can enjoy it too next time they plan their foodie-night-out event.
+### Tech Stack
+ - Front End
+   - React -- Utilizes fast rendering using a virtual DOM
+   - GoogleMaps API -- Shows restaurant locations and links to Google Maps Navigation
+   - Facebook SDK 
+   - Bootstrap
+<center><img src='./client/assets/map.png></center>
+ - Back End
+   - PostgreSQL with Sequelize -- Allows for relationships between restaurants, users, and dishes
+   - Node.js/Express
+<center><img src="./client/assets/db-schema.png"></center>
 
-## Team
-
-  - __Product Owner__: @kshiraiw / @kevbyte
-  - __Scrum Master__: @jeremyhu9 / @ChiMarvine
-
-## Table of Contents
-
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Team](#team)
-1. [Contributing](#contributing)
-
-## Requirements
+### Requirements
 
 - Node 0.12.x
 - NPM 2.11+
@@ -29,24 +35,29 @@
 - Gulp
 - Express 4.x
 
-## Keys
+### Keys
 -create a [facebook](https://developers.facebook.com/) application id 
 -add in App.js 
 
-## Development
 
 ### Getting Started
 
-
-npm install
-npm start
-
-
-### Roadmap
-
-View the project roadmap [here](https://github.com/periwinkleDeer)
-
-
-## Contributing
+ - Web App
+   - Fork the repo
+   - Clone from your fork
+   - npm install
+ - Database
+   - install PostgreSQL
+   - open up the postgres shell
+   - CREATE ROLE postgres LOGIN;
+   - CREATE DATABASE foodie;
+ - Run the App
+   - npm start
+ 
+### Team
+  - __Product Owner__: [@kshiraiw ](https://github.com/kshiraiw)/ [@kevbyte](https://github.com/kevbyte)
+  - __Scrum Master__: [@jeremyhu9](https://github.com/jeremyhu9) / [@ChiMarvine](https://github.com/chimarvine)
+  
+### Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.# periwinkleDeer
