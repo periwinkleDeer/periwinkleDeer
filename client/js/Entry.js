@@ -1,11 +1,14 @@
 var Rating = require('react-rating');
 var router = require('./App'); 
+var DietQuery = require('./DietQuery'); 
 
+//Parent component for entry view
 var Entry = React.createClass({
   contextTypes: {
    router: React.PropTypes.func
   },
 
+  //Set initial error to empty string
   getInitialState: function(){
      return {
       error: '',
@@ -21,11 +24,13 @@ var Entry = React.createClass({
     var options = {
       types: ['establishment']
     };
+    //Set default values of options to false
     this.vegetarian = 'false';
     this.vegan = 'false';
     this.lactosefree = 'false';
     this.glutenfree = 'false';
 
+    //Google autocomplete functionality
     var autocomplete = new google.maps.places.Autocomplete(input, options);
 
     autocomplete.addListener('place_changed', function(){
@@ -35,6 +40,7 @@ var Entry = React.createClass({
       });
     });
 
+    //Reroutes user that's not logged in back to login page
     FB.getLoginStatus(function(response){
       if (response.status !== 'connected') {
         self.context.router.transitionTo('/login');
@@ -48,7 +54,7 @@ var Entry = React.createClass({
     var zip = zipCheck(this.state.restaurant.address_components);
     var rating = this.state.restaurant.rating || '!!';
     var phone = this.state.restaurant.formatted_phone_number || '!!';
-
+    //Data object user inputs
     var store = {
        id         : this.props.query.id,
        restaurant : this.state.restaurant.name,
@@ -66,15 +72,17 @@ var Entry = React.createClass({
        lactosefree: this.lactosefree,
        glutenfree : this.glutenfree
     };
-    console.log(store)
+    console.log(store);
+    //Check to see if the whole form is filled out, if not don't submit
     if(!checkObj(store)){
       self.setState({error: "Fill Out Everything Yo!"});
       $('.display-error').show();
       return;
     }
-    
+
+    //Post user input data to database
     $.ajax({
-       url: "/insertdish",
+       url: "/food/newDish",
        type: "POST",
        data: store,
        success: function(data) {
@@ -88,7 +96,7 @@ var Entry = React.createClass({
   },
 
   change: function(e){
-      e.preventDefault();
+    e.preventDefault();
      var files = e.target.files;
      var self = this;
      var maxWidth = 250;
@@ -98,6 +106,7 @@ var Entry = React.createClass({
      });
   },
 
+  //Sets the value range of the food the user ate
   ratePrice: function(value){
     this.priceRate = value;
     var values = {
@@ -109,10 +118,12 @@ var Entry = React.createClass({
     $('.popup').text(values[value]);
   },
 
+  //Sets users star rating on particular food
   rateFood: function(value){
     this.foodRate = value;
   },
 
+  //Toggles diet filter boolean
   selectDiet: function(value) {
     $('#' + value).toggleClass('diet-filter');
     if(this[value] === 'false'){
@@ -123,6 +134,7 @@ var Entry = React.createClass({
     }
   },
 
+  //Render entry page form
   render: function(){
     this.foodRate = this.foodRate || 0;
     this.priceRate = this.priceRate || 0;
@@ -134,53 +146,35 @@ var Entry = React.createClass({
 
      return (
       <div className="container display">
-         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-           <div className="form-group">
-            <label>Restaurant</label>
-             <input type="text" className="form-control" id="restaurant" placeholder="Where did you eat?"/>
-           </div>
+        <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
 
-           <div className="form-group">
-            <label>Nibble</label>
-             <input type="text" className="form-control" id="dish" placeholder="What did you eat?"/>
-             <div className="dietry-query"> 
-               <img id="vegetarian" src="../assets/allergyIcons/vegetarian.png" onClick={this.selectDiet.bind(this, 'vegetarian')}/>
-               <img id="vegan" src="../assets/allergyIcons/vegan.png"  onClick={this.selectDiet.bind(this, 'vegan')}/>
-               <img id="lactosefree" src="../assets/allergyIcons/lactosefree.png" onClick={this.selectDiet.bind(this, 'lactosefree')}/>
-               <img id="glutenfree" src="../assets/allergyIcons/glutenfree.png" onClick={this.selectDiet.bind(this, 'glutenfree')}/>
-             </div>
-           </div>
+          <Restaurant/>
+          
+          <Nibble selectDiet={this.selectDiet} ctx={this}/>
 
-           <div className="form-group">
-               <div className="btn btn-warning upload form-control" onClick={uploadImage}><span className="glyphicon glyphicon-camera camera icon"></span>Add Image</div>
-               <input className="hidden" ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={ this.change }/>
-               <p className="help-block">{ image }</p>
-           </div>           
+          <div className="form-group">
+           <div className="btn btn-warning upload form-control" onClick={uploadImage}><span className="glyphicon glyphicon-camera camera icon"></span>Add Image</div>
+           <input className="hidden" ref="upload" type="file" accept="image/*" onSubmit={this.handleSubmit} onChange={this.change}/>
+           <p className="help-block">{ image }</p>
+          </div>           
 
-           <div className="form-group">
-           <label>Category</label>
-             <select id="category" className="form-control">
-               <option>Snack</option>
-               <option>Grub</option>
-               <option>Dessert</option>
-             </select>
-           </div>
+          <Category/>
 
-           <div className="form-group">
+          <div className="form-group">
             <label>Price Rating</label>
             <div></div>
-               <Rating initialRate={this.priceRate} empty="glyphicon glyphicon-usd usd" full="glyphicon glyphicon-usd green usd" start={0} stop={4} step={1} onChange={this.ratePrice}/>
-               <span className="popup"></span>
-           </div>
+             <Rating initialRate={this.priceRate} empty="glyphicon glyphicon-usd usd" full="glyphicon glyphicon-usd green usd" start={0} stop={4} step={1} onChange={this.ratePrice}/>
+             <span className="popup"></span>
+          </div>
 
            <div className="form-group">
             <label>Rate Dish</label>
             <div></div>
-               <Rating initialRate={this.foodRate} empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.rateFood}/>
+             <Rating initialRate={this.foodRate} empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={this.rateFood}/>
            </div>
 
-             <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}><span className="glyphicon glyphicon-plus icon"></span>Add Food</button>
-             <p className="display-error">{this.state.error}</p>
+           <button className="btn btn-warning form-control" onClick={this.handleSubmit.bind(this, "main")}><span className="glyphicon glyphicon-plus icon"></span>Add Food</button>
+           <p className="display-error">{this.state.error}</p>
 
          </div>
       </div>
@@ -188,6 +182,54 @@ var Entry = React.createClass({
   }
 });
 
+//Query user for the place they ate at
+var Restaurant = React.createClass({
+  render: function(){
+    return(
+      <div>
+         <div className="form-group">
+          <label>Restaurant</label>
+           <input type="text" className="form-control" id="restaurant" placeholder="Where did you eat?"/>
+        </div>
+      </div>
+    )
+  }
+});
+
+//Query user for the food name
+var Nibble = React.createClass({
+  render: function(){
+    return (
+      <div>
+        <div className="form-group">
+         <label>Nibble</label>
+          <input type="text" className="form-control" id="dish" placeholder="What did you eat?"/>
+          <DietQuery selectDiet={this.props.selectDiet} ctx={this.props.ctx} />
+        </div>
+      </div>
+    )
+  }
+});
+
+//Category selection of food
+var Category = React.createClass({
+  render: function(){
+    return (
+      <div>
+        <div className="form-group">
+          <label>Category</label>
+          <select id="category" className="form-control">
+            <option>Snack</option>
+            <option>Grub</option>
+            <option>Dessert</option>
+          </select>
+        </div>
+      </div>
+    )
+  }
+});
+
+//Check completeness of object
 function checkObj(object){
   for(var key in object){
     if(!object[key]){
@@ -197,6 +239,7 @@ function checkObj(object){
   return true;
 }; 
 
+//Check for zipcode
 function zipCheck(list){
   for(var i = 0; i < list.length; i++){
     if(/^\d{5}(?:[-\s]\d{4})?$/.test(list[i].long_name)){
@@ -205,10 +248,12 @@ function zipCheck(list){
   }
 }
 
+//Allows users to upload from phone/computer storage and take a new picture on click
 function uploadImage() {
   $('input[type=file]').click();
 }
 
+//Renders the image uploaded by user
 function resize(file, maxWidth, maxHeight, fn){
     var reader = new FileReader();
     reader.readAsDataURL(file);
@@ -224,6 +269,7 @@ function resize(file, maxWidth, maxHeight, fn){
     };
 }
 
+//Resize the image uploaded by user
 function resizeImage(image, maxWidth, maxHeight, quality){
     var canvas = document.createElement('canvas');
 
