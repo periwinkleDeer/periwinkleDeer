@@ -13,6 +13,7 @@ var Entry = React.createClass({
    },
 
   componentDidMount: function(){
+    $(".header-main__user-name").show();
     plateRotate();
     localStorage.setItem('currentRoute', '/entry');
     var self = this;
@@ -116,7 +117,7 @@ var Entry = React.createClass({
     $('#' + value).toggleClass('diet-filter');
     if(this[value] === 'false'){
       this[value] = 'true';
-      console.log("setting ", value, "to", this.state[value]);
+      console.log("setting ", value, "to", this[value]);
     }else{
       this[value] = 'false';
     }

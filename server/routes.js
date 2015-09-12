@@ -6,16 +6,16 @@ var user = require('./userController');
 
 module.exports = function(app) {
 //food related routes
-  app.get('/dishes', food.getDishList);
-  app.get('/get3dishes', food.get3Dishes);
-  app.post('/insertdish', food.insertDish);
-  app.get('/resInfo', food.resInfo);
+  app.get('/food/dishes', food.getDishList);
+  app.get('/food/3dishes', food.get3Dishes);
+  app.post('/food/newDish', food.insertDish);
+  app.get('/food/resInfo', food.resInfo);
 //for specific users
-  app.get('/unrated', user.findUnrated);
-  app.get('/selecting', user.selectingDishes);
-  app.get('/rate', user.ratings);
-  app.get('/recent', user.recent);
-  app.get('/history', user.getHistory);
+  app.get('/user/unrated', user.findUnrated);
+  app.get('/user/selections', user.selectingDishes);
+  app.post('/user/ratings', user.ratings);
+  app.get('/user/recent', user.recent);
+  app.get('/user/history', user.getHistory);
 //Heroku deployment
   app.get('/db', function (request, response) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {

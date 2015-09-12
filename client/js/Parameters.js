@@ -7,6 +7,7 @@ var Parameters = React.createClass({
   },
 
   componentDidMount: function() {
+    $(".header-main__user-name").show();
     plateRotate();
     localStorage.setItem('currentRoute', '/parameters');
     var self = this;
@@ -22,30 +23,7 @@ var Parameters = React.createClass({
   },
 
   getInitialState: function() {
-    return {neighborhoods: [
-      {"94102": "Hayes Valley | Tenderloin | North of Market"},
-      {"94103": "Soma"},
-      {"94107": "Potrero Hill"},
-      {"94108": "Chinatown"},
-      {"94109": "Polk | Russian Hill | Nob Hill"},
-      {"94110": "Inner Mission | Bernal Heights"},
-      {"94111": "Embarcadero"},
-      {"94112": "Ingelside-Excelsior | Crocker-Amazon"},
-      {"94114": "Castro | Noe Valley"},
-      {"94115": "Western Addition | Japantown"},
-      {"94116": "Parkside/Forest Hill"},
-      {"94117": "Haight-Ashbury"},
-      {"94118": "Inner Richmond"},
-      {"94121": "Outer Richmond"},
-      {"94122": "Sunset"},
-      {"94123": "Marina"},
-      {"94124": "Bayview-Hunters Point"},
-      {"94127": "St. Francis Wood/Miraloma/West Portal"},
-      {"94131": "Twin Peaks-Glen Park"},
-      {"94132": "Lake Merced"},
-      {"94133": "North Beach | Chinatown"},
-      {"94134": "Visitacion Valley | Sunnydale"}
-    ]};
+    return {neighborhoods: neighborhoods};
   },
 
   handleClick: function() {
@@ -91,13 +69,7 @@ var Parameters = React.createClass({
             <select id="neighborhood" className="form-control">
               {neighborhoods}
             </select>
-            <div className="dietry-query">
-              <img id="vegetarian" src="../assets/allergyIcons/vegetarian.png" onClick={this.selectDiet.bind(this, 'vegetarian')}/>
-              <img id="vegan" src="../assets/allergyIcons/vegan.png"  onClick={this.selectDiet.bind(this, 'vegan')}/>
-              <img id="lactosefree" src="../assets/allergyIcons/lactosefree.png" onClick={this.selectDiet.bind(this, 'lactosefree')}/>
-              <img id="glutenfree" src="../assets/allergyIcons/glutenfree.png" onClick={this.selectDiet.bind(this, 'glutenfree')}/>
-              
-            </div>
+            <DietQuery selectDiet={this.selectDiet} ctx={this}/>
             <div className="form-group spacing">
               <label>Price Range (each item)?</label>
               <br/>
@@ -112,3 +84,41 @@ var Parameters = React.createClass({
 });
 
 module.exports = Parameters;
+
+var DietQuery = React.createClass({
+  render: function() {
+    return (
+      <div className="dietry-query">
+        <img id="vegetarian" src="../assets/allergyIcons/vegetarian.png" onClick={this.props.selectDiet.bind(this.props.ctx, 'vegetarian')}/>
+        <img id="vegan" src="../assets/allergyIcons/vegan.png"  onClick={this.props.selectDiet.bind(this.props.ctx, 'vegan')}/>
+        <img id="lactosefree" src="../assets/allergyIcons/lactosefree.png" onClick={this.props.selectDiet.bind(this.props.ctx, 'lactosefree')}/>
+        <img id="glutenfree" src="../assets/allergyIcons/glutenfree.png" onClick={this.props.selectDiet.bind(this.props.ctx, 'glutenfree')}/>
+      </div>
+    );
+  }
+});
+
+var neighborhoods = [
+      {"94102": "Hayes Valley | Tenderloin | North of Market"},
+      {"94103": "Soma"},
+      {"94107": "Potrero Hill"},
+      {"94108": "Chinatown"},
+      {"94109": "Polk | Russian Hill | Nob Hill"},
+      {"94110": "Inner Mission | Bernal Heights"},
+      {"94111": "Embarcadero"},
+      {"94112": "Ingelside-Excelsior | Crocker-Amazon"},
+      {"94114": "Castro | Noe Valley"},
+      {"94115": "Western Addition | Japantown"},
+      {"94116": "Parkside/Forest Hill"},
+      {"94117": "Haight-Ashbury"},
+      {"94118": "Inner Richmond"},
+      {"94121": "Outer Richmond"},
+      {"94122": "Sunset"},
+      {"94123": "Marina"},
+      {"94124": "Bayview-Hunters Point"},
+      {"94127": "St. Francis Wood/Miraloma/West Portal"},
+      {"94131": "Twin Peaks-Glen Park"},
+      {"94132": "Lake Merced"},
+      {"94133": "North Beach | Chinatown"},
+      {"94134": "Visitacion Valley | Sunnydale"}
+    ];
