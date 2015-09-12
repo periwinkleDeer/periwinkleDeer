@@ -66,7 +66,7 @@ var Entry = React.createClass({
        lactosefree: this.lactosefree,
        glutenfree : this.glutenfree
     };
-    console.log(store)
+    console.log(store);
     if(!checkObj(store)){
       self.setState({error: "Fill Out Everything Yo!"});
       $('.display-error').show();
@@ -136,17 +136,7 @@ var Entry = React.createClass({
       <div className="container display">
         <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
           <Restaurant />
-
-           <div className="form-group">
-            <label>Nibble</label>
-             <input type="text" className="form-control" id="dish" placeholder="What did you eat?"/>
-             <div className="dietry-query"> 
-               <img id="vegetarian" src="../assets/allergyIcons/vegetarian.png" onClick={this.selectDiet.bind(this, 'vegetarian')}/>
-               <img id="vegan" src="../assets/allergyIcons/vegan.png"  onClick={this.selectDiet.bind(this, 'vegan')}/>
-               <img id="lactosefree" src="../assets/allergyIcons/lactosefree.png" onClick={this.selectDiet.bind(this, 'lactosefree')}/>
-               <img id="glutenfree" src="../assets/allergyIcons/glutenfree.png" onClick={this.selectDiet.bind(this, 'glutenfree')}/>
-             </div>
-           </div>
+          <Nibble selectDiet={this.selectDiet} ctx={this} />
 
            <div className="form-group">
                <div className="btn btn-warning upload form-control" onClick={uploadImage}><span className="glyphicon glyphicon-camera camera icon"></span>Add Image</div>
@@ -192,6 +182,25 @@ var Restaurant = React.createClass({
          <div className="form-group">
           <label>Restaurant</label>
            <input type="text" className="form-control" id="restaurant" placeholder="Where did you eat?"/>
+        </div>
+      </div>
+    )
+  }
+});
+
+var Nibble = React.createClass({
+  render: function(){
+    return (
+      <div>
+        <div className="form-group">
+         <label>Nibble</label>
+          <input type="text" className="form-control" id="dish" placeholder="What did you eat?"/>
+          <div className="dietry-query"> 
+            <img id="vegetarian" src="../assets/allergyIcons/vegetarian.png" onClick={this.props.selectDiet.bind(this.props.ctx, 'vegetarian')}/>
+            <img id="vegan" src="../assets/allergyIcons/vegan.png"  onClick={this.props.selectDiet.bind(this.props.ctx, 'vegan')}/>
+            <img id="lactosefree" src="../assets/allergyIcons/lactosefree.png" onClick={this.props.selectDiet.bind(this.props.ctx, 'lactosefree')}/>
+            <img id="glutenfree" src="../assets/allergyIcons/glutenfree.png" onClick={this.props.selectDiet.bind(this.props.ctx, 'glutenfree')}/>
+          </div>
         </div>
       </div>
     )
