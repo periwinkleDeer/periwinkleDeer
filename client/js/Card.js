@@ -1,4 +1,5 @@
 var Rating = require('react-rating');
+//dish view for display route
 var DisplayCard = React.createClass({
   render: function() {
     return (
@@ -15,6 +16,7 @@ var DisplayCard = React.createClass({
 
 module.exports.displayCard = DisplayCard;
 
+//converts price rating to dollar signs
 var displayMoney = function(num) {
   var string = '';
   for (var i = 0; i < parseInt(num); i++) {
@@ -23,6 +25,7 @@ var displayMoney = function(num) {
   return string;
 };
 
+//dish view for restaurant route
 var RestaurantCard = React.createClass({
   render: function() {
     return(

@@ -10,6 +10,7 @@ var Parameters = React.createClass({
   componentDidMount: function() {
     $(".header-main__user-name").show();
     plateRotate();
+    //saving current route 
     localStorage.setItem('currentRoute', '/parameters');
     var self = this;
     FB.getLoginStatus(function(response){
@@ -17,6 +18,8 @@ var Parameters = React.createClass({
         self.context.router.transitionTo('/login');
       }
     });
+
+    //initializing filter values
     this.vegan = false;
     this.vegetarian = false;
     this.lactosefree = false;
@@ -24,11 +27,13 @@ var Parameters = React.createClass({
   },
 
   getInitialState: function() {
+    //setting neighborhoods to zipcodes
     return {neighborhoods: neighborhoods};
   },
 
   handleClick: function() {
     var self = this;
+    //sending query parameters to display page
     this.context.router.transitionTo('/display', null, {
       id: this.props.query.id,
       zip: document.getElementById('neighborhood').value,
@@ -39,7 +44,7 @@ var Parameters = React.createClass({
       lactosefree: this.lactosefree
     });
   },
-
+  //changes price rating on click, displays monetary equivalents
   rate: function(value) {
     this.value = value;
     var values = {
@@ -51,12 +56,14 @@ var Parameters = React.createClass({
     $('.popup').text(values[value]);
   },
 
+  //changes filter values
   selectDiet: function(value) {
     $('#' + value).toggleClass('diet-filter');
     this[value] = !this[value];
   },
 
   render: function(){
+    //populating the select input with neighborhood data
     var neighborhoods = this.state.neighborhoods.map(function(neighborhood) {
         var zip = Object.keys(neighborhood)[0];               
         return <option key={zip} value={zip}>{neighborhood}</option>;

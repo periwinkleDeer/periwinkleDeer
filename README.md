@@ -3,7 +3,7 @@
 
 (https://waffle.io/periwinkleDeer/periwinkleDeer)
 
-> Play a roulette game to select 3 highly rated delectable tasty food items and have the app plan your night out. Found an insatiable treat? Upload it to the app so others can enjoy it too next time they plan their foodie-night-out event.
+> Find up to 3 highly rated delectable tasty courses and have the app plan your night out. Found an insatiable treat? Upload it to the app so others can enjoy it too next time they plan their foodie-night-out event.
 
 ## Team
 
@@ -25,23 +25,21 @@
 - Node 0.12.x
 - NPM 2.11+
 - React.js
-- Flux
-- MongoDB
-- Mongoose
+- Postgres
+- Gulp
 - Express 4.x
 
 ## Keys
--create a facebook application id 
--create a fbid.js file in the client folder and paste this in:
-    module.exports.fbid = '<insert application id>'
+-create a [facebook](https://developers.facebook.com/) application id 
+-add in App.js 
 
 ## Development
 
-### Installing Dependencies
+### Getting Started
 
 
 npm install
-bower install
+npm start
 
 
 ### Roadmap

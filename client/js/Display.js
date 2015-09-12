@@ -6,6 +6,7 @@ var Display = React.createClass({
      router: React.PropTypes.func
    },
   getInitialState: function() {
+    //sets initial state prior to ajax results
     return {dishes: "Loading...."};
   },
   componentWillUnmount: function() {
@@ -16,6 +17,7 @@ var Display = React.createClass({
     plateRotate();
     var self = this;
 
+    //gets dishes that satisfy the query
     $.ajax({
       url: '/food/dishes',
       method: 'GET',
@@ -28,7 +30,9 @@ var Display = React.createClass({
         lactosefree: this.props.query.lactosefree
       },
       success: function(data) {
+        //sorts data by category
         var food = sortData(self, data);
+        //formats page with data
         var dishes = renderPage(self, food);
         self.setState({dishes: dishes});
         self.initializeSlick();
@@ -40,6 +44,7 @@ var Display = React.createClass({
     this.choices = {};
   },
   initializeSlick: function () {
+    //initializes the jquery slick plugin
     $('.center').slick({
       lazyLoad: 'progressive',
       slidesToShow: 4,
@@ -55,6 +60,8 @@ var Display = React.createClass({
     });
   },
   handleClick: function(value){
+    //handles the highlighting of dishes on click 
+    //creates selection object with categories
     $('.display-error').hide();
     if (this.choices.hasOwnProperty(value.category)) {
       if (value.id === this.choices[value.category].id) {
@@ -82,11 +89,13 @@ var Display = React.createClass({
       $('html, body').animate({scrollTop: $(document).height()}, 'slow');
       return;
     }
+    //retrieving dishes from selection object
     for (var category in this.choices) {
       dishIds.push(this.choices[category].id);
     }
+    //submits selection to database, reroutes to map page
     $.ajax({
-      method: 'GET',
+      method: 'POST',
       url: '/user/selections',
       data: {id: this.props.query.id, dishes: dishIds},
       success: function(data) {
@@ -110,6 +119,7 @@ var Display = React.createClass({
 
 module.exports = Display;
 
+//checks if any dishes are selected
 var emptyObject = function(object){
   for (var prop in object) {
     if (object[prop]) {
@@ -119,6 +129,7 @@ var emptyObject = function(object){
   return true;
 };  
 
+//shows filters selected
 var renderFilters = function(query) {
   $(".header-main__inner").append('<center><div class="filter" style="margin-top:-38px;z-index:10"></div></center>');
   if(query.vegetarian === 'true'){
@@ -142,6 +153,7 @@ var renderFilters = function(query) {
   }
 };
 
+//sorting by category
 var sortData = function(ctx, data) {
   var food = {};
   food.Snacks = [];
@@ -162,6 +174,7 @@ var sortData = function(ctx, data) {
   return food;
 };
 
+//formating data
 var renderPage = function(ctx, food) {
   var rows = [];
   for (var category in food) {
