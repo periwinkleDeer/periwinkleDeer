@@ -1,5 +1,6 @@
 var Rating = require('react-rating');
 var router = require('./App'); 
+var DietQuery = require('./DietQuery'); 
 
 var Entry = React.createClass({
   contextTypes: {
@@ -188,12 +189,7 @@ var Nibble = React.createClass({
         <div className="form-group">
          <label>Nibble</label>
           <input type="text" className="form-control" id="dish" placeholder="What did you eat?"/>
-          <div className="dietry-query"> 
-            <img id="vegetarian" src="../assets/allergyIcons/vegetarian.png" onClick={this.props.selectDiet.bind(this.props.ctx, 'vegetarian')}/>
-            <img id="vegan" src="../assets/allergyIcons/vegan.png"  onClick={this.props.selectDiet.bind(this.props.ctx, 'vegan')}/>
-            <img id="lactosefree" src="../assets/allergyIcons/lactosefree.png" onClick={this.props.selectDiet.bind(this.props.ctx, 'lactosefree')}/>
-            <img id="glutenfree" src="../assets/allergyIcons/glutenfree.png" onClick={this.props.selectDiet.bind(this.props.ctx, 'glutenfree')}/>
-          </div>
+          <DietQuery selectDiet={this.props.selectDiet} ctx={this.props.ctx} />
         </div>
       </div>
     )
