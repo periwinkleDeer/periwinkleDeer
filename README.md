@@ -1,9 +1,11 @@
 ##Nibbler
 ###About  
-----------
-> Find up to 3 highly rated delectable tasty courses and have the app plan your night out. Found an insatiable treat? Upload it to the site so others can enjoy it too next time they plan their foodie-night-out event.
-> Users can use the site to find food via individual dishes. Content and ratings are user submitted.
-<div style="text-align:center"><img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/display.png?raw=true"></div>
+
+Find up to 3 highly rated delectable tasty courses and have the app plan your night out. Found an insatiable treat? Upload it to the site so others can enjoy it too next time they plan their foodie-night-out event.
+
+Users can use the site to find food via individual dishes. Content and ratings are user submitted.
+
+<img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/display.png?raw=true">
 
 ### Table of Contents
 
@@ -22,13 +24,13 @@
    - Facebook SDK 
    - Bootstrap
 
-<center><img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/map.png?raw=true">
+<img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/map.png?raw=true">
 
  - Back End
    - PostgreSQL with Sequelize -- Allows for relationships between restaurants, users, and dishes
    - Node.js/Express
 
-<center><img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/db_schema.png?raw=true"></center>
+<img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/db_schema.png?raw=true">
 
 ### Requirements
 
