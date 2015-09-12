@@ -14,8 +14,8 @@ var Hist = require('./Hist');
 var Display = require('./Display');
 var Profile = require('./Profile');
 var Restaurant = require('./Restaurant');
-// var fbid = '391288257734536';
-var fbid = '389293527934009';
+var fbid = '391288257734536';
+// var fbid = '389293527934009';
 
 localStorage.setItem('fbid', fbid);
 
@@ -62,7 +62,9 @@ var App = React.createClass({
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
-      localStorage.setItem('userId', response.authResponse.userID)
+      console.log(response)
+      localStorage.setItem('userId', response.authResponse.userID);
+      localStorage.setItem('accessToken', response.authResponse.accessToken);
       if (localStorage.getItem('currentRoute')) {
         var currentRoute = localStorage.getItem('currentRoute');
 

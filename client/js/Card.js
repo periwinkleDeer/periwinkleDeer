@@ -40,3 +40,22 @@ var RestaurantCard = React.createClass({
 });
 
 module.exports.restaurantCard = RestaurantCard;
+
+var ProfileCard = React.createClass({
+  render: function() {
+    return (
+    <div className="card">
+      <div><strong>{this.props.dish.Dish.name}</strong></div>
+      <p><small><em>{this.props.dish.Dish.category}</em></small></p>
+      <center><a href={'#/restaurant?resId=' + this.props.dish.Dish.RestaurantId}>More from this Restaurant</a></center>
+      <img className="img-thumbnail" src={this.props.dish.Dish.img_url}/>
+      <div className="stars">
+      <p>{this.props.dish.Dish.num_ratings} Reviews</p>
+       <Rating initialRate={parseInt(this.props.dish.Dish.rating)} readonly={true} full="readonly glyphicon glyphicon-star star orange" empty="readonly glyphicon glyphicon-star-empty star"/>
+      </div>
+    </div>
+      );
+  }
+});
+
+module.exports.profileCard = ProfileCard;
