@@ -14,18 +14,18 @@ describe('loading express', function () {
   before(function (done) {
     server = require('../server/server.js').server;
     db.sequelize.sync({force: true}).then(function () {
-      return db.User.create({fb_id: '1486709991645691'})
+      return db.User.create({fb_id: '1486709991645691'});
     })
     .then(function(user) {
-      db.Restaurant.create({name: 'Burger King', location: ':)', phone: '626', zip: '94122'})
+      db.Restaurant.create({name: 'Burger King', location: ':)', phone: '626', zip: '94122'});
     })
     .then(function(rest) {
-      return db.Dish.create({ RestaurantId: 1, zip: '94122', price_rating: '1', glutenfree: 'false', vegan: 'false', vegetarian: 'false', lactosefree: 'false'})
+      return db.Dish.create({ RestaurantId: 1, zip: '94122', price_rating: '1', glutenfree: 'false', vegan: 'false', vegetarian: 'false', lactosefree: 'false'});
     }).then(function(dish) {
-      db.Rating.create({DishId: 1, UserId: 1})
+      db.Rating.create({DishId: 1, UserId: 1});
     }).then(function() {
       done();
-    })
+    });
   });
 
   after(function () {
@@ -77,8 +77,8 @@ describe('loading express', function () {
           .then(function(rating) {
             expect(rating.dataValues.rating).to.equal('3');
             done();
-          })
-        })
+          });
+        });
       });
   });
 
