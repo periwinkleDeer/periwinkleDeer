@@ -24,7 +24,7 @@
  - Back End
    - PostgreSQL with Sequelize -- Allows for relationships between restaurants, users, and dishes
    - Node.js/Express
-<center><img src="./client/assets/db-schema.png"></center>
+![alt tag](https://raw.github.com/periwinkleDeer/periwinkleDeer/client/assets/db-schema.png)
 
 ### Requirements
 
