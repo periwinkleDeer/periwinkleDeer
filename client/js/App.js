@@ -28,7 +28,7 @@ var App = React.createClass({
     return {
       fbProfile: '',
       name: ''
-    }
+    };
   },
   componentWillMount: function() {
     (function(d, s, id) {
@@ -104,7 +104,7 @@ var App = React.createClass({
             function (response) {
               if (response && !response.error) {
                 /* handle the result */
-                console.log(response.data)
+                console.log(response.data);
                 localStorage.setItem('profileUrl', response.data.url);
                 self.setState({fbProfile: response.data.url});
                 $('.header-main__user-avatar').show();
@@ -113,10 +113,10 @@ var App = React.createClass({
           );
           FB.api('/me', function(response){
             var firstName = response.name.split(' ').slice(0, 1).join('');
-            localStorage.setItem('username', firstName)
+            localStorage.setItem('username', firstName);
             localStorage.setItem('fb_id', FB.getUserID());
             self.setState({name: firstName});
-          })
+          });
 
         }
       });
@@ -132,7 +132,7 @@ var App = React.createClass({
       });
       // When user logins in, it should display a different page
       FB.Event.subscribe('auth.login', function (response) {
-        console.log(response,"Logged")
+        console.log(response,"Logged");
         self.context.router.transitionTo('/main', null, {id: FB.getUserID()});
         localStorage.setItem('fb_id', FB.getUserID());
         self.statusChangeCallback(response);

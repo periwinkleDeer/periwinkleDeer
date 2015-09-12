@@ -6,14 +6,14 @@ var Main = React.createClass({
     router: React.PropTypes.func
   },
   getInitialState: function() {
-    return {dishes: 'Loading...'}
+    return {dishes: 'Loading...'};
   },
   componentWillUnmount: function() {
     $(".nibbler").remove();
     $(".welcome").remove();
   },
   componentDidMount: function() {
-    var name = localStorage.username
+    var name = localStorage.username;
     $(".header-main__inner").append('<center><div class="welcome" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">Welcome, '+localStorage.getItem('username')+'</div></center>');
     $(".header-main__user-name").hide();
     plateRotate();
@@ -28,15 +28,15 @@ var Main = React.createClass({
           self.setState({dishes: renderDishes(self, data)});
         },
         error: function(err) {
-          console.log(err)
+          console.log(err);
         }
-      })
+      });
 
     FB.getLoginStatus(function(response){
       if (response.status !== 'connected') {
         self.context.router.transitionTo('/login');
       }
-    })
+    });
   },
   handleRemove: function(dish) { 
     $('#' + dish.id).parent().parent().hide(400);
@@ -50,7 +50,7 @@ var Main = React.createClass({
     var query = {id: this.props.query.id};
     query.dishes = [];
     for (var prop in this.ratings) {
-      query.dishes.push({id: prop, rating: this.ratings[prop]})
+      query.dishes.push({id: prop, rating: this.ratings[prop]});
     }
     $.ajax({
       method: 'POST',

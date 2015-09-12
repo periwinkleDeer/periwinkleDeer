@@ -34,7 +34,7 @@ var deleteDish = function(UserId, DishId) {
     DishId: DishId}
   })
   .then(function(dishRating) {
-    dishRating.destroy()
+    dishRating.destroy();
   })
   .then(function() {
     return;
@@ -42,7 +42,7 @@ var deleteDish = function(UserId, DishId) {
 };
 
 var findUser = function(fb_id) {
-  return db.User.find({where: {fb_id: fb_id}})
+  return db.User.find({where: {fb_id: fb_id}});
 }; 
 
 module.exports = {
@@ -83,12 +83,12 @@ module.exports = {
         if (dish.rating === "-1") {
           deleteDish(user.id, dish.id);
         } else {
-          rateDish(user.id, dish.id, dish.rating)
+          rateDish(user.id, dish.id, dish.rating);
         }
-      })
+      });
     }).then(function() {
-      res.send(req.body)
-    })
+      res.send(req.body);
+    });
   },
 
   getHistory:function(req, res) {
@@ -126,7 +126,7 @@ module.exports = {
         include: [{model: db.Dish, required: true}],
         order: [['createdAt', 'DESC']],
         limit: 5
-      })
+      });
     })
     .then(function(results) {
       res.send(results);

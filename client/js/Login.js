@@ -32,7 +32,7 @@ var Login = React.createClass({
   },
   componentWillUnmount: function() {
     $(".nibbler").remove();
-    console.log("unmounting")
+    console.log("unmounting");
   },
 
   login: function() {

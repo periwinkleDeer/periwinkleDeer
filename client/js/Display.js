@@ -9,7 +9,7 @@ var Display = React.createClass({
     return {dishes: "Loading...."};
   },
   componentWillUnmount: function() {
-    $(".filter").remove()
+    $(".filter").remove();
   },
   componentDidMount: function() {
     renderFilters(this.props.query);
@@ -83,7 +83,7 @@ var Display = React.createClass({
       return;
     }
     for (var category in this.choices) {
-      dishIds.push(this.choices[category].id)
+      dishIds.push(this.choices[category].id);
     }
     $.ajax({
       method: 'GET',
