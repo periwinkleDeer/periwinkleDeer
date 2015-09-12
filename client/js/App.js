@@ -62,9 +62,8 @@ var App = React.createClass({
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
-      console.log(response)
       localStorage.setItem('userId', response.authResponse.userID);
-      localStorage.setItem('accessToken', response.authResponse.accessToken);
+      
       if (localStorage.getItem('currentRoute')) {
         var currentRoute = localStorage.getItem('currentRoute');
 
