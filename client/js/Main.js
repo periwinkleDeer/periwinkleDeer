@@ -17,25 +17,11 @@ var Main = React.createClass({
     var self = this;
     localStorage.setItem('fb_id', this.props.query.id);
     $.ajax({
-        url: "/unrated",
+        url: "/user/unrated",
         type: "GET",
         data: {id: self.props.query.id},
         success: function(data) {
-          self.setState({dishes: 
-            data.map(function(dish) {
-              return (
-              <div className="card">
-                <div><strong>{dish.Dish.name}</strong></div>
-                <p><em><small>{dish.Dish.category}</small></em></p>
-                <center><img className="img-thumbnail" src={dish.Dish.img_url}/></center>
-                <div className="stars">
-                  <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={self.foodRate.bind(null, dish)}/>
-                  <span id={dish.id} className="glyphicon glyphicon-remove-circle remove" onClick={self.handleRemove.bind(null, dish)}></span>
-                </div>
-              </div>
-                );
-            })
-          });
+          self.setState({dishes: renderDishes(self, data)});
         },
         error: function(err) {
           console.log(err)
@@ -63,8 +49,8 @@ var Main = React.createClass({
       query.dishes.push({id: prop, rating: this.ratings[prop]})
     }
     $.ajax({
-      method: 'GET',
-      url: '/rate',
+      method: 'POST',
+      url: '/user/ratings',
       data: query,
       success: function(data) {
         self.componentDidMount();
@@ -87,12 +73,7 @@ var Main = React.createClass({
       }
       if (this.state.dishes.length) {
         directions = <p className="directions">Rate your recent dishes or delete</p>;
-        submit = 
-          <div className="center-block">
-            <button className="center-block btn btn-warning" onClick={this.handleSubmit}>
-              Submit Ratings
-            </button>
-          </div>;
+        submit = renderSubmit(this); 
       } else {
         submit = '';
       }
@@ -117,3 +98,29 @@ var Main = React.createClass({
 });
 
 module.exports = Main;
+
+var renderDishes = function(ctx, data) {
+  return data.map(function(dish) {
+    return (
+      <div className="card">
+        <div><strong>{dish.Dish.name}</strong></div>
+        <p><em><small>{dish.Dish.category}</small></em></p>
+        <center><img className="img-thumbnail" src={dish.Dish.img_url}/></center>
+        <div className="stars">
+          <Rating empty="glyphicon glyphicon-star-empty star" full="glyphicon glyphicon-star orange star" start={0} stop={5} step={1} onChange={ctx.foodRate.bind(ctx, dish)}/>
+          <span id={dish.id} className="glyphicon glyphicon-remove-circle remove" onClick={ctx.handleRemove.bind(ctx, dish)}></span>
+        </div>
+      </div>
+    );
+  }) 
+};
+
+var renderSubmit = function(ctx) {
+  return (
+    <div className="center-block">
+      <button className="center-block btn btn-warning" onClick={ctx.handleSubmit}>
+        Submit Ratings
+      </button>
+    </div>
+  );
+}

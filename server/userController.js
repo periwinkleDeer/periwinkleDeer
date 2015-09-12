@@ -8,7 +8,8 @@ var rateDish = function(UserId, DishId, DishRating) {
   })
   .then(function(dishRating) {
     dishRating.updateAttributes({rating: DishRating});
-  }).then(function() {
+  })
+  .then(function() {
     updateDish(DishId, DishRating);
   });
 };
@@ -17,7 +18,6 @@ var updateDish = function(DishId, DishRating) {
   db.Dish.findOne({where: {id: DishId}})
   .then(function(dish) {
     var average = (parseInt(dish.get('rating')) * dish.get('num_ratings') + parseInt(DishRating))/(dish.get('num_ratings') + 1);
-    console.log(typeof average)
     var incremented = dish.get('num_ratings') + 1;
     dish.updateAttributes({
       rating: average.toString(),
@@ -35,9 +35,9 @@ var deleteDish = function(UserId, DishId) {
   })
   .then(function(dishRating) {
     dishRating.destroy()
-    .then(function() {
-      return;
-    })
+  })
+  .then(function() {
+    return;
   });
 };
 
@@ -50,12 +50,12 @@ module.exports = {
     db.User.findOrCreate({where: {fb_id: req.query.id}})
     .then(function(user) {
       user = user[0].dataValues;
-        return db.Rating.findAll({
-          where: {UserId: user.id, rating: null}, 
-          include: [{model: db.Dish, required: true}],
-          order: [['createdAt', 'DESC']],
-          limit: 5
-        });
+      return db.Rating.findAll({
+        where: {UserId: user.id, rating: null}, 
+        include: [{model: db.Dish, required: true}],
+        order: [['createdAt', 'DESC']],
+        limit: 5
+      });
     }).then(function(results) {
       res.send(results);
     });
@@ -76,10 +76,10 @@ module.exports = {
   },
 
   ratings: function(req, res) {
-    findUser(req.query.id)
+    findUser(req.body.id)
     .then(function(user) {
       user = user.dataValues;
-      req.query.dishes.forEach(function(dish) {
+      req.body.dishes.forEach(function(dish) {
         if (dish.rating === "-1") {
           deleteDish(user.id, dish.id);
         } else {
@@ -87,7 +87,7 @@ module.exports = {
         }
       })
     }).then(function() {
-      res.send(req.query)
+      res.send(req.body)
     })
   },
 
@@ -95,23 +95,25 @@ module.exports = {
     findUser(req.query.id)
     .then(function(user) {
       user = user.dataValues;
-      db.Rating.findAll({
+      return db.Rating.findAll({
         where: {UserId: user.id},
         include: [{model: db.Dish, required: true}],
         order: [['createdAt', 'DESC']],
-        limit: 20
-      }).then(function(results) {
-        var dishArray = [];
-        results.forEach(function(dish) {
-          dishArray.push(dish.dataValues.Dish.RestaurantId);
-        })
-        db.Restaurant.findAll({
-          where: {id: {$in: dishArray}}, 
-          include: [{model: db.Dish, required: true}]
-        }).then(function(results) {
-          res.send(results);
-        });
-      })
+        limit: 10
+      });
+    })
+    .then(function(results) {
+      var dishArray = [];
+      results.forEach(function(dish) {
+        dishArray.push(dish.dataValues.Dish.RestaurantId);
+      });
+      return db.Restaurant.findAll({
+        where: {id: {$in: dishArray}}, 
+        include: [{model: db.Dish, required: true}]
+      });
+    })
+    .then(function(results) {
+      res.send(results);
     });
   },
 
@@ -119,14 +121,15 @@ module.exports = {
     findUser(req.query.id)
     .then(function(user) {
       user = user.dataValues;
-      db.Rating.findAll({
+      return db.Rating.findAll({
         where: {UserId: user.id},
         include: [{model: db.Dish, required: true}],
         order: [['createdAt', 'DESC']],
         limit: 5
-      }).then(function(results) {
-        res.send(results);
-      });
+      })
+    })
+    .then(function(results) {
+      res.send(results);
     });
   }
 

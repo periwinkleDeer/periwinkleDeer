@@ -1,22 +1,5 @@
 var router = require('./App');
-var Rating = require('react-rating');
-
-var emptyObject = function(object){
-  for (var prop in object) {
-    if (object[prop]) {
-      return false;
-    }
-  }
-  return true;
-};  
-
-var displayMoney = function(num) {
-  var string = '';
-  for (var i = 0; i < parseInt(num); i++) {
-    string += '$';
-  }
-  return string;
-}
+var Card = require('./Card').displayCard;
 
 var Display = React.createClass({
   contextTypes: {
@@ -29,31 +12,12 @@ var Display = React.createClass({
     $(".filter").remove()
   },
   componentDidMount: function() {
-    $(".header-main__inner").append('<center><div class="filter" style="margin-top:-38px;z-index:10"></div></center>');
-    console.log(this.props);
-    if(this.props.query.vegetarian === 'true'){
-      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegetarian.png"></img>')
-    }
-    if(this.props.query.vegan === 'true'){
-      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegan.png"></img>')
-    }
-    if(this.props.query.lactosefree === 'true'){
-      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/lactosefree.png"></img>')
-    }
-    if(this.props.query.glutenfree === 'true'){
-      $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/glutenfree.png"></img>')
-    }
-    if(this.props.query.vegetarian === 'false' 
-       && this.props.query.vegan === 'false'
-       && this.props.query.lactosefree === 'false'
-       && this.props.query.glutenfree === 'false') {
-      $(".filter").remove();
-    }
-    
+    renderFilters(this.props.query);
     plateRotate();
     var self = this;
+
     $.ajax({
-      url: '/dishes',
+      url: '/food/dishes',
       method: 'GET',
       data: {
         zip: this.props.query.zip,
@@ -64,29 +28,10 @@ var Display = React.createClass({
         lactosefree: this.props.query.lactosefree
       },
       success: function(data) {
-        var food = self.sortData(data);
-        var rows = [];
-        for (var category in food) {
-          if (!food[category].length) {
-            rows.push(<div><h4 className="category">{category}</h4>
-              <p className="display-missing">Sorry, No dishes found...</p></div>);
-          } else {
-            rows.push(<div><h4 className="category">{category}</h4>
-              <div className="center">
-                {food[category]}
-              </div></div>);
-          }
-        };
-        var dishes = 
-          <div>
-            {rows}
-          <p className="display-error">No Choices Selected</p>
-          <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
-            <button className="form-control btn btn-warning center-block" onClick={self.mapRoute}>Map</button>
-          </div>
-          </div>;
-          self.setState({dishes: dishes});
-          self.initializeSlick();
+        var food = sortData(self, data);
+        var dishes = renderPage(self, food);
+        self.setState({dishes: dishes});
+        self.initializeSlick();
       },
       error: function(err) {
         console.log(err);
@@ -100,47 +45,14 @@ var Display = React.createClass({
       slidesToShow: 4,
       swipeToSlide: true,
       responsive: [
-        {
-          breakpoint: 768,
-          settings: {
-            arrows: false,
-            slidesToShow: 3
-          }
+        { breakpoint: 768,
+          settings: { arrows: false, slidesToShow: 3 }
         },
-        {
-          breakpoint: 480,
-          settings: {
-            arrows: false,
-            slidesToShow: 2
-          }
+        { breakpoint: 480,
+          settings: { arrows: false, slidesToShow: 2 }
         }
       ]
     });
-  },
-  sortData: function(data) {
-    var self = this;
-    var food = {};
-    food.Snacks = [];
-    food.Grub = [];
-    food.Desserts = []
-    var divs = data.forEach(function(item) {
-      var rating = item.rating
-      var el = <section id={item.id} className="slide">
-        <p><strong>{item.name}</strong> <span className="green">{displayMoney(item.price_rating)}</span></p>
-        <a href={'#/restaurant?resId=' + item.Restaurant.id}className="restaurant-name"><em>{item.Restaurant.name}</em></a>
-        <img className="img-thumbnail picture" onClick={self.handleClick.bind(null, item)} data-lazy={item.img_url}/>
-        <p>{item.num_ratings} Reviews</p>
-        <Rating initialRate={parseInt(rating)} readonly={true} full="readonly glyphicon glyphicon-star star orange" empty="readonly glyphicon glyphicon-star-empty star"/>
-      </section>;
-      if (item.category === 'Snack') {
-        food.Snacks.push(el);
-      } else if (item.category === 'Grub') {
-        food.Grub.push(el);
-      } else if (item.category == 'Dessert') {
-        food.Desserts.push(el);
-      }
-    });
-    return food;
   },
   handleClick: function(value){
     $('.display-error').hide();
@@ -175,7 +87,7 @@ var Display = React.createClass({
     }
     $.ajax({
       method: 'GET',
-      url: '/selecting',
+      url: '/user/selections',
       data: {id: this.props.query.id, dishes: dishIds},
       success: function(data) {
         self.context.router.transitionTo('/map', null, {
@@ -197,3 +109,79 @@ var Display = React.createClass({
 });
 
 module.exports = Display;
+
+var emptyObject = function(object){
+  for (var prop in object) {
+    if (object[prop]) {
+      return false;
+    }
+  }
+  return true;
+};  
+
+var renderFilters = function(query) {
+  $(".header-main__inner").append('<center><div class="filter" style="margin-top:-38px;z-index:10"></div></center>');
+  if(query.vegetarian === 'true'){
+    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegetarian.png"></img>')
+  }
+  if(query.vegan === 'true'){
+    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegan.png"></img>')
+  }
+  if(query.lactosefree === 'true'){
+    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/lactosefree.png"></img>')
+  }
+  if(query.glutenfree === 'true'){
+    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/glutenfree.png"></img>')
+  }
+  if(query.vegetarian === 'false' 
+     && query.vegan === 'false'
+     && query.lactosefree === 'false'
+     && query.glutenfree === 'false') {
+    $(".filter").remove();
+  }
+};
+
+var sortData = function(ctx, data) {
+  var food = {};
+  food.Snacks = [];
+  food.Grub = [];
+  food.Desserts = []
+  var divs = data.forEach(function(item) {
+    var rating = item.rating
+    var el = 
+    <Card item={item} onClick={ctx.handleClick.bind(ctx, item)}/>;
+    if (item.category === 'Snack') {
+      food.Snacks.push(el);
+    } else if (item.category === 'Grub') {
+      food.Grub.push(el);
+    } else if (item.category == 'Dessert') {
+      food.Desserts.push(el);
+    }
+  });
+  return food;
+};
+
+var renderPage = function(ctx, food) {
+  var rows = [];
+  for (var category in food) {
+    if (!food[category].length) {
+      rows.push(<div><h4 className="category">{category}</h4>
+        <p className="display-missing">Sorry, No dishes found...</p></div>);
+    } else {
+      rows.push(<div><h4 className="category">{category}</h4>
+        <div className="center">
+          {food[category]}
+        </div></div>);
+    }
+  }
+  var dishes = 
+    <div>
+      {rows}
+    <p className="display-error">No Choices Selected</p>
+    <div className="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3">
+      <button className="form-control btn btn-warning center-block" onClick={ctx.mapRoute}>Map</button>
+    </div>
+    </div>;
+
+  return dishes;
+}

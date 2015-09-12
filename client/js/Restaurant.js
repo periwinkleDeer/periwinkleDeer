@@ -1,6 +1,6 @@
 var router = require('./App');
 var Rating = require('react-rating');
-
+var Card = require('./Card').restaurantCard;
 
 var Restaurant = React.createClass({
   contextTypes: {
@@ -14,7 +14,7 @@ var Restaurant = React.createClass({
     var self = this;
     $.ajax({
       method: 'GET',
-      url: '/resInfo',
+      url: '/food/resInfo',
       data: {resId: this.props.query.resId},
       success: function(data) {
         var dishes = self.handleDishes(data);
@@ -55,16 +55,8 @@ var Restaurant = React.createClass({
     dishes.push(this.handleRestaurant(data))
     data.forEach(function(dish) {
       dishes.push(
-       <div className="card">
-         <div><strong>{dish.name}</strong></div>
-         <p><small><em>{dish.category}</em></small></p>
-         <center><img className="img-thumbnail" src={dish.img_url}/></center>
-         <div className="stars">
-         <p>{dish.num_ratings} Reviews</p>
-          <Rating initialRate={parseInt(dish.rating)} readonly={true} full="readonly glyphicon glyphicon-star star orange" empty="readonly glyphicon glyphicon-star-empty star"/>
-         </div>
-       </div>
-       );
+        <Card dish={dish}/>
+      );
     });
     return dishes;
   },
