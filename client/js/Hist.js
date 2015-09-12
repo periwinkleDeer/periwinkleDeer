@@ -45,7 +45,7 @@ var Hist = React.createClass({
            dishes = [];
            loc.Dishes.forEach(function(dish) {
             dishes.push(dish);
-           })
+           });
            geocodeAddress(geocoder, map, loc.location, loc.name, dishes);
          });   
        }.bind(this),
@@ -81,9 +81,9 @@ var Hist = React.createClass({
         });
         var img = "";
         dishes.forEach(function(dish) {
-          img = img + "<div class='iw-name-hist'>"+dish.name+"</div><image class='iw-img img-thumbnail' src='"+dish.img_url+"'></image>"
-        })
-        var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'><div class='iw-title'>"+name+"</div></a><br>"+img+""
+          img = img + "<div class='iw-name-hist'>"+dish.name+"</div><image class='iw-img img-thumbnail' src='"+dish.img_url+"'></image>";
+        });
+        var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'><div class='iw-title'>"+name+"</div></a><br>"+img+"";
         var infowindow = new google.maps.InfoWindow({
           content: contentString,
         });

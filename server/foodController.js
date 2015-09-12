@@ -13,7 +13,7 @@ var createQuery = function(query) {
     }
   }
   return sqlQuery;
-}
+};
 
 module.exports = {
 
@@ -114,7 +114,7 @@ module.exports = {
                 res.sendStatus(412);
               }
             }); 
-          })
+          });
         }else{
           db.Restaurant.create({
             name: req.body.restaurant,
@@ -144,8 +144,8 @@ module.exports = {
                 db.Rating.create({UserId: user.id, DishId: dish.id, rating: req.body.dishRating})
                   .then(function(results) {
                     res.sendStatus(201);
-                  })
-              })
+                  });
+              });
             });
           });
         }
