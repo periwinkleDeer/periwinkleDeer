@@ -62,16 +62,16 @@ module.exports = {
   },
 
   selectingDishes: function(req,res) {
-    findUser(req.query.id)
+    findUser(req.body.id)
     .then(function(user) {
       user = user.dataValues;
       var count = 0;
-      while (count < req.query.dishes.length) {
-        db.Rating.findOrCreate({where: {UserId: user.id, DishId: req.query.dishes[count]}});
+      while (count < req.body.dishes.length) {
+        db.Rating.findOrCreate({where: {UserId: user.id, DishId: req.body.dishes[count]}});
         count++;
       }
     }).then(function() {
-      res.send(req.query);
+      res.send(req.body);
     });
   },
 

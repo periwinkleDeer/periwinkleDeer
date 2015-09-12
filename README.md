@@ -1,54 +1,69 @@
-# Foodie Roulette
+##Nibbler
+###About  
 
+Find up to 3 highly rated delectable tasty courses and have the app plan your night out. Found an insatiable treat? Upload it to the site so others can enjoy it too next time they plan their foodie-night-out event.
 
-(https://waffle.io/periwinkleDeer/periwinkleDeer)
+Users can use the site to find food via individual dishes. Content and ratings are user submitted.
 
-> Play a roulette game to select 3 highly rated delectable tasty food items and have the app plan your night out. Found an insatiable treat? Upload it to the app so others can enjoy it too next time they plan their foodie-night-out event.
+<img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/display.png?raw=true">
 
-## Team
+### Table of Contents
 
-  - __Product Owner__: @kshiraiw / @kevbyte
-  - __Scrum Master__: @jeremyhu9 / @ChiMarvine
+ - [Tech Stack](#tech-stack)
+ - [Requirements](#requirements)
+ - [Keys](#keys)
+ - [Getting Started](#getting-started)
+ - [Team](#team)
+ - [Contributing](#contributing)
 
-## Table of Contents
+### Tech Stack
+ - Front End
+   - React -- Utilizes fast rendering using a virtual DOM
+   - Browserify -- Compiles JSX into JavaScript
+   - GoogleMaps API -- Shows restaurant locations and links to Google Maps Navigation
+   - Facebook SDK 
+   - Bootstrap
 
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Team](#team)
-1. [Contributing](#contributing)
+<img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/map.png?raw=true">
 
-## Requirements
+ - Back End
+   - PostgreSQL with Sequelize -- Allows for relationships between restaurants, users, and dishes
+   - Node.js/Express
+
+<img height="400" src="https://github.com/kshiraiw/periwinkleDeer/blob/master/client/assets/db_schema.png?raw=true">
+
+### Requirements
 
 - Node 0.12.x
 - NPM 2.11+
 - React.js
-- Flux
-- MongoDB
-- Mongoose
+- Postgres
+- Gulp
 - Express 4.x
 
-## Keys
--create a facebook application id 
--create a fbid.js file in the client folder and paste this in:
-    module.exports.fbid = '<insert application id>'
-
-## Development
-
-### Installing Dependencies
+### Keys
+-create a [facebook](https://developers.facebook.com/) application id 
+-add in App.js 
 
 
-npm install
-bower install
+### Getting Started
 
-
-### Roadmap
-
-View the project roadmap [here](https://github.com/periwinkleDeer)
-
-
-## Contributing
+ - Web App
+   - Fork the repo
+   - Clone from your fork
+   - npm install
+ - Database
+   - install PostgreSQL
+   - open up the postgres shell
+   - CREATE ROLE postgres LOGIN;
+   - CREATE DATABASE foodie;
+ - Run the App
+   - npm start
+ 
+### Team
+  - __Product Owner__: [@kshiraiw ](https://github.com/kshiraiw)/ [@kevbyte](https://github.com/kevbyte)
+  - __Scrum Master__: [@jeremyhu9](https://github.com/jeremyhu9) / [@ChiMarvine](https://github.com/chimarvine)
+  
+### Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.# periwinkleDeer

@@ -7,19 +7,24 @@ var Main = React.createClass({
   },
   getInitialState: function() {
     return {dishes: 'Loading...'};
+    //initializes state prior to ajax results
+    return {dishes: 'Loading...'}
   },
   componentWillUnmount: function() {
+    //removes heading upon leaving page
     $(".nibbler").remove();
     $(".welcome").remove();
   },
   componentDidMount: function() {
-    var name = localStorage.username;
+    var name = localStorage.username
+    //adds heading text
     $(".header-main__inner").append('<center><div class="welcome" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">Welcome, '+localStorage.getItem('username')+'</div></center>');
     $(".header-main__user-name").hide();
     plateRotate();
     this.ratings = {};
     var self = this;
     localStorage.setItem('fb_id', this.props.query.id);
+    //gets all dishes unrated by user
     $.ajax({
         url: "/user/unrated",
         type: "GET",
@@ -38,10 +43,12 @@ var Main = React.createClass({
       }
     });
   },
+  //when user clicks the remove
   handleRemove: function(dish) { 
     $('#' + dish.id).parent().parent().hide(400);
     this.ratings[dish.DishId] = -1;
   },
+  //when user chooses a star rating
   foodRate: function(dish, value) {
     this.ratings[dish.DishId] = value;
   }, 
@@ -49,9 +56,11 @@ var Main = React.createClass({
     var self = this;
     var query = {id: this.props.query.id};
     query.dishes = [];
+    //creates obj for dishIds and ratings
     for (var prop in this.ratings) {
       query.dishes.push({id: prop, rating: this.ratings[prop]});
     }
+    //submits current ratings to the database
     $.ajax({
       method: 'POST',
       url: '/user/ratings',
@@ -73,12 +82,15 @@ var Main = React.createClass({
       var submit, directions;
       var added = this.props.query.added || '';
       if (added) {
+        //if redirected from entry page, shows result
         $('.message').show();
       }
+      //if there are dishes to rate
       if (this.state.dishes.length) {
         directions = <p className="directions">Rate your recent dishes or delete</p>;
         submit = renderSubmit(this); 
       } else {
+        //no dishes, button should not render
         submit = '';
       }
       return (
@@ -103,6 +115,7 @@ var Main = React.createClass({
 
 module.exports = Main;
 
+//individual dish views for unrated dishes
 var renderDishes = function(ctx, data) {
   return data.map(function(dish) {
     return (
@@ -119,6 +132,7 @@ var renderDishes = function(ctx, data) {
   }) 
 };
 
+//submit text when there are dishes to rate
 var renderSubmit = function(ctx) {
   return (
     <div className="center-block">

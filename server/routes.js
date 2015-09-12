@@ -12,7 +12,7 @@ module.exports = function(app) {
   app.get('/food/resInfo', food.resInfo);
 //for specific users
   app.get('/user/unrated', user.findUnrated);
-  app.get('/user/selections', user.selectingDishes);
+  app.post('/user/selections', user.selectingDishes);
   app.post('/user/ratings', user.ratings);
   app.get('/user/recent', user.recent);
   app.get('/user/history', user.getHistory);

@@ -6,6 +6,7 @@ var Map = React.createClass({
   },
 
   getInitialState: function () {
+    //setting defaults for google maps
     return {
       initialZoom: 12,
       mapCenterLat: 37.783,
@@ -14,10 +15,12 @@ var Map = React.createClass({
     };
   },
   componentWillUnmount: function() {
+    //removing title upon leaving page
     $(".maptitle").remove();
   },
 
   componentDidMount: function (rootNode) {
+    //Adding title to page
     $(".header-main__inner").append('<center><div class="maptitle" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">Map</div></center>');
     $(".header-main__user-name").hide();
     plateRotate();
@@ -74,11 +77,13 @@ var Map = React.createClass({
           position: results[0].geometry.location,
           icon: '../assets/mapMarkers/restaurant.png'
         });
+        // setting content for info window
         var contentString = "<a target='_blank' href='http://maps.google.com/?q=" + address + "'><div class='iw-title'  >"+name+"</div></a><br><div class='iw-link' target='_blank' href='http://maps.google.com/?q=" + address + "'>"+dish+"</div><br><image class='img-thumbnail iw-img' src='"+img+"' target='_blank' href='http://maps.google.com/?q=" + address + "'></image>";
 
         var infowindow = new google.maps.InfoWindow({
           content: contentString
         });
+        //closes info window when another marker is clicked
         google.maps.event.addListener(marker, 'click', function () {                
           self.state.info_window.setContent(contentString);
           self.state.info_window.open(map, this);
@@ -90,6 +95,7 @@ var Map = React.createClass({
           });
        });
     };
+    //initializing map
     this.setState({map: map});
 
   },
@@ -126,6 +132,8 @@ var Map = React.createClass({
 
 module.exports = Map;
 
+
+//map styles
 var grayStyles = [{
   "featureType": "landscape.natural",
   "elementType": "geometry.fill",

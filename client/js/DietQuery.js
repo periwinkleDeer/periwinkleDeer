@@ -1,3 +1,4 @@
+//adds filtering selection
 var DietQuery = React.createClass({
   render: function() {
     return (
