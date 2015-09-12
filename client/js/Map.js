@@ -13,8 +13,13 @@ var Map = React.createClass({
       locations: []
     };
   },
+  componentWillUnmount: function() {
+    $(".maptitle").remove();
+  },
 
   componentDidMount: function (rootNode) {
+    $(".header-main__inner").append('<center><div class="maptitle" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">Map</div></center>');
+    $(".header-main__user-name").hide();
     plateRotate();
     var self = this;
     var restaurants = this.props.query.dishes;

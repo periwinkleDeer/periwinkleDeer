@@ -10,8 +10,12 @@ var Main = React.createClass({
   },
   componentWillUnmount: function() {
     $(".nibbler").remove();
+    $(".welcome").remove();
   },
   componentDidMount: function() {
+    var name = localStorage.username
+    $(".header-main__inner").append('<center><div class="welcome" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">Welcome, '+localStorage.getItem('username')+'</div></center>');
+    $(".header-main__user-name").hide();
     plateRotate();
     this.ratings = {};
     var self = this;

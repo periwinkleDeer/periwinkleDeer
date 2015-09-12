@@ -122,22 +122,23 @@ var emptyObject = function(object){
 var renderFilters = function(query) {
   $(".header-main__inner").append('<center><div class="filter" style="margin-top:-38px;z-index:10"></div></center>');
   if(query.vegetarian === 'true'){
-    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegetarian.png"></img>')
+    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegetarian.png"></img>');
   }
   if(query.vegan === 'true'){
-    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegan.png"></img>')
+    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/vegan.png"></img>');
   }
   if(query.lactosefree === 'true'){
-    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/lactosefree.png"></img>')
+    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/lactosefree.png"></img>');
   }
   if(query.glutenfree === 'true'){
-    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/glutenfree.png"></img>')
+    $(".filter").append('<img class="allergy_sm" src="../assets/allergyIcons/glutenfree.png"></img>');
   }
   if(query.vegetarian === 'false' 
      && query.vegan === 'false'
      && query.lactosefree === 'false'
      && query.glutenfree === 'false') {
     $(".filter").remove();
+    $(".header-main__user-name").hide();
   }
 };
 

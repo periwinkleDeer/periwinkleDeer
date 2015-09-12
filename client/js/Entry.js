@@ -13,6 +13,7 @@ var Entry = React.createClass({
    },
 
   componentDidMount: function(){
+    $(".header-main__user-name").show();
     plateRotate();
     localStorage.setItem('currentRoute', '/entry');
     var self = this;
