@@ -144,14 +144,7 @@ var Entry = React.createClass({
                <p className="help-block">{ image }</p>
            </div>           
 
-           <div className="form-group">
-           <label>Category</label>
-             <select id="category" className="form-control">
-               <option>Snack</option>
-               <option>Grub</option>
-               <option>Dessert</option>
-             </select>
-           </div>
+           <Category />
 
            <div className="form-group">
             <label>Price Rating</label>
@@ -201,6 +194,23 @@ var Nibble = React.createClass({
             <img id="lactosefree" src="../assets/allergyIcons/lactosefree.png" onClick={this.props.selectDiet.bind(this.props.ctx, 'lactosefree')}/>
             <img id="glutenfree" src="../assets/allergyIcons/glutenfree.png" onClick={this.props.selectDiet.bind(this.props.ctx, 'glutenfree')}/>
           </div>
+        </div>
+      </div>
+    )
+  }
+});
+
+var Category = React.createClass({
+  render: function(){
+    return (
+      <div>
+        <div className="form-group">
+          <label>Category</label>
+          <select id="category" className="form-control">
+            <option>Snack</option>
+            <option>Grub</option>
+            <option>Dessert</option>
+          </select>
         </div>
       </div>
     )
