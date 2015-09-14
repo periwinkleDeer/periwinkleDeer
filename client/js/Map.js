@@ -107,6 +107,54 @@ var Map = React.createClass({
     // this.context.router.transitionTo('/' + link);
     this.context.router.transitionTo('/' + link, null, {id: this.props.query.id});
   },
+
+  sendToFB: function() {
+    var self = this;
+    var foodInfo = this.state.locations; 
+    var blobs = [];
+    
+    // Converts the base
+    var dataURItoBlob = function (dataURI) {
+      var byteString = atob(dataURI.split(',')[1]);
+      var ab = new ArrayBuffer(byteString.length);
+      var ia = new Uint8Array(ab);
+      for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ia], { type: 'image/jpeg' });
+    };
+
+    var postIt = function(blob, foodName) {
+      var fd = new FormData();
+      fd.append("access_token",localStorage.getItem('accessToken'));
+      fd.append("source", blob );
+      fd.append("message", foodName);
+      
+      $.ajax({
+          url:"https://graph.facebook.com/" + self.props.query.id + "/photos?access_token=" + localStorage.getItem('accessToken'),
+          type:"POST",
+          data:fd,
+          processData:false,
+          contentType:false,
+          cache:false,
+          success:function(data){
+              console.log("success " + data);
+          },
+          error:function(shr,status,data){
+              console.log("error " + data + " Status " + shr.status);
+          },
+          complete:function(){
+          console.log("Posted to facebook");
+          }
+      });
+    }
+    
+    for (var j = 0; j < foodInfo.length; j++) {
+      postIt(dataURItoBlob(foodInfo[j].img_url), foodInfo[j].name);
+    }
+  },
+
   render: function () {
       return (
         <div> 
@@ -120,6 +168,7 @@ var Map = React.createClass({
             <div className="map-google"></div>
             <div>
               <div className="form-group">
+                <center><button type="button" className="btn btn-warning btn-lg btn-block hist-btn" onClick={this.sendToFB}>Send to FaceBook</button></center>
                 <button type="button" className="btn btn-warning btn-lg btn-block mapbutton" onClick={this.handleClick.bind(this, "main")}>Try Again?
                 </button>
               </div>

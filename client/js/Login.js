@@ -44,7 +44,9 @@ var Login = React.createClass({
         if( navigator.userAgent.match('CriOS') || !!navigator.userAgent.match(/Trident.*rv[ :]*11\./)) {
           window.open('https://www.facebook.com/dialog/oauth?client_id='+ localStorage.getItem('fbid') +'&redirect_uri='+ document.location.href);
         } else {
-          FB.login();
+          FB.login(function(response){
+            console.log(response);
+          }, {scope: 'publish_actions'});
         }
       }
     });
