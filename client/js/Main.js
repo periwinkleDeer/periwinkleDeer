@@ -15,6 +15,9 @@ var Main = React.createClass({
     $(".nibbler").remove();
     $(".welcome").remove();
   },
+  componentWillMount: function() {
+    localStorage.setItem('fb_id', this.props.query.id);
+  },
   componentDidMount: function() {
     $(".header-main__inner").append('<center><div class="welcome" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">Welcome, '+localStorage.getItem('username')+'</div></center>');
     $(".header-main__user-name").hide();
@@ -22,7 +25,6 @@ var Main = React.createClass({
     this.ratings = {};
     var self = this;
     localStorage.setItem('fb_id', this.props.query.id);
-    //gets all dishes unrated by user
     $.ajax({
         url: "/user/unrated",
         type: "GET",
