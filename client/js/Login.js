@@ -41,7 +41,7 @@ var Login = React.createClass({
       if (response.status === 'connected') {
         self.context.router.transitionTo('/main', null, {id: FB.getUserID()});
       } else {
-        if( navigator.userAgent.match('CriOS') || !!navigator.userAgent.match(/Trident.*rv[ :]*11\./)) {
+        if( navigator.userAgent.match('CriOS') || !(window.ActiveXObject) && "ActiveXObject" in window) {
           window.open('https://www.facebook.com/dialog/oauth?client_id='+ localStorage.getItem('fbid') +'&redirect_uri='+ document.location.href);
         } else {
           FB.login(function(response){
