@@ -5,7 +5,7 @@ var DisplayCard = React.createClass({
     return (
       <section id={this.props.item.id} className="slide">
         <p><strong>{this.props.item.name}</strong> <span className="green">{displayMoney(this.props.item.price_rating)}</span></p>
-        <a href={'#/restaurant?resId=' + this.props.item.Restaurant.id}className="restaurant-name"><em>{this.props.item.Restaurant.name}</em></a>
+        <a href={'#/restaurant?resId=' + this.props.item.Restaurant.id} className="restaurant-name"><em>{this.props.item.Restaurant.name}</em></a>
         <img className="img-thumbnail picture" onClick={this.props.onClick} data-lazy={this.props.item.img_url}/>
         <p>{this.props.item.num_ratings} Reviews</p>
         <Rating initialRate={parseInt(this.props.item.rating)} readonly={true} full="readonly glyphicon glyphicon-star star orange" empty="readonly glyphicon glyphicon-star-empty star"/>

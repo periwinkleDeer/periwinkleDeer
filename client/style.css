@@ -411,6 +411,11 @@ DISPLAY
   background: rgba(255,255,255,0.5);
   box-shadow: 0 0 10px 2px rgba(0,0,0,0.2);
   height: 200px;
+  width: 85%;
+}
+
+.slick-next:before, .slick-prev:before {
+  color: #C41E3A;
 }
 
 .slide {
@@ -422,6 +427,7 @@ DISPLAY
   white-space: nowrap;
   overflow: hidden;
   margin: 0;
+  text-overflow: ellipsis;
 }
 
 .center span div {
