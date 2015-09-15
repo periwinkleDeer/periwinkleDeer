@@ -63,7 +63,7 @@ var App = React.createClass({
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
       localStorage.setItem('userId', response.authResponse.userID);
-      
+      localStorage.setItem('accessToken', response.authResponse.accessToken);
       if (localStorage.getItem('currentRoute')) {
         var currentRoute = localStorage.getItem('currentRoute');
 

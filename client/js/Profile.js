@@ -29,7 +29,7 @@ var Profile = React.createClass({
         // Store the dishes in the state
         self.setState({dishes: 
           data.map(function(dish) {
-            return <Card dish={dish} />
+            return <Card dish={dish} onClick={self.sendToFB.bind(self, dish.Dish.img_url)}/>
           })
         });
       },
