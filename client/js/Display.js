@@ -51,10 +51,10 @@ var Display = React.createClass({
       swipeToSlide: true,
       responsive: [
         { breakpoint: 768,
-          settings: { arrows: false, slidesToShow: 3 }
+          settings: { slidesToShow: 3 }
         },
         { breakpoint: 480,
-          settings: { arrows: false, slidesToShow: 2 }
+          settings: { slidesToShow: 2 }
         }
       ]
     });
