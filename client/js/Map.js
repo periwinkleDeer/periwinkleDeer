@@ -168,7 +168,7 @@ var Map = React.createClass({
             <div className="map-google"></div>
             <div>
               <div className="form-group">
-                <center><button type="button" className="btn btn-warning btn-lg btn-block hist-btn" onClick={this.sendToFB}>Send to FaceBook</button></center>
+                <center><button type="button" className="btn btn-warning btn-lg btn-block hist-btn" onClick={this.sendToFB}>Share on FaceBook</button></center>
                 <button type="button" className="btn btn-warning btn-lg btn-block mapbutton" onClick={this.handleClick.bind(this, "main")}>Try Again?
                 </button>
               </div>
