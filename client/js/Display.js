@@ -47,6 +47,7 @@ var Display = React.createClass({
     //initializes the jquery slick plugin
     $('.center').slick({
       lazyLoad: 'progressive',
+      infinite: false,
       slidesToShow: 4,
       swipeToSlide: true,
       responsive: [
@@ -62,6 +63,7 @@ var Display = React.createClass({
   handleClick: function(value){
     //handles the highlighting of dishes on click 
     //creates selection object with categories
+    console.log(value)
     $('.display-error').hide();
     if (this.choices.hasOwnProperty(value.category)) {
       if (value.id === this.choices[value.category].id) {
