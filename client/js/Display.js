@@ -47,6 +47,7 @@ var Display = React.createClass({
     //initializes the jquery slick plugin
     $('.center').slick({
       lazyLoad: 'progressive',
+      infinite: false,
       slidesToShow: 4,
       swipeToSlide: true,
       responsive: [

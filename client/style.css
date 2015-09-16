@@ -443,6 +443,8 @@ DISPLAY
   background: rgba(255,255,255,0.5);
   height: 30px;
   text-align: center;
+  width: 85%;
+  margin: 0 auto;
 }
 
 .message {
