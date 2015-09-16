@@ -11,7 +11,8 @@ var Map = React.createClass({
       initialZoom: 12,
       mapCenterLat: 37.783,
       mapCenterLng: 122.416,
-      locations: []
+      locations: [],
+      disable: ''
     };
   },
   componentWillUnmount: function() {
@@ -153,9 +154,13 @@ var Map = React.createClass({
     for (var j = 0; j < foodInfo.length; j++) {
       postIt(dataURItoBlob(foodInfo[j].img_url), foodInfo[j].name);
     }
+
+    this.setState({disable: 'disabled'});
+
   },
 
   render: function () {
+    console.log(this.state)
       return (
         <div> 
           <div className="mapdiv">
@@ -168,7 +173,7 @@ var Map = React.createClass({
             <div className="map-google"></div>
             <div>
               <div className="form-group">
-                <center><button type="button" className="btn btn-warning btn-lg btn-block hist-btn" onClick={this.sendToFB}>Share on FaceBook</button></center>
+                <center><button type="button" className="btn btn-warning btn-lg btn-block hist-btn" onClick={this.sendToFB} disabled={this.state.disable}>Share on FaceBook</button></center>
                 <button type="button" className="btn btn-warning btn-lg btn-block mapbutton" onClick={this.handleClick.bind(this, "main")}>Try Again?
                 </button>
               </div>
