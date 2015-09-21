@@ -113,7 +113,7 @@ var App = React.createClass({
           );
           FB.api('/me', function(response){
             var firstName = response.name.split(' ').slice(0, 1).join('');
-            localStorage.setItem('username', firstName)
+            localStorage.setItem('username', firstName);
             localStorage.setItem('fb_id', FB.getUserID());
             self.setState({name: firstName});
           });
