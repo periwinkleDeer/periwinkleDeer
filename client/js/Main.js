@@ -30,6 +30,9 @@ var Main = React.createClass({
         type: "GET",
         data: {id: self.props.query.id},
         success: function(data) {
+          data.forEach(function(dish) {
+            self.ratings[dish.DishId] = false;
+          })
           self.setState({dishes: renderDishes(self, data)});
         },
         error: function(err) {
@@ -45,11 +48,13 @@ var Main = React.createClass({
   },
   //when user clicks the remove
   handleRemove: function(dish) { 
+    $('.display-error').hide();
     $('#' + dish.id).parent().parent().hide(400);
     this.ratings[dish.DishId] = -1;
   },
   //when user chooses a star rating
   foodRate: function(dish, value) {
+    $('.display-error').hide();
     this.ratings[dish.DishId] = value;
   }, 
   handleSubmit: function() {
@@ -58,6 +63,10 @@ var Main = React.createClass({
     query.dishes = [];
     //creates obj for dishIds and ratings
     for (var prop in this.ratings) {
+      if (!this.ratings[prop]) {
+        $('.display-error').show();
+        return;
+      }
       query.dishes.push({id: prop, rating: this.ratings[prop]});
     }
     //submits current ratings to the database
@@ -106,6 +115,7 @@ var Main = React.createClass({
             <div>
               {this.state.dishes}
             </div>
+            <p className="display-error">Please Enter Ratings</p>
             {submit}
           </div>
         </div>
