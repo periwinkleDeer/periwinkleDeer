@@ -133,10 +133,10 @@ module.exports = {
               num_ratings: 1,
               RestaurantId: results.dataValues.id,
               zip: results.dataValues.zip,
-            vegan: (req.body.vegan === 'true'),
-                  vegetarian: (req.body.vegetarian === 'true'),
-                  glutenfree: (req.body.glutenfree === 'true'),
-                  lactosefree: (req.body.lactosefree === 'true')
+              vegan: (req.body.vegan === 'true'),
+              vegetarian: (req.body.vegetarian === 'true'),
+              glutenfree: (req.body.glutenfree === 'true'),
+              lactosefree: (req.body.lactosefree === 'true')
             })
             .then(function(dish){
               db.User.findOne({where: {fb_id: req.body.id}})
