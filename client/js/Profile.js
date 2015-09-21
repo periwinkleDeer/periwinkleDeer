@@ -12,6 +12,8 @@ var Profile = React.createClass({
 
   componentDidMount: function() {
     $(".header-main__user-name").show();
+
+    //On load, header plate image will rotate
     plateRotate();
     var self = this;
 

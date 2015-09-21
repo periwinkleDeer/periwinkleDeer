@@ -16,10 +16,12 @@ var Map = React.createClass({
     };
   },
   componentWillUnmount: function() {
+    //removing title upon leaving page
     $(".maptitle").remove();
   },
 
   componentDidMount: function (rootNode) {
+    //Adding title to page
     $(".header-main__inner").append('<center><div class="maptitle" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">Map</div></center>');
     $(".header-main__user-name").hide();
     plateRotate();

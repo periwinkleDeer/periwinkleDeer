@@ -19,6 +19,7 @@ var Main = React.createClass({
     localStorage.setItem('fb_id', this.props.query.id);
   },
   componentDidMount: function() {
+    //adds heading text
     setTimeout(function() {
       $(".header-main__inner").append('<center><div class="welcome" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">Welcome, '+localStorage.getItem('username')+'</div></center>');
     }, 500);
@@ -27,6 +28,7 @@ var Main = React.createClass({
     this.ratings = {};
     var self = this;
     localStorage.setItem('fb_id', this.props.query.id);
+    //gets all dishes unrated by user
     $.ajax({
         url: "/user/unrated",
         type: "GET",
