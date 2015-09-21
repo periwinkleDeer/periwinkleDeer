@@ -52,7 +52,7 @@ var Profile = React.createClass({
             <center><img src={localStorage.getItem('profileUrl')} className="img-circle fb-profile" width="200" height="200" border="5"/></center>
             <center><button type="button" className="btn btn-warning btn-lg btn-block hist-btn" onClick={this.handleClick.bind(this, "hist")}>History Map</button></center>
           </div>
-          <center><div><p className="usr-msg">Your 5 recent food ratings</p></div></center>
+          <center><div><p className="usr-msg">Your 5 recent food selections</p></div></center>
           <center><div>
             {this.state.dishes}
           </div></center>

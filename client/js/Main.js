@@ -19,7 +19,9 @@ var Main = React.createClass({
     localStorage.setItem('fb_id', this.props.query.id);
   },
   componentDidMount: function() {
-    $(".header-main__inner").append('<center><div class="welcome" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">Welcome, '+localStorage.getItem('username')+'</div></center>');
+    setTimeout(function() {
+      $(".header-main__inner").append('<center><div class="welcome" style="width: 200px;margin-top:-42px;text-align:center;font-size:24px;top:5px;z-index:10;color:white">Welcome, '+localStorage.getItem('username')+'</div></center>');
+    }, 500);
     $(".header-main__user-name").hide();
     plateRotate();
     this.ratings = {};
